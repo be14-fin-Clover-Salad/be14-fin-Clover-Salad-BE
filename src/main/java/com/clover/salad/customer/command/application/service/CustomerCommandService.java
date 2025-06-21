@@ -10,5 +10,5 @@ public interface CustomerCommandService {
 
 	void updateCustomer(int customerId, CustomerUpdateRequest request);
 
-	// void deleteCustomer(int id);
+	void deleteCustomer(int customerId);
 }

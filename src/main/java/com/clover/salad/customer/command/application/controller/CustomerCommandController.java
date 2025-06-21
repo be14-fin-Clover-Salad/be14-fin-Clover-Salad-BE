@@ -1,6 +1,7 @@
 package com.clover.salad.customer.command.application.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,25 +26,25 @@ public class CustomerCommandController {
 	private final CustomerCommandService customerCommandService;
 
 	/** 고객 등록 (중복 시 수정 처리) */
-	@PostMapping("/register")
+	@PostMapping
 	public ResponseEntity<String> registerCustomer(
 			@RequestBody @Valid CustomerCreateRequest request) {
 		customerCommandService.registerCustomer(request);
-		return ResponseEntity.ok(request.getName() + " 고객 정보가 정상 처리되었습니다.");
+		return ResponseEntity.ok(request.getName() + " 고객 정보가 정상 등록되었습니다.");
 	}
 
 	// 고객 수정
-	@PatchMapping("/update/{customerId}")
+	@PatchMapping("/{customerId}")
 	public ResponseEntity<String> update(@PathVariable int customerId,
 			@RequestBody @Valid CustomerUpdateRequest request) {
 		customerCommandService.updateCustomer(customerId, request);
-		return ResponseEntity.ok("고객 정보 수정 완료");
+		return ResponseEntity.ok("고객 정보가 수정되었습니다.");
 	}
 
 	// 고객 삭제
-	// @DeleteMapping("/{id}")
-	// public ResponseEntity<String> delete(@PathVariable int id) {
-	// customerCommandService.deleteCustomer(id);
-	// return ResponseEntity.ok("고객 삭제 완료");
-	// }
+	@DeleteMapping("/{customerId}")
+	public ResponseEntity<String> delete(@PathVariable int customerId) {
+		customerCommandService.deleteCustomer(customerId);
+		return ResponseEntity.ok("고객 정보를 삭제하였습니다.");
+	}
 }
