@@ -16,6 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ContractSearchDTO {
 	private Integer employeeId;
+	private String workPlace;
 	private String code;
 	private LocalDateTime createdAtStart;
 	private LocalDateTime createdAtEnd;
