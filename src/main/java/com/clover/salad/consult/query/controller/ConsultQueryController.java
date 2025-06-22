@@ -1,69 +1,86 @@
-// package com.clover.salad.consult.query.controller;
-//
-// import com.clover.salad.consult.query.dto.ConsultQueryDTO;
-// import com.clover.salad.consult.query.service.ConsultQueryService;
-// import jakarta.servlet.http.HttpServletRequest;
-// import lombok.RequiredArgsConstructor;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
-//
-// import java.util.List;
-//
-// @RestController
-// @RequestMapping("/consult")
-// @RequiredArgsConstructor
-// public class ConsultQueryController {
-//
-//     private final ConsultQueryService consultService;
-//
-//     private String getToken(HttpServletRequest request) {
-//         String bearer = request.getHeader("Authorization");
-//         return (bearer != null && bearer.startsWith("Bearer ")) ? bearer.substring(7) : null;
-//     }
-//
-//     // ADMIN
-//     @GetMapping
-//     public ResponseEntity<List<ConsultQueryDTO>> findAll(HttpServletRequest req) {
-//         return ResponseEntity.ok(consultService.findAll(getToken(req)));
-//     }
-//
-//     @GetMapping("/{id}")
-//     public ResponseEntity<ConsultQueryDTO> findById(HttpServletRequest req, @PathVariable int id) {
-//         return ResponseEntity.ok(consultService.findById(getToken(req), id));
-//     }
-//
-//     @GetMapping("/active")
-//     public ResponseEntity<List<ConsultQueryDTO>> findAllActive(HttpServletRequest req) {
-//         return ResponseEntity.ok(consultService.findAllActive(getToken(req)));
-//     }
-//
-//     @GetMapping("/active/{id}")
-//     public ResponseEntity<ConsultQueryDTO> findActiveById(HttpServletRequest req,
-//             @PathVariable int id) {
-//         return ResponseEntity.ok(consultService.findActiveById(getToken(req), id));
-//     }
-//
-//     // MANAGER
-//     @GetMapping("/department")
-//     public ResponseEntity<List<ConsultQueryDTO>> findByDepartment(HttpServletRequest req) {
-//         return ResponseEntity.ok(consultService.findByDepartmentName(getToken(req)));
-//     }
-//
-//     @GetMapping("/department/{id}")
-//     public ResponseEntity<ConsultQueryDTO> findByDepartmentAndId(HttpServletRequest req,
-//             @PathVariable int id) {
-//         return ResponseEntity.ok(consultService.findByDepartmentNameAndId(getToken(req), id));
-//     }
-//
-//     // MEMBER
-//     @GetMapping("/employee")
-//     public ResponseEntity<List<ConsultQueryDTO>> findByEmployee(HttpServletRequest req) {
-//         return ResponseEntity.ok(consultService.findByEmployeeCode(getToken(req)));
-//     }
-//
-//     @GetMapping("/employee/{id}")
-//     public ResponseEntity<ConsultQueryDTO> findByEmployeeAndId(HttpServletRequest req,
-//             @PathVariable int id) {
-//         return ResponseEntity.ok(consultService.findByEmployeeCodeAndId(getToken(req), id));
-//     }
-// }
+package com.clover.salad.consult.query.controller;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.clover.salad.common.exception.ConsultsException;
+import com.clover.salad.consult.query.dto.ConsultQueryDTO;
+import com.clover.salad.consult.query.service.ConsultQueryService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/api/consult")
+@RequiredArgsConstructor
+public class ConsultQueryController {
+
+    private final ConsultQueryService consultService;
+
+    /** 🔐 관리자: 전체 상담 목록 조회 */
+    @GetMapping
+    public ResponseEntity<List<ConsultQueryDTO>> findAll() {
+        return ResponseEntity.ok(consultService.findAll());
+    }
+
+    /** 🔐 관리자: 상담 단건 조회 */
+    @GetMapping("/{consultId}")
+    public ResponseEntity<?> findById(@PathVariable int consultId) {
+        try {
+            return ResponseEntity.ok(consultService.findConsultById(consultId));
+        } catch (ConsultsException.ConsultAccessDeniedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("관리자만 접근할 수 있습니다.");
+        } catch (ConsultsException.ConsultNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    /** 👤 로그인한 사원: 본인 상담 목록 조회 */
+    @GetMapping("/my")
+    public ResponseEntity<List<ConsultQueryDTO>> findMyConsults() {
+        return ResponseEntity.ok(consultService.findMyConsults());
+    }
+
+    /** 👤 로그인한 사원: 본인 상담 단건 조회 */
+    @GetMapping("/my/{consultId}")
+    public ResponseEntity<?> findMyConsultById(@PathVariable int consultId) {
+        try {
+            return ResponseEntity.ok(consultService.findMyConsultById(consultId));
+        } catch (ConsultsException.ConsultAccessDeniedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+        } catch (ConsultsException.ConsultNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    /** 🔐 관리자: 특정 사원의 상담 목록 조회 */
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<?> findConsultsByEmployeeId(@PathVariable int employeeId) {
+        try {
+            return ResponseEntity.ok(consultService.findConsultsByEmployeeId(employeeId));
+        } catch (ConsultsException.ConsultAccessDeniedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+        } catch (ConsultsException.ConsultNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    /** 🔐 관리자: 특정 사원의 상담 단건 조회 */
+    @GetMapping("/employee/{employeeId}/consult/{consultId}")
+    public ResponseEntity<?> findConsultByEmployeeAndConsultId(@PathVariable int employeeId,
+            @PathVariable int consultId) {
+        try {
+            return ResponseEntity
+                    .ok(consultService.findConsultByEmployeeAndConsultId(employeeId, consultId));
+        } catch (ConsultsException.ConsultAccessDeniedException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+        } catch (ConsultsException.ConsultNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+}

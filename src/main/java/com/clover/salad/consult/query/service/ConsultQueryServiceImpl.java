@@ -1,101 +1,90 @@
-// package com.clover.salad.consult.query.service;
-//
-// import com.clover.salad.consult.query.dto.ConsultQueryDTO;
-// import com.clover.salad.consult.query.mapper.ConsultMapper;
-// import com.clover.salad.employee.query.dto.LoginHeaderInfoDTO;
-// import com.clover.salad.employee.query.service.EmployeeQueryService;
-// import com.clover.salad.security.JwtUtil;
-// import lombok.RequiredArgsConstructor;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.security.core.context.SecurityContextHolder;
-// import org.springframework.security.core.GrantedAuthority;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.stereotype.Service;
-// import org.springframework.web.server.ResponseStatusException;
-//
-// import java.util.*;
-//
-// @Service
-// @RequiredArgsConstructor
-// public class ConsultQueryServiceImpl implements ConsultQueryService {
-//
-//     private final ConsultMapper consultMapper;
-//     private final JwtUtil jwtUtil;
-//     private final EmployeeQueryService employeeQueryService;
-//
-//     private String getRole() {
-//         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//         return auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-//                 .filter(r -> r.startsWith("ROLE_")).findFirst().orElse("ROLE_MEMBER");
-//     }
-//
-//     private LoginHeaderInfoDTO getUserInfo(String token) {
-//         String code = jwtUtil.getUsername(token);
-//         return employeeQueryService.getLoginHeaderInfo(code);
-//     }
-//
-//     private void assertAdmin() {
-//         if (!"ROLE_ADMIN".equals(getRole())) {
-//             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "관리자 권한이 필요합니다.");
-//         }
-//     }
-//
-//     private void assertAdminOrManager() {
-//         String role = getRole();
-//         if (!"ROLE_ADMIN".equals(role) && !"ROLE_MANAGER".equals(role)) {
-//             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "해당 데이터에 접근할 수 있는 권한이 없습니다.");
-//         }
-//     }
-//
-//     @Override
-//     public List<ConsultQueryDTO> findAll(String token) {
-//         assertAdmin();
-//         return consultMapper.findAll();
-//     }
-//
-//     @Override
-//     public ConsultQueryDTO findById(String token, int id) {
-//         assertAdmin();
-//         return consultMapper.findById(id);
-//     }
-//
-//     @Override
-//     public List<ConsultQueryDTO> findAllActive(String token) {
-//         assertAdmin();
-//         return consultMapper.findAllActive();
-//     }
-//
-//     @Override
-//     public ConsultQueryDTO findActiveById(String token, int id) {
-//         assertAdmin();
-//         return consultMapper.findActiveById(id);
-//     }
-//
-//     @Override
-//     public List<ConsultQueryDTO> findByDepartmentName(String token) {
-//         assertAdminOrManager();
-//         LoginHeaderInfoDTO user = getUserInfo(token);
-//         return consultMapper.findByDepartmentName(user.getDepartmentName());
-//     }
-//
-//     @Override
-//     public ConsultQueryDTO findByDepartmentNameAndId(String token, int id) {
-//         assertAdminOrManager();
-//         LoginHeaderInfoDTO user = getUserInfo(token);
-//         Map<String, Object> param = Map.of("departmentName", user.getDepartmentName(), "id", id);
-//         return consultMapper.findByDepartmentNameAndId(param);
-//     }
-//
-//     @Override
-//     public List<ConsultQueryDTO> findByEmployeeCode(String token) {
-//         String code = jwtUtil.getUsername(token);
-//         return consultMapper.findByEmployeeCode(code);
-//     }
-//
-//     @Override
-//     public ConsultQueryDTO findByEmployeeCodeAndId(String token, int id) {
-//         String code = jwtUtil.getUsername(token);
-//         Map<String, Object> param = Map.of("employeeCode", code, "id", id);
-//         return consultMapper.findByEmployeeCodeAndId(param);
-//     }
-// }
+package com.clover.salad.consult.query.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.clover.salad.common.exception.ConsultsException;
+import com.clover.salad.common.util.AuthUtil;
+import com.clover.salad.consult.query.dto.ConsultQueryDTO;
+import com.clover.salad.consult.query.mapper.ConsultMapper;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ConsultQueryServiceImpl implements ConsultQueryService {
+
+    private final ConsultMapper consultMapper;
+
+    /** 전체 상담 목록 조회 - 관리자 전용 */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultQueryDTO> findAll() {
+        AuthUtil.assertAdmin();
+        return consultMapper.findAll();
+    }
+
+    /** 상담 단건 조회 - 관리자 전용 */
+    @Override
+    @Transactional(readOnly = true)
+    public ConsultQueryDTO findConsultById(int consultId) {
+        AuthUtil.assertAdmin();
+        ConsultQueryDTO consult = consultMapper.findConsultByIdIncludingDeleted(consultId);
+
+        if (consult == null) {
+            throw new ConsultsException.ConsultNotFoundException("해당 상담 내역을 조회할 수 없습니다.");
+        }
+
+        return consult;
+    }
+
+    /** 로그인한 사원이 담당하는 상담 목록 조회 */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultQueryDTO> findMyConsults() {
+        int employeeId = AuthUtil.getEmployeeId();
+        return consultMapper.findConsultsByEmployeeId(employeeId);
+    }
+
+    /** 관리자: 특정 사원이 담당하는 상담 목록 조회 */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultQueryDTO> findConsultsByEmployeeId(int employeeId) {
+        AuthUtil.assertAdmin();
+        return consultMapper.findConsultsByEmployeeId(employeeId);
+    }
+
+    /** 로그인한 사원이 담당하는 상담 단건 조회 */
+    @Override
+    @Transactional(readOnly = true)
+    public ConsultQueryDTO findMyConsultById(int consultId) {
+        int employeeId = AuthUtil.getEmployeeId();
+        ConsultQueryDTO consult =
+                consultMapper.findConsultByEmployeeIdAndConsultId(employeeId, consultId);
+
+        if (consult == null) {
+            throw new ConsultsException.ConsultNotFoundException("해당 상담 내역을 조회할 수 없습니다.");
+        }
+
+        return consult;
+    }
+
+    /** 관리자: 특정 사원이 담당하는 상담 단건 조회 */
+    @Override
+    @Transactional(readOnly = true)
+    public ConsultQueryDTO findConsultByEmployeeAndConsultId(int employeeId, int consultId) {
+        AuthUtil.assertAdmin();
+        ConsultQueryDTO consult = consultMapper
+                .findConsultByEmployeeIdAndConsultIdIncludingDeleted(employeeId, consultId);
+
+        if (consult == null) {
+            throw new ConsultsException.ConsultNotFoundException("해당 상담 내역을 조회할 수 없습니다.");
+        }
+
+        return consult;
+    }
+}
