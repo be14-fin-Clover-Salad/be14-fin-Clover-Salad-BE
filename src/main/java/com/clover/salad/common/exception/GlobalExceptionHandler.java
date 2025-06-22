@@ -23,10 +23,10 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(InvalidCurrentPasswordException.class)
 	public ResponseEntity<String> handleInvalidPassword(InvalidCurrentPasswordException e,
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.warn("InvalidCurrentPasswordException - User: {}, [{} {}] {}", userId,
-				request.getMethod(), request.getRequestURI(), e.getMessage());
+			request.getMethod(), request.getRequestURI(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 
@@ -34,34 +34,34 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> handleRuntime(RuntimeException e, HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.error("RuntimeException - User: {}, [{} {}] {}", userId, request.getMethod(),
-				request.getRequestURI(), e.getMessage(), e);
+			request.getRequestURI(), e.getMessage(), e);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 	}
 
 	@ExceptionHandler(EmployeeNotFoundException.class)
 	public ResponseEntity<String> handleEmployeeNotFound(EmployeeNotFoundException e,
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.warn("EmployeeNotFoundException - User: {}, [{} {}] {}", userId, request.getMethod(),
-				request.getRequestURI(), e.getMessage());
+			request.getRequestURI(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 	}
 
 	@ExceptionHandler(InvalidSearchTermException.class)
 	public ResponseEntity<String> handleInvalidSearchTerm(InvalidSearchTermException e,
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.warn("InvalidSearchTermException - User: {}, [{} {}] {}", userId, request.getMethod(),
-				request.getRequestURI(), e.getMessage());
+			request.getRequestURI(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 	}
 
 	@ExceptionHandler(UnauthorizedEmployeeException.class)
 	public ResponseEntity<String> handleUnauthorizedEmployee(UnauthorizedEmployeeException e,
-			HttpServletRequest request) {
+		HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.warn("UnauthorizedEmployeeException - User: {}, [{} {}] {}", userId,
-				request.getMethod(), request.getRequestURI(), e.getMessage());
+			request.getMethod(), request.getRequestURI(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
 	}
 
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> handleAuthException(AuthException e, HttpServletRequest request) {
 		String userId = getCurrentUserId();
 		log.warn("AuthException - User: {}, [{} {}] {}", userId, request.getMethod(),
-				request.getRequestURI(), e.getMessage());
+			request.getRequestURI(), e.getMessage());
 		return ResponseEntity.status(e.getStatus()).body(e.getMessage());
 	}
 
@@ -77,7 +77,7 @@ public class GlobalExceptionHandler {
 	private String getCurrentUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null && authentication.isAuthenticated()
-				&& !"anonymousUser".equals(authentication.getPrincipal())) {
+			&& !"anonymousUser".equals(authentication.getPrincipal())) {
 			return authentication.getName(); // 또는 CustomUserDetails에서 getEmployeeId()
 		}
 		return "Anonymous";
@@ -86,19 +86,19 @@ public class GlobalExceptionHandler {
 	// 고객 관련 - 커스텀 예외
 	@ExceptionHandler(CustomersException.InvalidCustomerDataException.class)
 	public ResponseEntity<?> handleInvalidCustomerData(
-			CustomersException.InvalidCustomerDataException ex) {
+		CustomersException.InvalidCustomerDataException ex) {
 		return ResponseEntity.badRequest()
-				.body(Map.of("status", 400, "error", "잘못된 고객 정보", "message", ex.getMessage()));
+			.body(Map.of("status", 400, "error", "잘못된 고객 정보", "message", ex.getMessage()));
 	}
 
 	// @Valid 유효성 검증 실패
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex) {
 		String errorMessage = ex.getBindingResult().getAllErrors().stream().findFirst()
-				.map(DefaultMessageSourceResolvable::getDefaultMessage).orElse("잘못된 요청입니다.");
+			.map(DefaultMessageSourceResolvable::getDefaultMessage).orElse("잘못된 요청입니다.");
 
 		return ResponseEntity.badRequest()
-				.body(Map.of("status", 400, "error", "잘못된 고객 정보", "message", errorMessage));
+			.body(Map.of("status", 400, "error", "잘못된 고객 정보", "message", errorMessage));
 	}
 
 	// JSON 파싱 실패 (e.g. enum 잘못 입력)
@@ -113,11 +113,22 @@ public class GlobalExceptionHandler {
 			String cleanedMessage = rawMessage.split("\n")[0];
 
 			return ResponseEntity.badRequest()
-					.body(Map.of("status", 400, "error", "입력 오류", "message", cleanedMessage));
+				.body(Map.of("status", 400, "error", "입력 오류", "message", cleanedMessage));
 		}
 
 		return ResponseEntity.badRequest()
-				.body(Map.of("status", 400, "error", "입력 오류", "message", "잘못된 요청 형식입니다."));
+			.body(Map.of("status", 400, "error", "입력 오류", "message", "잘못된 요청 형식입니다."));
+	}
+
+	@ExceptionHandler(DuplicateApprovalRequestException.class)
+	public ResponseEntity<?> handleDuplicateApprovalRequest(DuplicateApprovalRequestException e,
+		HttpServletRequest request) {
+
+		String userId = getCurrentUserId();
+		log.warn("DuplicateApprovalRequestException - User: {}, [{} {}] {}", userId, request.getMethod(),
+			request.getRequestURI(), e.getMessage());
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+				.body(Map.of("status", 409, "error", "중복 결재 요청", "message", e.getMessage()));
 	}
 
 }
