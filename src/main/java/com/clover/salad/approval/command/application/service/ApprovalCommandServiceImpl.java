@@ -191,6 +191,12 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 			}
 			approval.reject(dto.getComment(), LocalDateTime.now());
 
+			ContractEntity contract = contractRepository.findById(approval.getContractId())
+				.orElseThrow(() -> new EntityNotFoundException("계약을 찾을 수 없습니다. ID: " + approval.getContractId()));
+			contract.changeStatus(ContractStatus.REJECTED);
+			contractRepository.save(contract);
+			log.info("계약의 상태가 '반려'로 변경되었습니다.");
+
 		// 그외 접근은 예외처리
 		} else {
 			throw new IllegalArgumentException("결재 처리 방식이 유효하지 않습니다.");

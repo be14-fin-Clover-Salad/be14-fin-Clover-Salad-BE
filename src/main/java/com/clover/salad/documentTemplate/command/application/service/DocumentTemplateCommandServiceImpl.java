@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.clover.salad.common.file.entity.FileUploadEntity;
+import com.clover.salad.common.file.enums.FileUploadType;
 import com.clover.salad.common.file.service.FileStorageService;
 import com.clover.salad.contract.document.entity.DocumentTemplate;
 import com.clover.salad.documentTemplate.command.application.dto.DocumentTemplatePatchRequestDTO;
@@ -29,7 +30,7 @@ public class DocumentTemplateCommandServiceImpl implements DocumentTemplateComma
 	public DocumentTemplateUploadResponseDTO uploadDocumentTemplate(MultipartFile file,
 		DocumentTemplateUploadRequestDTO dto) throws IOException {
 
-		FileUploadEntity uploaded = fileStorageService.store(file, "계약서");
+		FileUploadEntity uploaded = fileStorageService.store(file, FileUploadType.CONTRACT.name());
 
 		DocumentTemplate entity = DocumentTemplate.builder()
 			.name(dto.getName())
