@@ -99,10 +99,11 @@ public class AuthUtil {
     /** 현재 로그인된 사용자의 내부 식별자(employeeId) 반환 */
     public static int getEmployeeId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getPrincipal() == null
-                || !(auth.getPrincipal() instanceof TokenPrincipal)) {
+        if (auth == null || auth.getPrincipal() == null || !(auth
+                .getPrincipal() instanceof com.clover.salad.security.token.TokenPrincipal)) {
             throw new IllegalStateException("유효한 로그인 정보가 없습니다.");
         }
-        return ((TokenPrincipal) auth.getPrincipal()).getEmployeeId();
+        return ((com.clover.salad.security.token.TokenPrincipal) auth.getPrincipal())
+                .getEmployeeId();
     }
 }

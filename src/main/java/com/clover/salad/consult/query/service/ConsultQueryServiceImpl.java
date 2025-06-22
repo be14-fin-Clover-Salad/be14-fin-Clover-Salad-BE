@@ -9,6 +9,7 @@ import com.clover.salad.common.exception.ConsultsException;
 import com.clover.salad.common.util.AuthUtil;
 import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.consult.query.mapper.ConsultMapper;
+import com.clover.salad.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     private final ConsultMapper consultMapper;
+    private final JwtUtil jwtUtil;
 
     /** 전체 상담 목록 조회 - 관리자 전용 */
     @Override
@@ -46,7 +48,11 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
     @Override
     @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findMyConsults() {
-        int employeeId = AuthUtil.getEmployeeId();
+        String token = AuthUtil.resolveToken();
+        if (token == null) {
+            throw new IllegalStateException("Authorization 토큰을 찾을 수 없습니다.");
+        }
+        int employeeId = jwtUtil.getEmployeeId(token);
         return consultMapper.findConsultsByEmployeeId(employeeId);
     }
 
