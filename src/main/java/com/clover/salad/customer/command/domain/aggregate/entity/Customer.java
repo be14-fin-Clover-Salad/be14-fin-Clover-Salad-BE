@@ -111,6 +111,10 @@ public class Customer {
 		}
 	}
 
+	public void softDelete() {
+		this.isDeleted = true;
+	}
+
 	private String sanitizePhone(String phone) {
 		return phone != null ? phone.replaceAll("-", "") : null;
 	}
