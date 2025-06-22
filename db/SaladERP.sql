@@ -100,7 +100,7 @@ CREATE TABLE EMPLOYEE_PERFORMANCE
 CREATE TABLE NOTICE
 (
     id          INT         NOT NULL AUTO_INCREMENT,
-    title       VARCHAR(20) NOT NULL,
+    title       VARCHAR(50) NOT NULL,
     content     TEXT        NOT NULL,
     created_at  DATETIME    NOT NULL,
     is_deleted  BOOLEAN     NOT NULL DEFAULT FALSE,
@@ -133,7 +133,7 @@ CREATE TABLE PRODUCT
 CREATE TABLE QNA
 (
     id             INT         NOT NULL AUTO_INCREMENT,
-    title          VARCHAR(20) NOT NULL,
+    title          VARCHAR(50) NOT NULL,
     content        TEXT        NOT NULL,
     created_at     DATETIME    NOT NULL,
     answer_status  VARCHAR(20) NOT NULL DEFAULT '미답변',
