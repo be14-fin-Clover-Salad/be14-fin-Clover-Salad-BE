@@ -122,17 +122,24 @@
         c.is_deleted,
         c.etc,
         e.name AS employee_name,
-        cu.id AS customer_id,
+        cu.id   AS customer_id,
         cu.name AS customer_name,
         GROUP_CONCAT(p.name SEPARATOR ', ') AS product_names
         FROM contract c
-        JOIN employee e ON c.employee_id = e.id
-        JOIN customer cu ON c.customer_id = cu.id
+        JOIN employee e      ON c.employee_id = e.id
+        JOIN customer cu     ON c.customer_id = cu.id
         LEFT JOIN contract_product cp ON c.id = cp.contract_id
-        LEFT JOIN product p ON cp.product_id = p.id
+        LEFT JOIN product p  ON cp.product_id = p.id
         <where>
             NOT c.is_deleted
-            AND c.employee_id = #{employeeId}
+
+            <if test="search.workPlace != null and search.workPlace != ''">
+                AND e.work_place = #{search.workPlace}
+            </if>
+
+            <if test="search.workPlace == null">
+                AND c.employee_id = #{employeeId}
+            </if>
 
             <if test="search.minAmount != null">
                 AND c.amount &gt;= #{search.minAmount}
@@ -140,7 +147,6 @@
             <if test="search.maxAmount != null">
                 AND c.amount &lt;= #{search.maxAmount}
             </if>
-
             <if test="search.code != null and search.code != ''">
                 AND c.code LIKE CONCAT('%', #{search.code}, '%')
             </if>
@@ -188,15 +194,18 @@
             </if>
             <if test="search.productName != null and search.productName != ''">
                 AND EXISTS (
-                SELECT 1 FROM contract_product cp2
+                SELECT 1
+                FROM contract_product cp2
                 JOIN product p2 ON cp2.product_id = p2.id
                 WHERE cp2.contract_id = c.id
                 AND p2.name LIKE CONCAT('%', #{search.productName}, '%')
                 )
             </if>
         </where>
-        GROUP BY c.id DESC
+        GROUP BY c.id
+        ORDER BY c.id DESC
     </select>
+
 
 
     <select id="selectDetailContractInfo" parameterType="int" resultMap="ContractWithProductsMap">

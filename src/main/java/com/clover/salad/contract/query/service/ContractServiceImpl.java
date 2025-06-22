@@ -9,6 +9,9 @@ import com.clover.salad.contract.query.dto.ContractDTO;
 import com.clover.salad.contract.query.dto.ContractResponseDTO;
 import com.clover.salad.contract.query.dto.ContractSearchDTO;
 import com.clover.salad.contract.query.mapper.ContractMapper;
+import com.clover.salad.employee.query.dto.EmployeeQueryDTO;
+import com.clover.salad.employee.query.mapper.EmployeeMapper;
+import com.clover.salad.security.SecurityUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,10 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class ContractServiceImpl implements ContractService {
 
 	private final ContractMapper contractMapper;
+	private final EmployeeMapper employeeMapper;
 
 	@Autowired
-	public ContractServiceImpl(ContractMapper contractMapper) {
+	public ContractServiceImpl(ContractMapper contractMapper, EmployeeMapper employeeMapper) {
 		this.contractMapper = contractMapper;
+		this.employeeMapper = employeeMapper;
 	}
 
 	@Override
@@ -29,8 +34,20 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<ContractDTO> searchContracts(int employeeId, ContractSearchDTO contractSearchDTO) {
-		return contractMapper.searchContracts(employeeId, contractSearchDTO);
+	public List<ContractDTO> searchContracts(int dummy, ContractSearchDTO dto) {
+		int me = SecurityUtil.getEmployeeId();
+
+		if (SecurityUtil.hasRole("ROLE_MANAGER")) {
+			EmployeeQueryDTO meEnt = employeeMapper.findEmployeeById(me);
+			String workPlace = meEnt.getWorkPlace();
+			dto.setWorkPlace(workPlace);
+			dto.setEmployeeId(null);
+		} else {
+			dto.setEmployeeId(me);
+			dto.setWorkPlace(null);
+		}
+
+		return contractMapper.searchContracts(me, dto);
 	}
 
 	@Override
