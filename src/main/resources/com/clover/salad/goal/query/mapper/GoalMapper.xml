@@ -125,11 +125,11 @@
           JOIN EMPLOYEE E ON EG.EMPLOYEE_ID = E.ID
          WHERE E.DEPARTMENT_ID = (SELECT D.ID
                                     FROM DEPARTMENT D
-                                   WHERE D.NAME LIKE CONCAT('%', #{deptName}, '%'))
-        <if test="startDate != null">
+                                   WHERE D.NAME LIKE CONCAT('%', #{departmentName}, '%'))
+        <if test="startDate != ''">
             AND EG.TARGET_DATE >= #{startDate}
         </if>
-        <if test="endDate != null">
+        <if test="endDate != ''">
             <![CDATA[AND EG.TARGET_DATE <= #{endDate}]]>
         </if>
          GROUP BY EG.TARGET_DATE

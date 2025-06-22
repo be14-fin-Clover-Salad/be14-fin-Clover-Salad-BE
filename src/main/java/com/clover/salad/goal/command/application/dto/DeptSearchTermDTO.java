@@ -12,9 +12,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DeptSearchTermDTO {
-	private String deptName;
-	private Integer startDate;
-	private Integer endDate;
+	private String departmentName;
+	private String startDate;
+	private String endDate;
 	private Integer minRentalProductCount;
 	private Integer maxRentalProductCount;
 	private Integer minRentalRetentionRate;
