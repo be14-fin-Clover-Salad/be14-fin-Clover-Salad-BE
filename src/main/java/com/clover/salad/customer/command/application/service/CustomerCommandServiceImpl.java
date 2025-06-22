@@ -59,8 +59,7 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 			newCustomer.setType(type);
 			Customer saved = customerRepository.saveAndFlush(newCustomer);
 
-			log.info("[신규 고객 등록] 이름: {}, 등록 완료", request.getName());
-			return saved.getId(); // 등록된 고객 ID 직접 반환
+			return saved.getId(); // 신규 고객 ID 반환
 		} else {
 			Customer existingCustomer = customerRepository.findById(existingCustomerId).orElseThrow(
 					() -> new CustomersException.CustomerNotFoundException("기존 고객을 찾을 수 없습니다."));
@@ -68,7 +67,6 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 			CustomerType currentType = existingCustomer.getType();
 			existingCustomer.updateFromRequest(request, currentType);
 
-			log.info("[기존 고객 업데이트] ID: {}, 이름: {}", existingCustomerId, existingCustomer.getName());
 			return existingCustomerId; // 기존 고객 ID 반환
 		}
 	}
@@ -86,12 +84,14 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 	@Override
 	@Transactional
 	public void updateCustomer(int customerId, CustomerUpdateRequest request) {
-		int loginEmployeeId = AuthUtil.getEmployeeId();
-		List<Integer> accessibleCustomerIds =
-				contractService.getCustomerIdsByEmployee(loginEmployeeId);
-
-		if (!accessibleCustomerIds.contains(customerId)) {
-			throw new CustomersException.CustomerAccessDeniedException("해당 고객에 대한 수정 권한이 없습니다.");
+		if (!AuthUtil.isAdmin()) {
+			int loginEmployeeId = AuthUtil.getEmployeeId();
+			List<Integer> accessibleCustomerIds =
+					contractService.getCustomerIdsByEmployee(loginEmployeeId);
+			if (!accessibleCustomerIds.contains(customerId)) {
+				throw new CustomersException.CustomerAccessDeniedException(
+						"해당 고객에 대한 수정 권한이 없습니다.");
+			}
 		}
 
 		Customer customer = customerRepository.findById(customerId).orElseThrow(
@@ -99,8 +99,25 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 
 		Customer updated = request.toEntity(request.getType());
 		customer.update(updated);
+	}
 
-		log.info("[고객 수정] ID: {}, 이름: {}", customerId, customer.getName());
+	@Override
+	@Transactional
+	public void deleteCustomer(int customerId) {
+		if (!AuthUtil.isAdmin()) {
+			int loginEmployeeId = AuthUtil.getEmployeeId();
+			List<Integer> accessibleCustomerIds =
+					contractService.getCustomerIdsByEmployee(loginEmployeeId);
+			if (!accessibleCustomerIds.contains(customerId)) {
+				throw new CustomersException.CustomerAccessDeniedException(
+						"해당 고객에 대한 삭제 권한이 없습니다.");
+			}
+		}
+
+		Customer customer = customerRepository.findById(customerId).orElseThrow(
+				() -> new CustomersException.CustomerNotFoundException("고객이 존재하지 않습니다."));
+
+		customer.softDelete();
 	}
 
 	@Transactional
@@ -126,7 +143,6 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 	public Integer findDuplicateCustomerId(CustomerCreateRequest request) {
 		String normalizedPhone =
 				request.getPhone() != null ? request.getPhone().replaceAll("-", "") : null;
-
 		return customerQueryService.findRegisteredCustomerId(request.getName(),
 				request.getBirthdate(), normalizedPhone);
 	}

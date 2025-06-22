@@ -17,7 +17,9 @@ public class WebConfig implements WebMvcConfigurer {
 				"http://localhost:8080",
 				"http://localhost:5173",
 				"http://salad-alb-240627784.ap-northeast-2.elb.amazonaws.com",
-				"https://salad-alb-240627784.ap-northeast-2.elb.amazonaws.com"
+				"https://salad-alb-240627784.ap-northeast-2.elb.amazonaws.com",
+				"http://salad-fe-alb-1094457567.ap-northeast-2.elb.amazonaws.com",
+				"https://salad-fe-alb-1094457567.ap-northeast-2.elb.amazonaws.com"
 			)
 			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
 			.allowedHeaders("*")
