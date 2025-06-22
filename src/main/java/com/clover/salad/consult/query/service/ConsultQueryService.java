@@ -23,4 +23,10 @@ public interface ConsultQueryService {
 
     // 로그인한 사원: 자신의 특정 고객 단건 조회
     ConsultQueryDTO findMyConsultById(int consultId);
+
+    // 고객 ID로 상담 목록 조회
+    List<ConsultQueryDTO> findConsultsByCustomerId(int customerId);
+
+    // 사원 ID로 담당 고객 ID 목록 조회
+    List<Integer> findCustomerIdsByEmployeeId(int employeeId);
 }

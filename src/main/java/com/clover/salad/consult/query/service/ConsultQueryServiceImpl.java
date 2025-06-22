@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     private final ConsultMapper consultMapper;
@@ -24,7 +25,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 전체 상담 목록 조회 - 관리자 전용 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findAll() {
         AuthUtil.assertAdmin();
         return consultMapper.findAll();
@@ -32,7 +32,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 상담 단건 조회 - 관리자 전용 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findConsultById(int consultId) {
         AuthUtil.assertAdmin();
         ConsultQueryDTO consult = consultMapper.findConsultByIdIncludingDeleted(consultId);
@@ -46,7 +45,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 로그인한 사원이 담당하는 상담 목록 조회 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findMyConsults() {
         String token = AuthUtil.resolveToken();
         if (token == null) {
@@ -58,7 +56,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 관리자: 특정 사원이 담당하는 상담 목록 조회 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findConsultsByEmployeeId(int employeeId) {
         AuthUtil.assertAdmin();
         return consultMapper.findConsultsByEmployeeId(employeeId);
@@ -66,7 +63,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 로그인한 사원이 담당하는 상담 단건 조회 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findMyConsultById(int consultId) {
         int employeeId = AuthUtil.getEmployeeId();
         ConsultQueryDTO consult =
@@ -81,7 +77,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 관리자: 특정 사원이 담당하는 상담 단건 조회 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findConsultByEmployeeAndConsultId(int employeeId, int consultId) {
         AuthUtil.assertAdmin();
         ConsultQueryDTO consult = consultMapper
@@ -92,5 +87,15 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
         }
 
         return consult;
+    }
+
+    @Override
+    public List<ConsultQueryDTO> findConsultsByCustomerId(int customerId) {
+        return consultMapper.findConsultsByCustomerId(customerId);
+    }
+
+    @Override
+    public List<Integer> findCustomerIdsByEmployeeId(int employeeId) {
+        return consultMapper.findCustomerIdsByEmployeeId(employeeId);
     }
 }

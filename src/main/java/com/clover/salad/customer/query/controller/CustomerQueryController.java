@@ -40,8 +40,7 @@ public class CustomerQueryController {
     /** 로그인한 사원이 담당하는 고객 목록 조회 */
     @GetMapping("/my")
     public ResponseEntity<List<CustomerQueryDTO>> getMyCustomers() {
-        int employeeId = AuthUtil.getEmployeeId();
-        return ResponseEntity.ok(customerQueryService.findCustomersByEmployeeId(employeeId));
+        return ResponseEntity.ok(customerQueryService.findMyCustomers());
     }
 
     /** 로그인한 사원이 담당하는 고객 단건 조회 */
@@ -86,6 +85,12 @@ public class CustomerQueryController {
         } catch (CustomersException.CustomerNotFoundException ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
+    }
+
+    /** 특정 고객의 상담 내역 조회 */
+    @GetMapping("/{customerId}/consults")
+    public ResponseEntity<?> getConsultsByCustomerId(@PathVariable int customerId) {
+        return ResponseEntity.ok(customerQueryService.findConsultsByCustomerId(customerId));
     }
 
     /** 로그인한 팀장의 부서 전체 고객 목록 조회 -- 계약 쪽 수정 필요하므로 보류 처리 */
