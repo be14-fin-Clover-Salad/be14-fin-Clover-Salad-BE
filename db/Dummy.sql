@@ -592,5 +592,37 @@ SET name = '공기 청정기',
     serial_number = 'SN20240003'
 WHERE id = 2;
 
-COMMIT;
+DELETE FROM CUSTOMER;
+ALTER TABLE CUSTOMER AUTO_INCREMENT = 1;
 
+INSERT INTO CUSTOMER (name, birthdate, address, phone, email, register_at, is_deleted, type, etc)
+VALUES
+('김민지', '2004-05-07', '서울 강남구 청담동', '01012340011', 'minji@newjeans.com', CURRENT_DATE, false, '리드', ''),
+('팜하니', '2004-10-06', '서울 동작구 상도동', '01012340012', 'hanni@newjeans.com', CURRENT_DATE, false, '리드', ''),
+('모지혜', '2005-04-11', '서울 용산구 이태원동', '01012340013', 'danielle@newjeans.com',CURRENT_DATE, false, '리드', ''),
+('강해린', '2006-05-15', '서울 마포구 연남동', '01012340014', 'haerin@newjeans.com', CURRENT_DATE, false, '리드', ''),
+('이혜인', '2008-04-21', '서울 강서구 마곡동', '01012340015', 'hyein@newjeans.com', CURRENT_DATE, false, '리드', '');
+
+DELETE FROM CONSULTATION;
+ALTER TABLE CONSULTATION AUTO_INCREMENT = 1;
+
+INSERT INTO CONSULTATION (consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id)
+VALUES
+(
+  CURRENT_TIMESTAMP, 'LG 퓨리케어 냉온정수기 렌탈을 고려 중입니다. 설치 공간이 협소한데 미니 타입도 있는지, 월 렌탈료 및 설치 비용이 궁금합니다.',
+  false, '1인 가구', NULL, 1, 1),
+(
+  CURRENT_TIMESTAMP, '삼성 그랑데 건조기와 세탁기 패키지 렌탈 상담 요청드립니다. 3년 약정 시 월 렌탈료, 무상 A/S 기간, 설치 일정 포함해서 안내 부탁드립니다.',
+  false, '부모님 명의', NULL, 1, 2),
+(
+  CURRENT_TIMESTAMP, '삼성 비스포크 냉장고 대형 모델 렌탈을 희망합니다. 외국인 등록증으로 계약 가능한지, 약정 기간과 계약 조건을 안내받고 싶습니다.',
+  false, '영문 계약 요청', NULL, 3, 3),
+(
+  CURRENT_TIMESTAMP, '위닉스 공기청정기와 코웨이 비데 렌탈을 함께 이용하려고 합니다. 결합 할인 혜택과 렌탈 기간별 조건을 상담받고 싶습니다.',
+  false, '자취방 환경', NULL, 5, 4),
+(
+  CURRENT_TIMESTAMP, '안마의자 렌탈을 고려 중입니다. 브람스, 바디프랜드 등 브랜드별 렌탈 조건을 비교하고 싶습니다. 고등학생도 렌탈 신청이 가능한지도 궁금합니다.',
+  false, '실사용자 부모님', NULL, 4, 5
+);
+
+COMMIT;
