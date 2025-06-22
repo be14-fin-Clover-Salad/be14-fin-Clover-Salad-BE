@@ -2,6 +2,7 @@ package com.clover.salad.customer.query.service;
 
 import java.util.List;
 
+import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.customer.query.dto.CustomerQueryDTO;
 
 public interface CustomerQueryService {
@@ -37,4 +38,7 @@ public interface CustomerQueryService {
 
     // 상담 여부 확인
     boolean existsConsultByCustomer(String name, String birthdate, String phone);
+
+    // 고객 ID로 상담이력 조회
+    List<ConsultQueryDTO> findConsultsByCustomerId(int customerId);
 }

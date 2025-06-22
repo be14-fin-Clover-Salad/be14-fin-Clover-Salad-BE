@@ -5,7 +5,7 @@
 
 <mapper namespace="com.clover.salad.consult.query.mapper.ConsultMapper">
 
-    <resultMap id="ConsultResultMap" type="com.clover.salad.consult.query.dto.ConsultQueryDTO">
+    <resultMap id="consultResultMap" type="com.clover.salad.consult.query.dto.ConsultQueryDTO">
         <id property="id" column="id"/>
         <result property="consultAt" column="consult_at"/>
         <result property="content" column="content"/>
@@ -17,32 +17,32 @@
     </resultMap>
 
     <!-- 관리자 조회 -->
-    <select id="findAll" resultMap="ConsultResultMap">
+    <select id="findAll" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         ORDER BY consult_at DESC
     </select>
 
-    <select id="findConsultById" parameterType="int" resultMap="ConsultResultMap">
+    <select id="findConsultById" parameterType="int" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE id = #{id}
     </select>
 
-    <select id="findConsultByIdIncludingDeleted" parameterType="int" resultMap="ConsultResultMap">
+    <select id="findConsultByIdIncludingDeleted" parameterType="int" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE id = #{id}
     </select>
 
-    <select id="findConsultByIdExcludingDeleted" parameterType="int" resultMap="ConsultResultMap">
+    <select id="findConsultByIdExcludingDeleted" parameterType="int" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE id = #{id} AND is_deleted = false
     </select>
 
     <!-- 사원 조회 -->
-    <select id="findConsultsByEmployeeId" parameterType="int" resultMap="ConsultResultMap">
+    <select id="findConsultsByEmployeeId" parameterType="int" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE employee_id = #{employeeId}
@@ -50,7 +50,7 @@
         ORDER BY consult_at DESC
     </select>
 
-    <select id="findConsultByEmployeeIdAndConsultId" parameterType="map" resultMap="ConsultResultMap">
+    <select id="findConsultByEmployeeIdAndConsultId" parameterType="map" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE employee_id = #{employeeId}
@@ -58,10 +58,36 @@
           AND is_deleted = false
     </select>
 
-    <select id="findConsultByEmployeeIdAndConsultIdIncludingDeleted" parameterType="map" resultMap="ConsultResultMap">
+    <select id="findConsultByEmployeeIdAndConsultIdIncludingDeleted" parameterType="map" resultMap="consultResultMap">
         SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
         FROM consultation
         WHERE employee_id = #{employeeId}
           AND id = #{consultId}
+    </select>
+
+    <select id="findConsultsByCustomerId" resultMap="consultResultMap">
+        SELECT
+            c.id,
+            c.employee_id,
+            c.customer_id,
+            c.consult_at,
+            c.content,
+            c.feedback_score,
+            c.etc,
+            c.is_deleted
+        FROM
+            consultation c
+        WHERE
+            c.customer_id = #{customerId}
+            AND c.is_deleted = FALSE
+    </select>
+
+    <select id="findCustomerIdsByEmployeeId" resultType="int">
+        SELECT DISTINCT
+            customer_id
+        FROM
+            consultation
+        WHERE
+            employee_id = #{employeeId}
     </select>
 </mapper>

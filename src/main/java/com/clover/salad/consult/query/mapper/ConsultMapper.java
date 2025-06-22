@@ -32,4 +32,10 @@ public interface ConsultMapper {
         /** 사번 + 상담 ID 기준 단건 조회 (관리자용, 삭제 포함) */
         ConsultQueryDTO findConsultByEmployeeIdAndConsultIdIncludingDeleted(
                         @Param("employeeId") int employeeId, @Param("consultId") int consultId);
+
+        /** 고객 ID 기준 전체 상담 목록 조회 */
+        List<ConsultQueryDTO> findConsultsByCustomerId(@Param("customerId") int customerId);
+
+        /** 사번(employeeId) 기준 고객 ID 목록 조회 */
+        List<Integer> findCustomerIdsByEmployeeId(@Param("employeeId") int employeeId);
 }

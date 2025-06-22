@@ -9,6 +9,7 @@ import com.clover.salad.common.exception.ConsultsException;
 import com.clover.salad.common.util.AuthUtil;
 import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.consult.query.mapper.ConsultMapper;
+import com.clover.salad.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     private final ConsultMapper consultMapper;
+    private final JwtUtil jwtUtil;
 
     /** 전체 상담 목록 조회 - 관리자 전용 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findAll() {
         AuthUtil.assertAdmin();
         return consultMapper.findAll();
@@ -30,7 +32,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 상담 단건 조회 - 관리자 전용 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findConsultById(int consultId) {
         AuthUtil.assertAdmin();
         ConsultQueryDTO consult = consultMapper.findConsultByIdIncludingDeleted(consultId);
@@ -44,15 +45,17 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 로그인한 사원이 담당하는 상담 목록 조회 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findMyConsults() {
-        int employeeId = AuthUtil.getEmployeeId();
+        String token = AuthUtil.resolveToken();
+        if (token == null) {
+            throw new IllegalStateException("Authorization 토큰을 찾을 수 없습니다.");
+        }
+        int employeeId = jwtUtil.getEmployeeId(token);
         return consultMapper.findConsultsByEmployeeId(employeeId);
     }
 
     /** 관리자: 특정 사원이 담당하는 상담 목록 조회 */
     @Override
-    @Transactional(readOnly = true)
     public List<ConsultQueryDTO> findConsultsByEmployeeId(int employeeId) {
         AuthUtil.assertAdmin();
         return consultMapper.findConsultsByEmployeeId(employeeId);
@@ -60,7 +63,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 로그인한 사원이 담당하는 상담 단건 조회 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findMyConsultById(int consultId) {
         int employeeId = AuthUtil.getEmployeeId();
         ConsultQueryDTO consult =
@@ -75,7 +77,6 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     /** 관리자: 특정 사원이 담당하는 상담 단건 조회 */
     @Override
-    @Transactional(readOnly = true)
     public ConsultQueryDTO findConsultByEmployeeAndConsultId(int employeeId, int consultId) {
         AuthUtil.assertAdmin();
         ConsultQueryDTO consult = consultMapper
@@ -86,5 +87,15 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
         }
 
         return consult;
+    }
+
+    @Override
+    public List<ConsultQueryDTO> findConsultsByCustomerId(int customerId) {
+        return consultMapper.findConsultsByCustomerId(customerId);
+    }
+
+    @Override
+    public List<Integer> findCustomerIdsByEmployeeId(int employeeId) {
+        return consultMapper.findCustomerIdsByEmployeeId(employeeId);
     }
 }

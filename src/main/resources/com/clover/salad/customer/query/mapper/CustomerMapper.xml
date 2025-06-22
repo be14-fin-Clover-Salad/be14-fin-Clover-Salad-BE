@@ -137,4 +137,22 @@
     )
   </select>
 
+  <select id="findCustomersByEmployeeId" resultMap="CustomerResultMap">
+      SELECT
+          c.id, c.name, c.birthdate, c.address, c.phone, c.email,
+          c.register_at, c.is_deleted,
+          CASE c.type
+              WHEN '고객' THEN 'CUSTOMER'
+              WHEN '리드' THEN 'PROSPECT'
+              ELSE c.type
+          END as type,
+          c.etc
+      FROM customer c
+      JOIN consultation con ON c.id = con.customer_id
+      WHERE con.employee_id = #{employeeId}
+        AND c.is_deleted = false
+        AND con.is_deleted = false
+      GROUP BY c.id
+  </select>
+
 </mapper>
