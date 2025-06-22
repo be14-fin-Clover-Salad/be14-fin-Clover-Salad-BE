@@ -3,6 +3,7 @@ package com.clover.salad.customer.command.application.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clover.salad.common.exception.CustomersException;
@@ -70,6 +71,7 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 		}
 	}
 
+
 	private boolean isRegisterableCustomer(String name, String phone, String birthdate) {
 		boolean hasName = name != null && !name.isBlank();
 		boolean hasPhone = phone != null && !phone.isBlank();
@@ -116,6 +118,25 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 				() -> new CustomersException.CustomerNotFoundException("고객이 존재하지 않습니다."));
 
 		customer.softDelete();
+	}
+
+	@Transactional
+	@Override
+	public void updateCustomer(int customerId, CustomerUpdateRequest request, boolean bypassValidation) {
+		if (!bypassValidation) {
+			// 기존 권한 체크
+			int loginEmployeeId = AuthUtil.getEmployeeId();
+			List<Integer> accessible = contractService.getCustomerIdsByEmployee(loginEmployeeId);
+			if (!accessible.contains(customerId)) {
+				throw new CustomersException.CustomerAccessDeniedException("수정 권한이 없습니다.");
+			}
+		}
+		Customer customer = customerRepository.findById(customerId)
+			.orElseThrow(() -> new CustomersException.CustomerNotFoundException("고객이 없습니다."));
+		Customer updated = request.toEntity(request.getType());
+		customer.update(updated);
+		log.info("[고객 수정{}] ID: {}, 이름: {}",
+			(bypassValidation ? " (bypass)" : ""), customerId, customer.getName());
 	}
 
 	@Transactional(readOnly = true)
