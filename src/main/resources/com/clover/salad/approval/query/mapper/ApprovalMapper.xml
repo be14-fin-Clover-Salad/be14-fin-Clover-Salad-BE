@@ -264,6 +264,6 @@
           FROM approval
          WHERE req_id = #{reqId}
            AND contract_id = #{contractId}
-           AND state != 'REJECTED'
+           AND state != '반려'
     </select>
 </mapper>
