@@ -51,6 +51,7 @@ public class WebSecurity {
 					.requestMatchers("/employee/**").permitAll()
 					.requestMatchers("/notification/subscribe").permitAll()
 					.requestMatchers("/dashboard/sales").permitAll()
+					.requestMatchers("api/log/access").permitAll()
 					.anyRequest().permitAll()
 					// .anyRequest().authenticated()
 			)

@@ -1,4 +1,6 @@
-package com.clover.salad.employee.command.domain.aggregate.enums;
+package com.clover.salad.employee.command.domain.aggregate.converter;
+
+import com.clover.salad.employee.command.domain.aggregate.enums.EmployeeLevel;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

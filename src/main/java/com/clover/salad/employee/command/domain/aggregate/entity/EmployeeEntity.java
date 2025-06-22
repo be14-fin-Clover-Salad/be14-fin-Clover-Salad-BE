@@ -2,7 +2,7 @@ package com.clover.salad.employee.command.domain.aggregate.entity;
 
 import java.time.LocalDate;
 import com.clover.salad.employee.command.domain.aggregate.enums.EmployeeLevel;
-import com.clover.salad.employee.command.domain.aggregate.enums.EmployeeLevelConverter;
+import com.clover.salad.employee.command.domain.aggregate.converter.EmployeeLevelConverter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
