@@ -8,6 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.clover.salad.employee.query.dto.LoginHeaderInfoDTO;
 import com.clover.salad.security.token.TokenPrincipal;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,18 @@ public class AuthUtil {
             return bearerToken.substring(BEARER_PREFIX.length());
         }
         return null;
+    }
+
+    /** 부서명 추출 */
+    public static String getDepartmentName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null
+                || !(authentication.getPrincipal() instanceof LoginHeaderInfoDTO)) {
+            throw new IllegalStateException("인증 정보에 departmentName이 존재하지 않습니다.");
+        }
+
+        LoginHeaderInfoDTO userInfo = (LoginHeaderInfoDTO) authentication.getPrincipal();
+        return userInfo.getDepartmentName();
     }
 
     /** 현재 로그인된 사용자의 권한 문자열 (예: ROLE_ADMIN 등) 반환 */

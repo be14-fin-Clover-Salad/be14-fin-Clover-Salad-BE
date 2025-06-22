@@ -18,34 +18,52 @@
   </resultMap>
 
   <select id="findAll" resultMap="CustomerResultMap">
-        SELECT
-               c.id
-             , c.name
-             , c.birthdate
-             , c.address
-             , c.phone
-             , c.email
-             , c.register_at
-             , c.is_deleted
-             , c.type
-             , c.etc
-          FROM customer c
+    SELECT
+           c.id
+         , c.name
+         , c.birthdate
+         , c.address
+         , c.phone
+         , c.email
+         , c.register_at
+         , c.is_deleted
+         , c.type
+         , c.etc
+      FROM customer c
   </select>
 
   <select id="findCustomerById" resultMap="CustomerResultMap">
-        SELECT
-               c.id
-             , c.name
-             , c.birthdate
-             , c.address
-             , c.phone
-             , c.email
-             , c.register_at
-             , c.is_deleted
-             , c.type
-             , c.etc
-          FROM customer c
-         WHERE c.id = #{id}
+    SELECT
+           c.id
+         , c.name
+         , c.birthdate
+         , c.address
+         , c.phone
+         , c.email
+         , c.register_at
+         , c.is_deleted
+         , c.type
+         , c.etc
+      FROM customer c
+     WHERE c.id = #{id}
+       AND is_deleted = false
+  </select>
+
+  <select id="findCustomerByIdExcludingDeleted" resultMap="CustomerResultMap">
+    SELECT
+           c.id
+         , c.name
+         , c.birthdate
+         , c.address
+         , c.phone
+         , c.email
+         , c.register_at
+         , c.is_deleted
+         , c.type
+         , c.etc
+      FROM customer c
+     WHERE c.id = #{id}
+       AND c.is_deleted = false
   </select>
 
   <select id="findCustomersByIds" resultMap="CustomerResultMap">
@@ -65,6 +83,7 @@
     <foreach item="id" collection="customerIds" open="(" separator="," close=")">
          #{id}
     </foreach>
+       AND is_deleted = false
   </select>
 
   <select id="findRegisteredCustomerId" resultType="int">
@@ -78,28 +97,28 @@
 
   <!-- 계약 존재 여부 조회 -->
   <select id="existsContractByCustomer" resultType="boolean">
-  SELECT EXISTS (
-    SELECT 1
-      FROM contract c
-      JOIN customer cu ON c.customer_id = cu.id
-     WHERE cu.name = #{name}
-       AND cu.birthdate = #{birthdate}
-       AND cu.phone = #{phone}
-       AND cu.is_deleted = false
-  )
+    SELECT EXISTS (
+      SELECT 1
+        FROM contract c
+        JOIN customer cu ON c.customer_id = cu.id
+       WHERE cu.name = #{name}
+         AND cu.birthdate = #{birthdate}
+         AND cu.phone = #{phone}
+         AND cu.is_deleted = false
+    )
   </select>
 
   <!-- 상담 존재 여부 조회 -->
   <select id="existsConsultByCustomer" resultType="boolean">
-  SELECT EXISTS (
-    SELECT 1
-      FROM consultation cs
-      JOIN customer cu ON cs.customer_id = cu.id
-     WHERE cu.name = #{name}
-       AND cu.birthdate = #{birthdate}
-       AND cu.phone = #{phone}
-       AND cu.is_deleted = false
-  )
+    SELECT EXISTS (
+      SELECT 1
+        FROM consultation cs
+        JOIN customer cu ON cs.customer_id = cu.id
+      WHERE cu.name = #{name}
+        AND cu.birthdate = #{birthdate}
+        AND cu.phone = #{phone}
+        AND cu.is_deleted = false
+    )
   </select>
 
 </mapper>
