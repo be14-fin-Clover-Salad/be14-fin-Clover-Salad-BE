@@ -7,6 +7,7 @@ import com.clover.salad.approval.command.domain.aggregate.enums.ApprovalState;
 import com.clover.salad.approval.command.domain.repository.ApprovalRepository;
 import com.clover.salad.approval.query.dto.ApprovalExistenceCheckDTO;
 import com.clover.salad.approval.query.mapper.ApprovalMapper;
+import com.clover.salad.common.exception.DuplicateApprovalRequestException;
 import com.clover.salad.contract.command.entity.ContractEntity;
 import com.clover.salad.contract.command.repository.ContractRepository;
 import com.clover.salad.contract.common.ContractStatus;
@@ -74,7 +75,7 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 		int existingCount = approvalMapper.countExistingApprovalRequest(checkDTO);
 
 		if (existingCount > 0) {
-			throw new IllegalStateException("결재가 반려된 경우가 아니라면 중복 결재 요청이 불가능합니다.");
+			throw new DuplicateApprovalRequestException();
 		}
 
 		// 기본 결재 엔티티 빌더 시작
