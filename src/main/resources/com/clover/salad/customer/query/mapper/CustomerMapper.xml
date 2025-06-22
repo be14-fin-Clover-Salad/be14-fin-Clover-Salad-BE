@@ -27,7 +27,11 @@
          , c.email
          , c.register_at
          , c.is_deleted
-         , c.type
+         , CASE c.type
+             WHEN '고객' THEN 'CUSTOMER'
+             WHEN '리드' THEN 'PROSPECT'
+             ELSE c.type
+           END as type
          , c.etc
       FROM customer c
   </select>
@@ -42,7 +46,11 @@
          , c.email
          , c.register_at
          , c.is_deleted
-         , c.type
+         , CASE c.type
+             WHEN '고객' THEN 'CUSTOMER'
+             WHEN '리드' THEN 'PROSPECT'
+             ELSE c.type
+           END as type
          , c.etc
       FROM customer c
      WHERE c.id = #{id}
@@ -59,7 +67,11 @@
          , c.email
          , c.register_at
          , c.is_deleted
-         , c.type
+         , CASE c.type
+             WHEN '고객' THEN 'CUSTOMER'
+             WHEN '리드' THEN 'PROSPECT'
+             ELSE c.type
+           END as type
          , c.etc
       FROM customer c
      WHERE c.id = #{id}
@@ -76,7 +88,11 @@
          , c.email
          , c.register_at
          , c.is_deleted
-         , c.type
+         , CASE c.type
+             WHEN '고객' THEN 'CUSTOMER'
+             WHEN '리드' THEN 'PROSPECT'
+             ELSE c.type
+           END as type
          , c.etc
       FROM customer c
      WHERE c.id IN
