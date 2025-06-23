@@ -13,6 +13,7 @@ public class S3PathResolver {
 			case CONTRACT -> prefix = "contract/";
 			case PRODUCT -> prefix = "product/";
 			case PROFILE -> prefix = "employee/";
+			case DOCUMENT_TEMPLATE -> prefix = "contractTemplate/";
 			default -> throw new IllegalArgumentException("Unknown file type");
 		}
 		return prefix + renamedFile;
