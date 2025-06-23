@@ -23,6 +23,25 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
     private final ConsultMapper consultMapper;
     private final JwtUtil jwtUtil;
 
+    @Override
+    public List<ConsultQueryDTO> searchAll(String consultDateFrom, String consultDateTo,
+            String content, String customerName, Double minScore, Double maxScore) {
+        return consultMapper.searchAll(consultDateFrom, consultDateTo, content, customerName,
+                minScore, maxScore);
+    }
+
+    @Override
+    public List<ConsultQueryDTO> searchMyConsults(String consultDateFrom, String consultDateTo,
+            String content, String customerName, Double minScore, Double maxScore) {
+        String token = AuthUtil.resolveToken();
+        if (token == null) {
+            throw new IllegalStateException("Authorization 토큰을 찾을 수 없습니다.");
+        }
+        int employeeId = jwtUtil.getEmployeeId(token);
+        return consultMapper.searchMyConsults(employeeId, consultDateFrom, consultDateTo, content,
+                customerName, minScore, maxScore);
+    }
+
     /** 전체 상담 목록 조회 - 관리자 전용 */
     @Override
     public List<ConsultQueryDTO> findAll() {

@@ -14,55 +14,70 @@
         <result property="feedbackScore" column="feedback_score"/>
         <result property="employeeId" column="employee_id"/>
         <result property="customerId" column="customer_id"/>
+        <result property="customerName" column="customer_name"/>
     </resultMap>
 
     <!-- 관리자 조회 -->
     <select id="findAll" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        ORDER BY consult_at DESC
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        ORDER BY c.consult_at DESC
     </select>
 
     <select id="findConsultById" parameterType="int" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE id = #{id}
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.id = #{id}
     </select>
 
     <select id="findConsultByIdIncludingDeleted" parameterType="int" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE id = #{id}
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.id = #{id}
     </select>
 
     <select id="findConsultByIdExcludingDeleted" parameterType="int" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE id = #{id} AND is_deleted = false
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.id = #{id} AND c.is_deleted = false
     </select>
 
     <!-- 사원 조회 -->
     <select id="findConsultsByEmployeeId" parameterType="int" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE employee_id = #{employeeId}
-          AND is_deleted = false
-        ORDER BY consult_at DESC
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.employee_id = #{employeeId}
+          AND c.is_deleted = false
+        ORDER BY c.consult_at DESC
     </select>
 
     <select id="findConsultByEmployeeIdAndConsultId" parameterType="map" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE employee_id = #{employeeId}
-          AND id = #{consultId}
-          AND is_deleted = false
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.employee_id = #{employeeId}
+          AND c.id = #{consultId}
+          AND c.is_deleted = false
     </select>
 
     <select id="findConsultByEmployeeIdAndConsultIdIncludingDeleted" parameterType="map" resultMap="consultResultMap">
-        SELECT id, consult_at, content, is_deleted, etc, feedback_score, employee_id, customer_id
-        FROM consultation
-        WHERE employee_id = #{employeeId}
-          AND id = #{consultId}
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        WHERE c.employee_id = #{employeeId}
+          AND c.id = #{consultId}
     </select>
 
     <select id="findConsultsByCustomerId" resultMap="consultResultMap">
@@ -74,9 +89,11 @@
             c.content,
             c.feedback_score,
             c.etc,
-            c.is_deleted
+            c.is_deleted,
+            cu.name AS customer_name
         FROM
             consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
         WHERE
             c.customer_id = #{customerId}
             AND c.is_deleted = FALSE
@@ -89,5 +106,63 @@
             consultation
         WHERE
             employee_id = #{employeeId}
+    </select>
+
+    <select id="searchAll" parameterType="map" resultMap="consultResultMap">
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        <where>
+            <if test="consultDateFrom != null and consultDateFrom != ''">
+                AND c.consult_at >= #{consultDateFrom}
+            </if>
+            <if test="consultDateTo != null and consultDateTo != ''">
+                AND c.consult_at &lt;= #{consultDateTo}
+            </if>
+            <if test="content != null and content != ''">
+                AND c.content LIKE CONCAT('%', #{content}, '%')
+            </if>
+            <if test="customerName != null and customerName != ''">
+                AND cu.name LIKE CONCAT('%', #{customerName}, '%')
+            </if>
+            <if test="minScore != null">
+                AND c.feedback_score >= #{minScore}
+            </if>
+            <if test="maxScore != null">
+                AND c.feedback_score &lt;= #{maxScore}
+            </if>
+        </where>
+        ORDER BY c.consult_at DESC
+    </select>
+
+    <select id="searchMyConsults" parameterType="map" resultMap="consultResultMap">
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        <where>
+            c.employee_id = #{employeeId}
+            AND c.is_deleted = false
+            <if test="consultDateFrom != null and consultDateFrom != ''">
+                AND c.consult_at >= #{consultDateFrom}
+            </if>
+            <if test="consultDateTo != null and consultDateTo != ''">
+                AND c.consult_at &lt;= #{consultDateTo}
+            </if>
+            <if test="content != null and content != ''">
+                AND c.content LIKE CONCAT('%', #{content}, '%')
+            </if>
+            <if test="customerName != null and customerName != ''">
+                AND cu.name LIKE CONCAT('%', #{customerName}, '%')
+            </if>
+            <if test="minScore != null">
+                AND c.feedback_score >= #{minScore}
+            </if>
+            <if test="maxScore != null">
+                AND c.feedback_score &lt;= #{maxScore}
+            </if>
+        </where>
+        ORDER BY c.consult_at DESC
     </select>
 </mapper>
