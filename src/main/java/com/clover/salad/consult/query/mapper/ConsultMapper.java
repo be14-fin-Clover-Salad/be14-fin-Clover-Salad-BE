@@ -38,4 +38,17 @@ public interface ConsultMapper {
 
         /** 사번(employeeId) 기준 고객 ID 목록 조회 */
         List<Integer> findCustomerIdsByEmployeeId(@Param("employeeId") int employeeId);
+
+        List<ConsultQueryDTO> searchAll(@Param("consultDateFrom") String consultDateFrom,
+                        @Param("consultDateTo") String consultDateTo,
+                        @Param("content") String content,
+                        @Param("customerName") String customerName,
+                        @Param("minScore") Double minScore, @Param("maxScore") Double maxScore);
+
+        List<ConsultQueryDTO> searchMyConsults(@Param("employeeId") int employeeId,
+                        @Param("consultDateFrom") String consultDateFrom,
+                        @Param("consultDateTo") String consultDateTo,
+                        @Param("content") String content,
+                        @Param("customerName") String customerName,
+                        @Param("minScore") Double minScore, @Param("maxScore") Double maxScore);
 }

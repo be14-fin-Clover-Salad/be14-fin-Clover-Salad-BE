@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clover.salad.common.exception.ConsultsException;
@@ -24,8 +28,27 @@ public class ConsultQueryController {
 
     /** 🔐 관리자: 전체 상담 목록 조회 */
     @GetMapping
-    public ResponseEntity<List<ConsultQueryDTO>> findAll() {
-        return ResponseEntity.ok(consultService.findAll());
+    public ResponseEntity<List<ConsultQueryDTO>> search(
+            @RequestParam(required = false) String consultDateFrom,
+            @RequestParam(required = false) String consultDateTo,
+            @RequestParam(required = false) String content,
+            @RequestParam(required = false) String customerName,
+            @RequestParam(required = false) Double minScore,
+            @RequestParam(required = false) Double maxScore) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        List<ConsultQueryDTO> consults;
+        if (isAdmin) {
+            consults = consultService.searchAll(consultDateFrom, consultDateTo, content,
+                    customerName, minScore, maxScore);
+        } else {
+            consults = consultService.searchMyConsults(consultDateFrom, consultDateTo, content,
+                    customerName, minScore, maxScore);
+        }
+        return ResponseEntity.ok(consults);
     }
 
     /** 🔐 관리자: 상담 단건 조회 */
