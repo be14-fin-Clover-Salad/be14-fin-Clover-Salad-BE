@@ -20,6 +20,11 @@ public class SseEmitterManager {
 	public SseEmitter connect(int employeeId) {
 		log.info("[SSE] Emitter 등록 시작 - employeeId: {}", employeeId);
 
+		SseEmitter existing = emitters.remove(employeeId);
+		if (existing != null) {
+			existing.complete();
+		}
+
 		SseEmitter emitter = new SseEmitter(60 * 60 * 1000L);
 		emitters.put(employeeId, emitter);
 
