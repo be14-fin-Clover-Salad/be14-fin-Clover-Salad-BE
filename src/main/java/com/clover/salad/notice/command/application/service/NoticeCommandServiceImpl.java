@@ -110,7 +110,9 @@ public class NoticeCommandServiceImpl implements NoticeCommandService {
 		Map<Integer, EmployeeNotice> existingMap = existingNotices.stream()
 			.collect(Collectors.toMap(EmployeeNotice::getEmployeeId, en -> en));
 
-		List<Integer> newIds = new ArrayList<>(request.getTargetEmployeeId());
+		List<Integer> newIds = request.getTargetEmployeeId() != null
+			? new ArrayList<>(request.getTargetEmployeeId())
+			: new ArrayList<>();
 
 		if (!newIds.contains(writerId)) {
 			newIds.add(writerId);
