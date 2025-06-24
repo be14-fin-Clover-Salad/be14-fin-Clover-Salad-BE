@@ -23,7 +23,7 @@ public class NotificationTokenServiceImpl implements NotificationTokenService {
 	@Override
 	public String issueToken(int employeeId) {
 		String token = UUID.randomUUID().toString();
-		redisTemplate.opsForValue().set("sse:" + token, String.valueOf(employeeId), Duration.ofMinutes(1));
+		redisTemplate.opsForValue().set("sse:" + token, String.valueOf(employeeId), Duration.ofMinutes(5));
 		return token;
 	}
 
