@@ -31,7 +31,7 @@ public class NotificationQueryController {
 	/* 설명. 알림 드롭다운 조회 */
 	@GetMapping("/unread-latest")
 	public ResponseEntity<List<NotificationDropdownResponseDTO>> getUnreadDropdown() {
-		List<NotificationDropdownResponseDTO> notifications = notificationQueryService.getUnreadTop5();
+		List<NotificationDropdownResponseDTO> notifications = notificationQueryService.getUnreadAll();
 		return ResponseEntity.ok(notifications);
 	}
 

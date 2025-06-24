@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface NotificationMapper {
-	List<NotificationDropdownResponseDTO> findTop5UnreadByEmployeeId(@Param("employeeId") int employeeId);
+	List<NotificationDropdownResponseDTO> findAllUnreadByEmployeeId(@Param("employeeId") int employeeId);
 
 	List<NotificationListResponseDTO> findAllByEmployeeIdWithPaging(@Param("employeeId") int employeeId,
 		@Param("limit") int limit,

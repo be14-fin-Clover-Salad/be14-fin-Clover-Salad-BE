@@ -24,9 +24,9 @@ public class NotificationQueryServiceImpl implements NotificationQueryService {
 	}
 
 	@Override
-	public List<NotificationDropdownResponseDTO> getUnreadTop5() {
+	public List<NotificationDropdownResponseDTO> getUnreadAll() {
 		int employeeId = SecurityUtil.getEmployeeId();
-		return notificationMapper.findTop5UnreadByEmployeeId(employeeId);
+		return notificationMapper.findAllUnreadByEmployeeId(employeeId);
 	}
 
 	@Override

@@ -22,8 +22,10 @@ public class SseEmitterManager {
 
 		SseEmitter existing = emitters.remove(employeeId);
 		if (existing != null) {
-			existing.complete();
+			existing.complete(); // 안전 종료
+			log.info("[SSE] 기존 emitter 종료 - employeeId: {}", employeeId);
 		}
+
 
 		SseEmitter emitter = new SseEmitter(60 * 60 * 1000L);
 		emitters.put(employeeId, emitter);
@@ -40,6 +42,14 @@ public class SseEmitterManager {
 			emitters.remove(employeeId);
 			log.error("[SSE] 에러 발생 - employeeId: {}, 오류: {}", employeeId, e.getMessage());
 		});
+
+		try {
+			emitter.send(SseEmitter.event().name("heartbeat").data("connected"));
+		} catch (IOException e) {
+			emitters.remove(employeeId);
+			log.error("[SSE] 더미 이벤트 전송 실패 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
+			throw new RuntimeException("SSE 연결 실패");
+		}
 
 		// 보관된 알림 전송 시도
 		List<Object> buffered = pending.remove(employeeId);
@@ -71,7 +81,12 @@ public class SseEmitterManager {
 			}
 		} else {
 			log.warn("[SSE] emitter 없음 → 알림 보관 - employeeId: {}", employeeId);
-			pending.computeIfAbsent(employeeId, k -> new CopyOnWriteArrayList<>()).add(data);
+			List<Object> buffer = pending.computeIfAbsent(employeeId, k -> new CopyOnWriteArrayList<>());
+			if (buffer.size() < 100) {
+				buffer.add(data);
+			} else {
+				log.warn("[SSE] 보관 버퍼 초과 - employeeId: {}", employeeId);
+			}
 		}
 	}
 }
