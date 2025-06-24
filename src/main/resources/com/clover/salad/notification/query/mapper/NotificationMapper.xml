@@ -26,7 +26,7 @@
     </resultMap>
 
     <!--  알림 드롭다운  -->
-    <select id="findTop5UnreadByEmployeeId"
+    <select id="findAllUnreadByEmployeeId"
             parameterType="int"
             resultMap="NotificationDropdownResultMap">
         SELECT
@@ -40,7 +40,6 @@
            AND is_read = FALSE
            AND is_deleted = FALSE
          ORDER BY created_at DESC
-         LIMIT 5
     </select>
 
     <!--  알림 목록 조회  -->
