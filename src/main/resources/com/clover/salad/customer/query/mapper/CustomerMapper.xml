@@ -155,4 +155,47 @@
       GROUP BY c.id
   </select>
 
+  <select id="findCustomersByCondition" resultMap="CustomerResultMap">
+    SELECT
+      c.id, c.name, c.birthdate, c.address, c.phone, c.email,
+      c.register_at, c.is_deleted,
+      CASE c.type
+        WHEN '고객' THEN 'CUSTOMER'
+        WHEN '리드' THEN 'PROSPECT'
+        ELSE c.type
+      END as type,
+      c.etc
+    FROM customer c
+    JOIN consultation con ON c.id = con.customer_id
+    WHERE con.employee_id = #{employeeId}
+      AND c.is_deleted = false
+      AND con.is_deleted = false
+    <if test="name != null and name != ''">
+        AND c.name LIKE CONCAT('%', #{name}, '%')
+    </if>
+    <if test="phone != null and phone != ''">
+        AND c.phone LIKE CONCAT('%', #{phone}, '%')
+    </if>
+    <if test="type != null and type != ''">
+      AND (
+        (#{type} = 'CUSTOMER' AND c.type = '고객')
+        OR
+        (#{type} = 'PROSPECT' AND c.type = '리드')
+      )
+    </if>
+    <if test="birthdateFrom != null and birthdateFrom != ''">
+        AND c.birthdate &gt;= #{birthdateFrom}
+    </if>
+    <if test="birthdateTo != null and birthdateTo != ''">
+        AND c.birthdate &lt;= #{birthdateTo}
+    </if>
+    <if test="registerAtFrom != null and registerAtFrom != ''">
+        AND c.register_at &gt;= #{registerAtFrom}
+    </if>
+    <if test="registerAtTo != null and registerAtTo != ''">
+        AND c.register_at &lt;= #{registerAtTo}
+    </if>
+    GROUP BY c.id
+  </select>
+
 </mapper>
