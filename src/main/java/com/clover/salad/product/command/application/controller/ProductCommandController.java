@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.clover.salad.common.file.enums.FileUploadType;
 import com.clover.salad.product.command.application.dto.ProductDTO;
 import com.clover.salad.product.command.application.service.ProductCommandService;
 import com.clover.salad.product.command.application.dto.ProductImageDTO;
@@ -49,10 +50,12 @@ public class ProductCommandController {
 	
 	/* 설명. 상품 이미지 업로드 */
 	@PostMapping("/upload")
-	public ResponseEntity<ProductImageDTO> uploadProductImage(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<ProductImageDTO> uploadProductImage(@RequestParam("file") MultipartFile file,
+		@RequestParam("type") FileUploadType type
+	) {
 		ProductImageDTO productImageDTO;
 		try {
-			productImageDTO = productCommandService.uploadProductImage(file);
+			productImageDTO = productCommandService.uploadProductImage(file, type);
 		} catch (IOException e) {
 			return ResponseEntity.badRequest().body(
 				new ProductImageDTO(null, "이미지 업로드 실패: " + e.getMessage(), null)
