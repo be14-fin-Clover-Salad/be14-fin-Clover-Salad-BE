@@ -33,4 +33,24 @@ public class ConsultQueryDTO {
 
     @JsonProperty("customerName")
     private String customerName;
+
+    private String employeeName;
+
+    private String employeeLevelLabel;
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getEmployeeLevelLabel() {
+        return employeeLevelLabel;
+    }
+
+    public void setEmployeeLevelLabel(String employeeLevelLabel) {
+        this.employeeLevelLabel = employeeLevelLabel;
+    }
 }
