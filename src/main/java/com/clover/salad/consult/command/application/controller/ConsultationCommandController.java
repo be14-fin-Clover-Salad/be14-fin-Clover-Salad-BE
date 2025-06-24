@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clover.salad.consult.command.application.dto.ConsultationCreateRequest;
 import com.clover.salad.consult.command.application.dto.ConsultationUpdateRequest;
 import com.clover.salad.consult.command.application.service.ConsultationCommandService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +43,13 @@ public class ConsultationCommandController {
     public ResponseEntity<String> deleteConsult(@PathVariable int consultId) {
         consultationCommandService.deleteConsultation(consultId);
         return ResponseEntity.ok("상담 내역이 삭제되었습니다.");
+    }
+
+    @PatchMapping("/my/{consultId}")
+    public ResponseEntity<String> updateMyConsultation(@PathVariable int consultId,
+            @RequestBody @Valid ConsultationUpdateRequest request) {
+        consultationCommandService.updateConsultation(consultId, request);
+        return ResponseEntity.ok("상담이 성공적으로 수정되었습니다.");
     }
 
 }

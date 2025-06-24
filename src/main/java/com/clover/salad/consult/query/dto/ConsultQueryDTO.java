@@ -23,11 +23,14 @@ public class ConsultQueryDTO {
     private String etc;
 
     @JsonProperty("feedbackScore")
-    private double feedbackScore;
+    private Double feedbackScore;
 
     @JsonProperty("employeeId")
     private int employeeId;
 
     @JsonProperty("customerId")
     private int customerId;
+
+    @JsonProperty("customerName")
+    private String customerName;
 }

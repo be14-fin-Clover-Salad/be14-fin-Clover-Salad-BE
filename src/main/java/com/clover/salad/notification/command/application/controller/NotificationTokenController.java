@@ -22,7 +22,7 @@ public class NotificationTokenController {
 	@GetMapping("/subscribe-token")
 	public ResponseEntity<String> getSubscribeToken() {
 		int employeeId = SecurityUtil.getEmployeeId();
-		String token = notificationTokenService.issueToken(employeeId);  // Redis에 저장
+		String token = notificationTokenService.issueToken(employeeId);
 		return ResponseEntity.ok(token);
 	}
 }
