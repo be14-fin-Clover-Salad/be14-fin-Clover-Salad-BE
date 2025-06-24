@@ -10,4 +10,7 @@ public interface NotificationCommandService {
 	void markAsRead(int id);
 
 	void softDeleteNotifications(List<Integer> deleteNotification);
+
+	void markMultipleAsRead(List<Integer> notificationIds);
+
 }
