@@ -50,10 +50,11 @@ public class FileUploadEntity {
 	private FileUploadType type;
 
 	@Builder
-	public FileUploadEntity(String originFile, String renameFile, String path, FileUploadType type) {
+	public FileUploadEntity(String originFile, String renameFile, String path, String thumbnailPath, FileUploadType type) {
 		this.originFile = originFile;
 		this.renameFile = renameFile;
 		this.path = path;
+		this.thumbnailPath = thumbnailPath;
 		this.createdAt = LocalDateTime.now();
 		this.type = type;
 	}

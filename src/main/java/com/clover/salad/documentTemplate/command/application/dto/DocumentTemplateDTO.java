@@ -20,4 +20,6 @@ public class DocumentTemplateDTO {
 	private String uploadFilePath;
 	private String version;
 	private LocalDateTime createdAt;
+	private String thumbnailPath;
+
 }
