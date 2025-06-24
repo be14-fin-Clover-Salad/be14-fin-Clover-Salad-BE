@@ -79,16 +79,16 @@ CREATE TABLE EMPLOYEE
 
 CREATE TABLE EMPLOYEE_PERFORMANCE
 (
-    id                      INT           NOT NULL AUTO_INCREMENT,
-    rental_product_count    INT           NULL,
-    rental_retention_count  INT           NULL,
-    total_rental_count      INT           NULL,
-    new_customer_count      INT           NULL,
-    total_rental_amount     BIGINT        NULL,
-    customer_feedback_score DECIMAL(2, 1) NULL,
-    customer_feedback_count INT           NULL,
-    target_date             INT(6)        NOT NULL,
-    employee_id             INT           NOT NULL,
+    id                      INT            NOT NULL AUTO_INCREMENT,
+    rental_product_count    INT            NULL,
+    rental_retention_count  INT            NULL,
+    total_rental_count      INT            NULL,
+    new_customer_count      INT            NULL,
+    total_rental_amount     BIGINT         NULL,
+    customer_feedback_score DECIMAL(65, 1) NULL,
+    customer_feedback_count INT            NULL,
+    target_date             INT(6)         NOT NULL,
+    employee_id             INT            NOT NULL,
     CONSTRAINT PK_EMPLOYEE_PERFORMANCE PRIMARY KEY (id),
     CONSTRAINT FK_EMPLOYEE_TO_EMPLOYEE_PERFORMANCE
         FOREIGN KEY (employee_id)
@@ -148,16 +148,16 @@ CREATE TABLE QNA
 
 CREATE TABLE DEPARTMENT_PERFORMANCE
 (
-    id                      INT           NOT NULL AUTO_INCREMENT,
-    rental_product_count    INT           NULL,
-    rental_retention_count  INT           NULL,
-    total_rental_count      INT           NULL,
-    new_customer_count      INT           NULL,
-    total_rental_amount     BIGINT        NULL,
-    customer_feedback_score DECIMAL(2, 1) NULL,
-    customer_feedback_count INT           NULL,
-    target_date             INT(6)        NOT NULL,
-    department_id           INT           NOT NULL,
+    id                      INT            NOT NULL AUTO_INCREMENT,
+    rental_product_count    INT            NULL,
+    rental_retention_count  INT            NULL,
+    total_rental_count      INT            NULL,
+    new_customer_count      INT            NULL,
+    total_rental_amount     BIGINT         NULL,
+    customer_feedback_score DECIMAL(65, 1) NULL,
+    customer_feedback_count INT            NULL,
+    target_date             INT(6)         NOT NULL,
+    department_id           INT            NOT NULL,
     CONSTRAINT PK_DEPARTMENT_PERFORMANCE PRIMARY KEY (id),
     CONSTRAINT FK_DEPARTMENT_TO_DEPARTMENT_PERFORMANCE
         FOREIGN KEY (department_id)
@@ -261,16 +261,16 @@ CREATE TABLE EMPLOYEE_NOTICE
 
 CREATE TABLE EMPLOYEE_GOAL
 (
-    id                      INT           NOT NULL AUTO_INCREMENT,
-    rental_product_count    INT           NOT NULL,
-    rental_retention_count  INT           NOT NULL,
-    total_rental_count      INT           NOT NULL,
-    new_customer_count      INT           NOT NULL,
-    total_rental_amount     BIGINT        NOT NULL,
-    customer_feedback_score DECIMAL(2, 1) NOT NULL,
-    customer_feedback_count INT           NOT NULL,
-    target_date             INT(6)        NOT NULL,
-    employee_id             INT           NOT NULL,
+    id                      INT            NOT NULL AUTO_INCREMENT,
+    rental_product_count    INT            NOT NULL,
+    rental_retention_count  INT            NOT NULL,
+    total_rental_count      INT            NOT NULL,
+    new_customer_count      INT            NOT NULL,
+    total_rental_amount     BIGINT         NOT NULL,
+    customer_feedback_score DECIMAL(65, 1) NOT NULL,
+    customer_feedback_count INT            NOT NULL,
+    target_date             INT(6)         NOT NULL,
+    employee_id             INT            NOT NULL,
     CONSTRAINT PK_EMPLOYEE_GOAL PRIMARY KEY (id),
     CONSTRAINT FK_EMPLOYEE_TO_EMPLOYEE_GOAL
         FOREIGN KEY (employee_id)
