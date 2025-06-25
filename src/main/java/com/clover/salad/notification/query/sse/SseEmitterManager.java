@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -21,61 +17,48 @@ public class SseEmitterManager {
 	private final Map<Integer, SseEmitter> emitters = new ConcurrentHashMap<>();
 	private final Map<Integer, List<Object>> pending = new ConcurrentHashMap<>();
 
-	private final ScheduledExecutorService heartbeatScheduler = Executors.newScheduledThreadPool(1);
-	private final Map<Integer, ScheduledFuture<?>> heartbeatTasks = new ConcurrentHashMap<>();
-
 	public SseEmitter connect(int employeeId) {
 		log.info("[SSE] Emitter 등록 시작 - employeeId: {}", employeeId);
 
 		SseEmitter existing = emitters.remove(employeeId);
 		if (existing != null) {
-			existing.complete();
+			existing.complete(); // 안전 종료
 			log.info("[SSE] 기존 emitter 종료 - employeeId: {}", employeeId);
 		}
 
-		SseEmitter emitter = new SseEmitter(60 * 60 * 1000L);
+		SseEmitter emitter = new SseEmitter(60 * 60 * 1000L); // 1시간 타임아웃
 		emitters.put(employeeId, emitter);
 
-		// 타임아웃/완료/에러 시 제거
-		Runnable cleanup = () -> {
+		emitter.onCompletion(() -> {
 			emitters.remove(employeeId);
-			ScheduledFuture<?> task = heartbeatTasks.remove(employeeId);
-			if (task != null) task.cancel(true);
-			log.info("[SSE] 연결 종료 또는 오류 - employeeId: {}", employeeId);
-		};
-		emitter.onCompletion(cleanup);
-		emitter.onTimeout(cleanup);
+			log.info("[SSE] 연결 종료 - employeeId: {}", employeeId);
+		});
+		emitter.onTimeout(() -> {
+			emitters.remove(employeeId);
+			log.warn("[SSE] 타임아웃 발생 - employeeId: {}", employeeId);
+		});
 		emitter.onError(e -> {
-			log.error("[SSE] 에러 발생 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
-			cleanup.run();
+			emitters.remove(employeeId);
+			log.error("[SSE] 에러 발생 - employeeId: {}, 오류: {}", employeeId, e.getMessage());
 		});
 
 		try {
-			emitter.send(SseEmitter.event().name("heartbeat").data("connected"));
+			emitter.send(SseEmitter.event()
+				.name("heartbeat")
+				.data("connected"));
 		} catch (IOException e) {
-			cleanup.run();
+			emitters.remove(employeeId);
+			log.error("[SSE] 더미 이벤트 전송 실패 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
 			throw new RuntimeException("SSE 연결 실패");
 		}
 
-		// 정기 heartbeat 전송 시작
-		ScheduledFuture<?> heartbeat = heartbeatScheduler.scheduleAtFixedRate(() -> {
-			try {
-				emitter.send(SseEmitter.event().name("heartbeat").data("keep-alive"));
-				log.debug("[SSE] heartbeat 전송 - employeeId: {}", employeeId);
-			} catch (IOException e) {
-				log.warn("[SSE] heartbeat 전송 실패 - employeeId: {}", employeeId);
-				cleanup.run();
-			}
-		}, 30, 30, TimeUnit.SECONDS);
-
-		heartbeatTasks.put(employeeId, heartbeat);
-
-		// 보관된 알림 전송
+		// 보관된 알림 전송 시도
 		List<Object> buffered = pending.remove(employeeId);
-		if (buffered != null) {
+		if (buffered != null && !buffered.isEmpty()) {
 			for (Object data : buffered) {
 				try {
 					emitter.send(SseEmitter.event().name("notification").data(data));
+					log.info("[SSE] 보관된 알림 전송 - employeeId: {}", employeeId);
 				} catch (IOException e) {
 					log.error("[SSE] 보관된 알림 전송 실패 - {}", e.getMessage());
 				}
@@ -95,14 +78,15 @@ public class SseEmitterManager {
 				log.info("[SSE] 알림 전송 성공 - employeeId: {}", employeeId);
 			} catch (IOException e) {
 				emitters.remove(employeeId);
-				ScheduledFuture<?> task = heartbeatTasks.remove(employeeId);
-				if (task != null) task.cancel(true);
 				log.error("[SSE] 알림 전송 실패 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
 			}
 		} else {
+			log.warn("[SSE] emitter 없음 → 알림 보관 - employeeId: {}", employeeId);
 			List<Object> buffer = pending.computeIfAbsent(employeeId, k -> new CopyOnWriteArrayList<>());
 			if (buffer.size() < 100) {
 				buffer.add(data);
+			} else {
+				log.warn("[SSE] 보관 버퍼 초과 - employeeId: {}", employeeId);
 			}
 		}
 	}
