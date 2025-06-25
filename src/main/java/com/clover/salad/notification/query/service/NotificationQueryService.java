@@ -8,7 +8,7 @@ import java.util.List;
 public interface NotificationQueryService {
 
 	/* 설명. 알림 드롭다운 */
-	List<NotificationDropdownResponseDTO> getUnreadTop5();
+	List<NotificationDropdownResponseDTO> getUnreadAll();
 
 	/* 설명. 알림 목록 */
 	List<NotificationListResponseDTO> getAllNotifications(int page);
