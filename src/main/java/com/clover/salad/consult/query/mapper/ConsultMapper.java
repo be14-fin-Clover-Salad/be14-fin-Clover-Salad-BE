@@ -43,7 +43,9 @@ public interface ConsultMapper {
                         @Param("consultDateTo") String consultDateTo,
                         @Param("content") String content,
                         @Param("customerName") String customerName,
-                        @Param("minScore") Double minScore, @Param("maxScore") Double maxScore);
+                        @Param("minScore") Double minScore, @Param("maxScore") Double maxScore,
+                        @Param("departmentId") Long departmentId,
+                        @Param("departmentName") String departmentName);
 
         List<ConsultQueryDTO> searchMyConsults(@Param("employeeId") int employeeId,
                         @Param("consultDateFrom") String consultDateFrom,
@@ -51,4 +53,7 @@ public interface ConsultMapper {
                         @Param("content") String content,
                         @Param("customerName") String customerName,
                         @Param("minScore") Double minScore, @Param("maxScore") Double maxScore);
+
+        // 팀장: 본인 부서 팀원 전체 상담 목록 조회
+        List<ConsultQueryDTO> findConsultsByManagerId(@Param("managerCode") int managerId);
 }

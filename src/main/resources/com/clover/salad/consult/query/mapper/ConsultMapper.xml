@@ -17,6 +17,7 @@
         <result property="customerName" column="customer_name"/>
         <result property="employeeName" column="employee_name"/>
         <result property="employeeLevelLabel" column="employee_level_label"/>
+        <result property="departmentName" column="department_name"/>
     </resultMap>
 
     <!-- 관리자 조회 -->
@@ -24,10 +25,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         ORDER BY c.consult_at DESC
     </select>
 
@@ -35,10 +38,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.id = #{id}
     </select>
 
@@ -46,10 +51,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.id = #{id}
     </select>
 
@@ -57,10 +64,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.id = #{id} AND c.is_deleted = false
     </select>
 
@@ -69,10 +78,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.employee_id = #{employeeId}
           AND c.is_deleted = false
         ORDER BY c.consult_at DESC
@@ -82,10 +93,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.employee_id = #{employeeId}
           AND c.id = #{consultId}
           AND c.is_deleted = false
@@ -95,10 +108,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE c.employee_id = #{employeeId}
           AND c.id = #{consultId}
     </select>
@@ -115,11 +130,13 @@
             c.is_deleted,
             cu.name AS customer_name,
             e.name AS employee_name,
-            e.level AS employee_level_label
+            e.level AS employee_level_label,
+            d.name AS department_name
         FROM
             consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         WHERE
             c.customer_id = #{customerId}
             AND c.is_deleted = FALSE
@@ -138,13 +155,15 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         <where>
             <if test="consultDateFrom != null and consultDateFrom != ''">
-                AND c.consult_at >= #{consultDateFrom}
+                AND c.consult_at &gt;= #{consultDateFrom}
             </if>
             <if test="consultDateTo != null and consultDateTo != ''">
                 AND c.consult_at &lt;= #{consultDateTo}
@@ -156,10 +175,16 @@
                 AND cu.name LIKE CONCAT('%', #{customerName}, '%')
             </if>
             <if test="minScore != null">
-                AND c.feedback_score >= #{minScore}
+                AND c.feedback_score &gt;= #{minScore}
             </if>
             <if test="maxScore != null">
                 AND c.feedback_score &lt;= #{maxScore}
+            </if>
+            <if test="departmentId != null and departmentId != ''">
+                AND e.department_id = #{departmentId}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                AND e.department_id = (SELECT id FROM department WHERE name = #{departmentName})
             </if>
         </where>
         ORDER BY c.consult_at DESC
@@ -169,10 +194,12 @@
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
                e.name AS employee_name,
-               e.level AS employee_level_label
+               e.level AS employee_level_label,
+               d.name AS department_name
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
         LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
         <where>
             c.employee_id = #{employeeId}
             AND c.is_deleted = false
@@ -195,6 +222,28 @@
                 AND c.feedback_score &lt;= #{maxScore}
             </if>
         </where>
+        ORDER BY c.consult_at DESC
+    </select>
+
+    <!-- 팀장(ROLE_MANAGER)용: 본인 부서의 모든 팀원이 담당한 상담 내역 조회 -->
+    <select id="findConsultsByManagerId" parameterType="int" resultMap="consultResultMap">
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label,
+               d.name AS department_name
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
+        LEFT JOIN department d ON e.department_id = d.id
+        WHERE e.department_id = (
+            SELECT department_id
+            FROM employee
+            WHERE id = (
+                SELECT id FROM employee WHERE code = #{managerCode}
+            )
+        )
+          AND c.is_deleted = false
         ORDER BY c.consult_at DESC
     </select>
 </mapper>

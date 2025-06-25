@@ -7,7 +7,8 @@ import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 public interface ConsultQueryService {
 
         List<ConsultQueryDTO> searchAll(String consultDateFrom, String consultDateTo,
-                        String content, String customerName, Double minScore, Double maxScore);
+                        String content, String customerName, Double minScore, Double maxScore,
+                        Long departmentId, String departmentName);
 
         List<ConsultQueryDTO> searchMyConsults(String consultDateFrom, String consultDateTo,
                         String content, String customerName, Double minScore, Double maxScore);
@@ -35,4 +36,7 @@ public interface ConsultQueryService {
 
         // 사원 ID로 담당 고객 ID 목록 조회
         List<Integer> findCustomerIdsByEmployeeId(int employeeId);
+
+        // 팀장: 본인 부서 팀원 전체 상담 목록 조회
+        List<ConsultQueryDTO> findConsultsByManagerId(int managerId);
 }

@@ -25,9 +25,10 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     @Override
     public List<ConsultQueryDTO> searchAll(String consultDateFrom, String consultDateTo,
-            String content, String customerName, Double minScore, Double maxScore) {
+            String content, String customerName, Double minScore, Double maxScore,
+            Long departmentId, String departmentName) {
         return consultMapper.searchAll(consultDateFrom, consultDateTo, content, customerName,
-                minScore, maxScore);
+                minScore, maxScore, departmentId, departmentName);
     }
 
     @Override
@@ -116,5 +117,10 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
     @Override
     public List<Integer> findCustomerIdsByEmployeeId(int employeeId) {
         return consultMapper.findCustomerIdsByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<ConsultQueryDTO> findConsultsByManagerId(int managerId) {
+        return consultMapper.findConsultsByManagerId(managerId);
     }
 }

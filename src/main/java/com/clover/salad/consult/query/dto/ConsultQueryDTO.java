@@ -38,6 +38,8 @@ public class ConsultQueryDTO {
 
     private String employeeLevelLabel;
 
+    private String departmentName;
+
     public String getEmployeeName() {
         return employeeName;
     }

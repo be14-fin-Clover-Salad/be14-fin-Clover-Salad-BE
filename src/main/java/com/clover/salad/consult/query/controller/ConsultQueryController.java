@@ -2,6 +2,8 @@ package com.clover.salad.consult.query.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class ConsultQueryController {
 
     private final ConsultQueryService consultService;
+    private static final Logger log = LoggerFactory.getLogger(ConsultQueryController.class);
 
     /** 🔐 관리자: 전체 상담 목록 조회 */
     @GetMapping
@@ -34,17 +37,25 @@ public class ConsultQueryController {
             @RequestParam(required = false) String content,
             @RequestParam(required = false) String customerName,
             @RequestParam(required = false) Double minScore,
-            @RequestParam(required = false) Double maxScore) {
+            @RequestParam(required = false) Double maxScore,
+            @RequestParam(required = false) Long departmentId,
+            @RequestParam(required = false) String departmentName) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority).anyMatch(role -> role.equals("ROLE_ADMIN"));
+        List<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
 
         List<ConsultQueryDTO> consults;
-        if (isAdmin) {
+        if (roles.contains("ROLE_ADMIN")) {
+            log.info("[Consult] ROLE_ADMIN 분기 진입");
             consults = consultService.searchAll(consultDateFrom, consultDateTo, content,
-                    customerName, minScore, maxScore);
+                    customerName, minScore, maxScore, departmentId, departmentName);
+        } else if (roles.contains("ROLE_MANAGER")) {
+            int managerId = Integer.parseInt(authentication.getName());
+            log.info("[Consult] ROLE_MANAGER 분기 진입, managerId={}", managerId);
+            consults = consultService.findConsultsByManagerId(managerId);
         } else {
+            log.info("[Consult] ROLE_EMPLOYEE 분기 진입");
             consults = consultService.searchMyConsults(consultDateFrom, consultDateTo, content,
                     customerName, minScore, maxScore);
         }
