@@ -12,12 +12,12 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		String[] origins = {
-			"http://localhost:8080",
-			"http://localhost:5173",
-			"https://saladerp.com",
-			"https://salad-alb-240627784.ap-northeast-2.elb.amazonaws.com"
-		};
+		// String[] origins = {
+		// 	"http://localhost:8080",
+		// 	"http://localhost:5173",
+		// 	"https://saladerp.com",
+		// 	"https://salad-alb-240627784.ap-northeast-2.elb.amazonaws.com"
+		// };
 		//
 		// registry.addMapping("/auth/login")
 		// 	.allowedOrigins(origins)
@@ -48,15 +48,15 @@ public class WebConfig implements WebMvcConfigurer {
 		// 	.allowedMethods("POST", "OPTIONS")
 		// 	.allowedHeaders("*")
 		// 	.allowCredentials(false);
-
-		registry.addMapping("/**")
-			.allowedOrigins(origins)
-			.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
-			.allowedHeaders("*")
-			.exposedHeaders("Authorization")
-			.allowCredentials(true);
-	}
-
+	//
+	// 	registry.addMapping("/**")
+	// 		.allowedOrigins(origins)
+	// 		.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+	// 		.allowedHeaders("*")
+	// 		.exposedHeaders("Authorization")
+	// 		.allowCredentials(true);
+	// }
+}
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new ClientLogInterceptor())
