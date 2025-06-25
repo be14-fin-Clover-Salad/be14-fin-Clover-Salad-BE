@@ -44,17 +44,14 @@ public class WebSecurity {
 		http.cors(withDefaults());
 
 		http.authorizeHttpRequests(authz ->
-				authz
-					// .requestMatchers("/**").permitAll()					// 개발용 일시적 허용
-					.requestMatchers("/auth/login").permitAll()
-					.requestMatchers("/employee").permitAll()
-					.requestMatchers("/employee/**").permitAll()
-					.requestMatchers("/notification/subscribe").permitAll()
-					.requestMatchers("/dashboard/sales").permitAll()
-					.requestMatchers("api/log/access").permitAll()
-					.anyRequest().permitAll()
-					// .anyRequest().authenticated()
-			)
+			authz
+				.requestMatchers("/auth/login").permitAll()
+				.requestMatchers("/auth/refresh-token").permitAll()
+				.requestMatchers("/notification/subscribe").permitAll()
+				.requestMatchers("/employee/password-reset").permitAll()
+				.requestMatchers("/employee/password-resets/confirm").permitAll()
+				.anyRequest().authenticated()
+		)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		http.addFilter(getAuthenticationFilter(authenticationManager));
