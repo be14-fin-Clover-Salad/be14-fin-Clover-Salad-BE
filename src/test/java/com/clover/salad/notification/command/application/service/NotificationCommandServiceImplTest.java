@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.AccessDeniedException;
 
 import com.clover.salad.notification.command.application.dto.NotificationCreateDTO;
 import com.clover.salad.notification.command.domain.aggregate.entity.NotificationEntity;
@@ -136,5 +137,33 @@ class NotificationCommandServiceImplTest {
 			assertThat(entity2.isRead()).isTrue();
 			verify(notificationRepository, times(1)).saveAll(entities);
 		}
+	}
+
+	@Test
+	public void 자신의_알림이_아닌_경우_읽음_예외_발생() {
+
+		// given
+		NotificationEntity notificationEntity = NotificationEntity.builder()
+			.id(1)
+			.employeeId(200)
+			.type(NotificationType.APPROVAL)
+			.content("내용")
+			.url("/test")
+			.createdAt(LocalDateTime.now())
+			.isRead(false)
+			.isDeleted(false)
+			.build();
+
+		when(notificationRepository.findById(1)).thenReturn(Optional.of(notificationEntity));
+
+		try(MockedStatic<SecurityUtil> mockedSecurityUtil = mockStatic(SecurityUtil.class)) {
+			mockedSecurityUtil.when(SecurityUtil::getEmployeeId).thenReturn(100);
+
+			// when // then
+			assertThatThrownBy(() -> notificationCommandService.markAsRead(1))
+				.isInstanceOf(AccessDeniedException.class)
+				.hasMessageContaining("자신의 알림만 읽음 처리할 수 있습니다.");
+		}
+
 	}
 }
