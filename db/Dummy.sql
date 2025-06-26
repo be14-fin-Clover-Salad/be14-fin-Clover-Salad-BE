@@ -1,5 +1,5 @@
 -- 현실적인 전체 테이블 더미 데이터 (5~7개씩)
-USE saladdb;
+# USE saladdb;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- DEPARTMENT
@@ -1170,129 +1170,129 @@ VALUES (1, 4, 1, 1),
        (7, 5, 7, 7);
 
 -- EMPLOYEE_GOAL
-INSERT INTO EMPLOYEE_GOAL (rental_product_count, rental_retention_count, total_rental_count, new_customer_count,
-                           total_rental_amount, customer_feedback_score, customer_feedback_count, target_date,
-                           employee_id)
-VALUES (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 2),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 2),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202401, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202402, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202403, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202404, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202405, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202406, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202407, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202408, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202409, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202410, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202411, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202412, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202501, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202502, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202503, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202504, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202505, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202506, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202507, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202508, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202509, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202510, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202511, 3),
-       (1, 86, 101, 5, 1200000, 205.0, 51, 202512, 3),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 4),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 5),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 6),
-       (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 6);
+# INSERT INTO EMPLOYEE_GOAL (rental_product_count, rental_retention_count, total_rental_count, new_customer_count,
+#                            total_rental_amount, customer_feedback_score, customer_feedback_count, target_date,
+#                            employee_id)
+# VALUES (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 2),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 2),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202401, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202402, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202403, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202404, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202405, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202406, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202407, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202408, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202409, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202410, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202411, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202412, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202501, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202502, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202503, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202504, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202505, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202506, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202507, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202508, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202509, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202510, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202511, 3),
+#        (1, 86, 101, 5, 1200000, 205.0, 51, 202512, 3),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 4),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 5),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202401, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202402, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202403, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202404, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202405, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202406, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202407, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202408, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202409, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202410, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202411, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202412, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202501, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202502, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202503, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202504, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202505, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202506, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202507, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202508, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202509, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202510, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202511, 6),
+#        (1, 86, 101, 5, 1200000, 220.0, 51, 202512, 6);
 
 -- DEFAULT_GOAL
 INSERT INTO DEFAULT_GOAL (level, rental_product_count, rental_retention_rate, new_customer_count,
@@ -1915,17 +1915,17 @@ VALUES (1, 6, 81, 100, 4, 1100000, 4.5, 50, 202405, 1),
        (7, 12, 87, 106, 10, 1700000, 4.5, 56, 202405, 7);
 
 -- EMPLOYEE_PERFORMANCE
-INSERT INTO EMPLOYEE_PERFORMANCE (id, rental_product_count, rental_retention_count, total_rental_count,
-                                  new_customer_count,
-                                  total_rental_amount, customer_feedback_score, customer_feedback_count, target_date,
-                                  employee_id)
-VALUES (1, 6, 81, 100, 4, 1100000, 4.5, 50, 202405, 1),
-       (2, 7, 82, 101, 5, 1200000, 4.0, 51, 202405, 2),
-       (3, 8, 83, 102, 6, 1300000, 4.5, 52, 202405, 3),
-       (4, 9, 84, 103, 7, 1400000, 4.0, 53, 202405, 4),
-       (5, 10, 85, 104, 8, 1500000, 4.5, 54, 202405, 5),
-       (6, 11, 86, 105, 9, 1600000, 4.0, 55, 202405, 6),
-       (7, 12, 87, 106, 10, 1700000, 4.5, 56, 202405, 7);
+# INSERT INTO EMPLOYEE_PERFORMANCE (id, rental_product_count, rental_retention_count, total_rental_count,
+#                                   new_customer_count,
+#                                   total_rental_amount, customer_feedback_score, customer_feedback_count, target_date,
+#                                   employee_id)
+# VALUES (1, 6, 81, 100, 4, 1100000, 4.5, 50, 202405, 1),
+#        (2, 7, 82, 101, 5, 1200000, 4.0, 51, 202405, 2),
+#        (3, 8, 83, 102, 6, 1300000, 4.5, 52, 202405, 3),
+#        (4, 9, 84, 103, 7, 1400000, 4.0, 53, 202405, 4),
+#        (5, 10, 85, 104, 8, 1500000, 4.5, 54, 202405, 5),
+#        (6, 11, 86, 105, 9, 1600000, 4.0, 55, 202405, 6),
+#        (7, 12, 87, 106, 10, 1700000, 4.5, 56, 202405, 7);
 
 -- 알림 더미 데이터 (결재 알림)
 # INSERT INTO NOTIFICATION (type, content, created_at, url, is_read, is_deleted, employee_id)
@@ -1934,22 +1934,308 @@ VALUES (1, 6, 81, 100, 4, 1100000, 4.5, 50, 202405, 1),
 #     ('APPROVAL', '[결재 요청] A-2506-0002 계약에 대한 승인을 요청했습니다.', NOW(), 'http://www.naver.com', FALSE, FALSE, 1),
 #     ('APPROVAL', '[결재 요청] A-2506-0003 계약에 대한 승인을 요청받았습니다.', NOW(), 'http://www.naver.com', FALSE, FALSE, 5);
 
-UPDATE product
-SET name          = '제습기',
-    company       = '삼성',
-    serial_number = 'SN20240001'
-WHERE id = 6;
+-- Inserts for employee_performance
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (12, 76, 62, 3, 759041, 138, 44, 201901, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (59, 80, 72, 4, 729113, 460, 35, 201902, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (21, 15, 92, 40, 319094, 386, 25, 201903, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (75, 32, 25, 1, 487365, 132, 1, 201904, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (24, 18, 100, 32, 638768, 484, 95, 201905, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (11, 68, 67, 40, 622894, 420, 68, 201906, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (0, 62, 65, 9, 554417, 370, 58, 201907, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (21, 21, 25, 2, 774539, 299, 81, 201908, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (88, 5, 26, 27, 528991, 293, 59, 201909, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (91, 51, 84, 24, 885009, 438, 99, 201910, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (29, 48, 54, 7, 374313, 174, 14, 201911, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (43, 5, 28, 31, 780026, 219, 31, 201912, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (76, 22, 51, 49, 832194, 97, 67, 202001, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (46, 26, 4, 28, 456675, 231, 43, 202002, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (15, 38, 62, 5, 344868, 340, 84, 202003, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (46, 80, 39, 30, 532636, 136, 18, 202004, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (17, 23, 19, 7, 167566, 212, 58, 202005, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (76, 32, 6, 47, 246514, 173, 34, 202006, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (12, 51, 78, 29, 99767, 71, 89, 202007, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 0, 76, 3, 540147, 50, 94, 202008, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 74, 55, 48, 174530, 493, 31, 202009, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 7, 98, 15, 669149, 6, 39, 202010, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (85, 0, 8, 18, 50235, 260, 90, 202011, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (47, 65, 62, 35, 610664, 58, 73, 202012, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (16, 71, 14, 46, 131585, 487, 38, 202101, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (0, 21, 10, 15, 729202, 479, 85, 202102, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (68, 38, 75, 21, 123705, 68, 68, 202103, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (58, 77, 45, 0, 960078, 114, 15, 202104, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (9, 25, 53, 37, 571433, 364, 20, 202105, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (88, 15, 79, 43, 712164, 374, 57, 202106, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (24, 11, 11, 47, 631077, 68, 66, 202107, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (89, 12, 69, 13, 265367, 318, 37, 202108, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (96, 63, 34, 20, 556597, 21, 57, 202109, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (54, 56, 98, 36, 586512, 100, 99, 202110, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (13, 28, 17, 32, 210433, 251, 69, 202111, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (35, 18, 23, 17, 676514, 237, 82, 202112, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (82, 41, 54, 37, 652133, 19, 99, 202201, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 27, 9, 49, 58143, 73, 78, 202202, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (60, 63, 67, 4, 11033, 270, 100, 202203, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (8, 18, 79, 35, 648790, 370, 50, 202204, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (31, 76, 72, 17, 313512, 419, 43, 202205, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 62, 77, 36, 775744, 185, 49, 202206, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (8, 17, 48, 31, 598716, 95, 17, 202207, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 42, 80, 23, 846215, 43, 40, 202208, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (60, 58, 93, 2, 284800, 212, 97, 202209, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (99, 17, 66, 19, 596186, 194, 79, 202210, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (46, 58, 73, 38, 745732, 305, 79, 202211, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (11, 40, 28, 24, 758270, 290, 15, 202212, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 36, 32, 38, 148025, 491, 48, 202301, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (13, 20, 51, 23, 908153, 307, 57, 202302, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 34, 20, 50, 154065, 211, 70, 202303, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (28, 45, 96, 29, 359623, 33, 96, 202304, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (85, 75, 55, 15, 92139, 352, 23, 202305, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (58, 14, 93, 29, 305493, 245, 82, 202306, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 6, 74, 18, 169720, 151, 77, 202307, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (9, 58, 72, 14, 246452, 480, 68, 202308, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 20, 94, 11, 360002, 154, 39, 202309, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (19, 79, 98, 50, 298996, 24, 23, 202310, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (50, 41, 89, 27, 762988, 376, 12, 202311, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (93, 77, 13, 39, 528741, 178, 58, 202312, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (76, 47, 48, 50, 855631, 243, 98, 202401, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (31, 45, 29, 36, 970175, 242, 75, 202402, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 73, 64, 18, 591376, 372, 11, 202403, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (98, 44, 8, 12, 915540, 258, 70, 202404, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (66, 74, 60, 39, 62558, 298, 52, 202405, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (22, 26, 7, 6, 224077, 204, 37, 202406, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (79, 34, 48, 19, 467571, 59, 11, 202407, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (83, 22, 74, 14, 407233, 451, 60, 202408, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (66, 47, 41, 4, 282510, 281, 91, 202409, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (38, 35, 67, 9, 185846, 12, 62, 202410, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 40, 43, 24, 18291, 260, 0, 202411, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (94, 11, 32, 42, 212900, 61, 0, 202412, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 38, 82, 36, 976984, 123, 93, 202501, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (1, 39, 77, 11, 978553, 83, 16, 202502, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (93, 39, 92, 50, 860530, 369, 70, 202503, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (61, 66, 58, 28, 649402, 324, 90, 202504, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (97, 78, 13, 19, 806336, 286, 30, 202505, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 33, 67, 19, 306958, 275, 20, 202506, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (59, 66, 54, 25, 418707, 325, 34, 202507, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (26, 65, 95, 10, 653120, 319, 91, 202508, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (76, 68, 72, 35, 143787, 162, 97, 202509, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (18, 2, 33, 14, 719242, 279, 75, 202510, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 38, 3, 32, 9567, 49, 63, 202511, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 58, 51, 34, 612089, 37, 9, 202512, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (13, 39, 90, 22, 691807, 47, 93, 202601, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (31, 42, 50, 20, 651653, 126, 69, 202602, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 68, 34, 4, 923813, 313, 34, 202603, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (24, 23, 74, 21, 592531, 324, 89, 202604, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (80, 62, 12, 40, 749144, 333, 28, 202605, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (7, 11, 49, 2, 910950, 135, 39, 202606, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (51, 23, 68, 38, 38007, 94, 38, 202607, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (30, 78, 2, 10, 211146, 319, 20, 202608, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (10, 27, 90, 46, 585942, 455, 98, 202609, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (60, 52, 19, 32, 601621, 298, 76, 202610, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (86, 74, 48, 6, 682791, 163, 20, 202611, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (31, 66, 68, 12, 153993, 224, 74, 202612, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (66, 33, 66, 43, 68011, 148, 4, 202701, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (52, 56, 19, 12, 402068, 87, 22, 202702, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (38, 80, 6, 40, 516273, 108, 3, 202703, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (9, 59, 40, 38, 465693, 488, 46, 202704, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (17, 24, 73, 50, 929252, 348, 38, 202705, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (90, 32, 53, 13, 287452, 430, 38, 202706, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 7, 57, 3, 669164, 206, 56, 202707, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (51, 74, 42, 23, 652281, 313, 49, 202708, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (74, 57, 71, 8, 742310, 258, 96, 202709, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 71, 55, 13, 518859, 441, 45, 202710, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (22, 46, 94, 45, 534440, 436, 74, 202711, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (90, 62, 41, 27, 305477, 453, 70, 202712, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (14, 75, 91, 43, 753646, 441, 96, 202801, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (41, 57, 63, 44, 859669, 14, 2, 202802, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (69, 48, 96, 50, 252775, 118, 66, 202803, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (52, 60, 85, 45, 737274, 83, 98, 202804, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (66, 55, 31, 13, 949457, 253, 46, 202805, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (15, 64, 43, 29, 267750, 200, 5, 202806, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (31, 54, 10, 12, 383380, 1, 8, 202807, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (49, 79, 73, 10, 465822, 389, 90, 202808, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (43, 29, 61, 26, 313282, 80, 19, 202809, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 10, 30, 46, 64433, 12, 35, 202810, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (54, 51, 96, 2, 213043, 309, 27, 202811, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (32, 67, 81, 18, 621816, 64, 42, 202812, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (57, 9, 42, 18, 55775, 241, 2, 202901, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (60, 16, 64, 7, 7969, 313, 26, 202902, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (70, 41, 0, 33, 589698, 495, 78, 202903, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (91, 67, 1, 37, 296692, 327, 44, 202904, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (46, 1, 52, 47, 24106, 70, 15, 202905, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (37, 14, 60, 37, 596545, 488, 53, 202906, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (39, 72, 39, 38, 738534, 370, 38, 202907, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (27, 4, 41, 28, 943453, 67, 87, 202908, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (39, 72, 3, 50, 882208, 96, 65, 202909, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 15, 19, 0, 105251, 239, 63, 202910, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (43, 54, 11, 35, 330300, 273, 47, 202911, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (29, 27, 43, 23, 644106, 123, 14, 202912, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 59, 99, 7, 520163, 273, 35, 203001, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (41, 71, 11, 19, 502355, 442, 0, 203002, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (18, 60, 76, 31, 976602, 465, 56, 203003, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (24, 56, 98, 24, 758101, 495, 48, 203004, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (40, 12, 64, 36, 863049, 65, 10, 203005, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (5, 24, 90, 2, 166520, 250, 52, 203006, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (34, 66, 57, 6, 624671, 201, 84, 203007, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (57, 63, 17, 3, 330332, 73, 57, 203008, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (86, 13, 89, 50, 979176, 436, 78, 203009, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (35, 52, 17, 40, 532293, 33, 78, 203010, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (34, 23, 38, 15, 639839, 228, 67, 203011, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (16, 69, 51, 2, 875648, 282, 73, 203012, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (71, 55, 59, 33, 565650, 242, 67, 203101, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (20, 69, 87, 11, 270663, 434, 20, 203102, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 2, 15, 8, 745011, 27, 27, 203103, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (17, 37, 44, 28, 193295, 466, 90, 203104, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (32, 46, 45, 44, 248912, 220, 12, 203105, 2);
+INSERT INTO employee_performance (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 4, 72, 33, 542308, 182, 72, 203106, 2);
 
-UPDATE product
-SET name          = '전자레인지',
-    company       = 'LG',
-    serial_number = 'SN20240002'
-WHERE id = 1;
-
-UPDATE product
-SET name          = '공기 청정기',
-    company       = '삼성',
-    serial_number = 'SN20240003'
-WHERE id = 2;
+-- Inserts for employee_goal
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (49, 58, 116, 14, 550804, 200, 77, 201901, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (65, 59, 66, 57, 628146, 298, 106, 201902, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (53, 72, 57, 18, 912537, 468, 21, 201903, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (51, 48, 52, 36, 257155, 145, 85, 201904, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 46, 34, 39, 350628, 383, 56, 201905, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (83, 45, 21, 15, 357998, 317, 73, 201906, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (33, 32, 80, 46, 1035764, 408, 107, 201907, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (103, 27, 47, 11, 1017752, 332, 40, 201908, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 71, 108, 25, 1032891, 114, 66, 201909, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 24, 38, 58, 990655, 132, 36, 201910, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (67, 88, 105, 53, 1061674, 473, 19, 201911, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 79, 112, 44, 964444, 292, 80, 201912, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (63, 89, 109, 58, 494710, 161, 78, 202001, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (21, 94, 108, 16, 565714, 520, 40, 202002, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (107, 72, 68, 57, 191842, 219, 37, 202003, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 40, 84, 50, 737053, 445, 62, 202004, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 38, 95, 59, 365349, 383, 39, 202005, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (46, 83, 77, 21, 519607, 419, 14, 202006, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (60, 96, 97, 11, 863502, 174, 48, 202007, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (36, 32, 38, 54, 817753, 529, 101, 202008, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (103, 38, 70, 33, 846621, 65, 69, 202009, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (39, 61, 61, 46, 442943, 183, 44, 202010, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (34, 74, 34, 25, 883569, 239, 61, 202011, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (55, 91, 38, 11, 415882, 281, 67, 202012, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (99, 20, 92, 15, 707595, 499, 46, 202101, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 20, 72, 31, 190248, 544, 42, 202102, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (68, 56, 93, 24, 584542, 455, 14, 202103, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 75, 88, 36, 810556, 371, 10, 202104, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (36, 88, 103, 45, 1099631, 156, 54, 202105, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (105, 44, 83, 42, 1030143, 376, 72, 202106, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (88, 31, 43, 60, 617792, 439, 94, 202107, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (38, 20, 109, 59, 976019, 533, 37, 202108, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (48, 43, 48, 54, 271591, 465, 18, 202109, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (103, 93, 108, 46, 1021003, 177, 86, 202110, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (27, 84, 120, 15, 706307, 344, 102, 202111, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (89, 91, 115, 32, 578142, 362, 45, 202112, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (36, 67, 118, 56, 170209, 113, 35, 202201, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (30, 44, 101, 56, 672808, 479, 69, 202202, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (38, 75, 92, 30, 459582, 158, 21, 202203, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (90, 83, 83, 38, 1088450, 69, 52, 202204, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (47, 26, 30, 28, 430255, 391, 87, 202205, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (106, 49, 60, 51, 411416, 458, 37, 202206, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (93, 54, 33, 48, 121997, 101, 47, 202207, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (101, 78, 85, 59, 260024, 100, 102, 202208, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 28, 66, 20, 228499, 111, 48, 202209, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (62, 94, 26, 38, 663029, 503, 71, 202210, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (66, 95, 36, 16, 180186, 345, 26, 202211, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (103, 99, 20, 20, 858598, 79, 59, 202212, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 25, 118, 18, 977464, 549, 37, 202301, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (104, 90, 92, 38, 892230, 378, 13, 202302, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (77, 98, 64, 14, 957552, 214, 56, 202303, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (62, 29, 52, 34, 784563, 231, 78, 202304, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (105, 47, 37, 36, 477507, 331, 103, 202305, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (90, 71, 54, 20, 304627, 244, 76, 202306, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (78, 59, 119, 53, 121839, 405, 60, 202307, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (50, 42, 104, 14, 366703, 426, 22, 202308, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (104, 59, 40, 32, 253687, 167, 46, 202309, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (48, 81, 31, 52, 970204, 253, 58, 202310, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (53, 85, 43, 26, 891453, 192, 61, 202311, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 77, 92, 29, 449681, 489, 39, 202312, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 89, 92, 34, 1041416, 445, 110, 202401, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 44, 101, 41, 661007, 265, 17, 202402, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (62, 79, 66, 38, 1042826, 100, 19, 202403, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (108, 59, 67, 25, 354836, 513, 38, 202404, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (47, 78, 36, 50, 947390, 261, 82, 202405, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (57, 55, 71, 39, 395897, 209, 97, 202406, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 28, 57, 37, 972061, 393, 33, 202407, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (23, 49, 45, 37, 430256, 218, 47, 202408, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (44, 20, 48, 13, 569294, 149, 32, 202409, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 72, 40, 12, 579632, 72, 64, 202410, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (52, 43, 103, 40, 425484, 195, 40, 202411, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (15, 99, 23, 19, 740830, 480, 70, 202412, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (101, 37, 22, 33, 768963, 435, 109, 202501, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (39, 51, 93, 19, 818104, 157, 50, 202502, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (25, 27, 26, 15, 577319, 235, 43, 202503, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (61, 92, 44, 17, 774384, 391, 12, 202504, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (80, 81, 90, 12, 700448, 244, 66, 202505, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (67, 86, 110, 50, 504024, 416, 80, 202506, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (94, 67, 80, 51, 371861, 324, 58, 202507, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (105, 34, 23, 32, 918112, 347, 12, 202508, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (80, 63, 112, 59, 394909, 308, 79, 202509, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (24, 30, 54, 40, 548273, 395, 82, 202510, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (90, 32, 26, 52, 145414, 88, 70, 202511, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 44, 54, 45, 294818, 290, 96, 202512, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (28, 28, 80, 30, 905166, 388, 10, 202601, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (83, 89, 20, 16, 320825, 496, 63, 202602, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (98, 66, 40, 48, 516267, 295, 102, 202603, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 87, 74, 34, 404608, 514, 31, 202604, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (79, 81, 120, 58, 897538, 437, 72, 202605, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (82, 72, 72, 59, 209293, 545, 11, 202606, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (107, 71, 39, 56, 691685, 135, 56, 202607, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (13, 63, 97, 56, 738316, 106, 102, 202608, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (86, 23, 110, 28, 891143, 314, 46, 202609, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (34, 51, 115, 25, 854983, 412, 109, 202610, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (47, 70, 20, 29, 255177, 83, 54, 202611, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 99, 20, 30, 578369, 121, 24, 202612, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (27, 40, 75, 23, 694567, 461, 41, 202701, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (101, 74, 94, 24, 549586, 62, 90, 202702, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (36, 39, 118, 56, 490468, 322, 46, 202703, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (103, 91, 97, 16, 189776, 318, 18, 202704, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (105, 47, 90, 11, 326498, 497, 17, 202705, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (69, 28, 52, 34, 947782, 243, 62, 202706, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (58, 46, 20, 38, 798635, 524, 92, 202707, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (41, 40, 71, 56, 365413, 409, 32, 202708, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (108, 88, 58, 27, 537919, 372, 20, 202709, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 98, 22, 52, 906112, 217, 110, 202710, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (70, 70, 97, 31, 930919, 197, 89, 202711, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (58, 85, 65, 21, 661942, 216, 74, 202712, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (26, 56, 56, 58, 760143, 56, 79, 202801, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (23, 67, 64, 25, 518579, 220, 27, 202802, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (26, 96, 67, 38, 613411, 208, 81, 202803, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (12, 36, 90, 18, 749039, 399, 30, 202804, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 71, 73, 40, 443682, 346, 84, 202805, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (98, 23, 45, 11, 610214, 212, 27, 202806, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 56, 87, 45, 828688, 341, 43, 202807, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 98, 60, 24, 167700, 50, 110, 202808, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (44, 33, 120, 54, 156231, 308, 10, 202809, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 99, 79, 21, 1083309, 501, 92, 202810, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (104, 83, 114, 23, 672563, 165, 110, 202811, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 29, 43, 46, 798227, 228, 13, 202812, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (74, 61, 49, 22, 1041584, 393, 20, 202901, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (12, 75, 37, 51, 976888, 80, 22, 202902, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (92, 99, 59, 14, 306617, 413, 97, 202903, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (13, 32, 51, 57, 274456, 157, 51, 202904, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (55, 32, 53, 23, 285545, 335, 39, 202905, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (42, 78, 71, 48, 407691, 519, 25, 202906, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (83, 77, 111, 59, 454485, 321, 26, 202907, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (110, 79, 66, 44, 495148, 381, 47, 202908, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (30, 89, 63, 41, 710849, 535, 29, 202909, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (43, 56, 111, 27, 554442, 368, 92, 202910, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (68, 66, 48, 40, 755124, 248, 25, 202911, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (87, 31, 107, 46, 269853, 117, 10, 202912, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (81, 44, 79, 14, 217617, 538, 58, 203001, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 28, 65, 36, 652570, 289, 82, 203002, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (10, 69, 90, 16, 866680, 484, 43, 203003, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 57, 21, 54, 956849, 544, 62, 203004, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (96, 97, 96, 26, 581970, 378, 102, 203005, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (23, 38, 44, 60, 222891, 391, 23, 203006, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (21, 42, 36, 47, 925897, 131, 74, 203007, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (45, 100, 110, 27, 849200, 350, 43, 203008, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (93, 59, 57, 38, 602428, 235, 105, 203009, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (72, 20, 86, 59, 997466, 85, 35, 203010, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (94, 52, 36, 33, 673245, 285, 101, 203011, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (59, 76, 35, 52, 1004404, 270, 64, 203012, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (95, 82, 38, 30, 922484, 170, 11, 203101, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (10, 64, 44, 53, 296928, 495, 36, 203102, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (40, 59, 101, 40, 320055, 283, 26, 203103, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (75, 65, 84, 43, 1086071, 354, 26, 203104, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (56, 63, 92, 35, 508615, 321, 42, 203105, 2);
+INSERT INTO employee_goal (rental_product_count, rental_retention_count, total_rental_count, new_customer_count, total_rental_amount, customer_feedback_score, customer_feedback_count, target_date, employee_id) VALUES (51, 48, 116, 36, 773754, 269, 44, 203106, 2);
 
 COMMIT;
