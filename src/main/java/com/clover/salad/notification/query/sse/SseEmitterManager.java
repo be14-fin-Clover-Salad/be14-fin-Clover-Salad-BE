@@ -31,22 +31,24 @@ public class SseEmitterManager {
 
 		emitter.onCompletion(() -> {
 			emitters.remove(employeeId);
+			emitter.complete();
 			log.info("[SSE] 연결 종료 - employeeId: {}", employeeId);
 		});
 		emitter.onTimeout(() -> {
 			emitters.remove(employeeId);
+			emitter.complete();
 			log.warn("[SSE] 타임아웃 발생 - employeeId: {}", employeeId);
 		});
 		emitter.onError(e -> {
 			emitters.remove(employeeId);
+			emitter.completeWithError(e);
 			log.error("[SSE] 에러 발생 - employeeId: {}, 오류: {}", employeeId, e.getMessage());
 		});
 
 		try {
-			emitter.send(SseEmitter.event()
-				.name("heartbeat")
-				.data("connected"));
+			emitter.send(SseEmitter.event().name("heartbeat").data("connected"));
 		} catch (IOException e) {
+			emitter.completeWithError(e);
 			emitters.remove(employeeId);
 			log.error("[SSE] 더미 이벤트 전송 실패 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
 			throw new RuntimeException("SSE 연결 실패");
@@ -77,6 +79,7 @@ public class SseEmitterManager {
 				emitter.send(SseEmitter.event().name("notification").data(data));
 				log.info("[SSE] 알림 전송 성공 - employeeId: {}", employeeId);
 			} catch (IOException e) {
+				emitter.completeWithError(e);
 				emitters.remove(employeeId);
 				log.error("[SSE] 알림 전송 실패 - employeeId: {}, 이유: {}", employeeId, e.getMessage());
 			}
