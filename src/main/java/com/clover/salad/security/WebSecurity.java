@@ -2,11 +2,14 @@ package com.clover.salad.security;
 
 import static org.springframework.security.config.Customizer.*;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +17,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.clover.salad.employee.query.service.EmployeeQueryService;
 
@@ -41,20 +47,18 @@ public class WebSecurity {
 	@Bean
 	protected SecurityFilterChain configure(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 		http.csrf(csrf -> csrf.disable());
-		http.cors(withDefaults());
+		// http.cors(withDefaults());
 
 		http.authorizeHttpRequests(authz ->
-				authz
-					// .requestMatchers("/**").permitAll()					// 개발용 일시적 허용
-					.requestMatchers("/auth/login").permitAll()
-					.requestMatchers("/employee").permitAll()
-					.requestMatchers("/employee/**").permitAll()
-					.requestMatchers("/notification/subscribe").permitAll()
-					.requestMatchers("/dashboard/sales").permitAll()
-					.requestMatchers("api/log/access").permitAll()
-					.anyRequest().permitAll()
-					// .anyRequest().authenticated()
-			)
+			authz
+				.requestMatchers("/auth/login").permitAll()
+				.requestMatchers("/auth/refresh-token").permitAll()
+				.requestMatchers("/notification/subscribe").permitAll()
+				.requestMatchers("/employee/password-reset").permitAll()
+				.requestMatchers("/employee/password-resets/confirm").permitAll()
+				.requestMatchers("/api/log/access").permitAll()
+				.anyRequest().authenticated()
+		)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 		http.addFilter(getAuthenticationFilter(authenticationManager));

@@ -34,13 +34,16 @@
              , P.RENTAL_COST
              , P.DESCRIPTION
              , P.IS_DELETED
-             , P.FILE_UPLOAD_ID
-             , F.RENAME_FILE AS FILE_NAME
-             , F.PATH AS FILE_URL
+             , CASE
+                   WHEN F.ID IS NULL THEN 2
+                   ELSE F.ID
+               END AS FILE_UPLOAD_ID
+             , COALESCE(F.RENAME_FILE, F2.RENAME_FILE) AS FILE_NAME
+             , COALESCE(F.PATH, F2.PATH) AS FILE_URL
           FROM PRODUCT P
-          JOIN FILE_UPLOAD F
-            ON P.FILE_UPLOAD_ID = F.ID
-         WHERE P.ID = #{productId}
+     LEFT JOIN FILE_UPLOAD F ON P.FILE_UPLOAD_ID = F.ID
+     LEFT JOIN FILE_UPLOAD F2 ON F.ID IS NULL AND F2.ID = 2
+         WHERE P.ID = #{productId};
     </select>
 
     <!-- 설명. 상품 목록 조회 -->
