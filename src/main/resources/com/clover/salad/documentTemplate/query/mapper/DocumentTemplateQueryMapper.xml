@@ -40,6 +40,9 @@
         <if test="createdAtEnd != null and createdAtEnd != ''">
             AND dt.created_at &lt;= #{createdAtEnd}
         </if>
+        <if test="description != null and description!= ''">
+            AND dt.description LIKE CONCAT('%', #{description}, '%')
+        </if>
         ORDER BY dt.created_at DESC
     </select>
 

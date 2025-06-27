@@ -16,4 +16,5 @@ public class DocumentTemplateSearchDTO {
 	private String version;
 	private String createdAtStart;
 	private String createdAtEnd;
+	private String description;
 }
