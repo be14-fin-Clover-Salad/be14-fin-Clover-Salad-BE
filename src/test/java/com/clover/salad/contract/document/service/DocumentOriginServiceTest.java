@@ -8,6 +8,7 @@ import com.clover.salad.contract.document.entity.DocumentOrigin;
 import com.clover.salad.contract.document.entity.DocumentTemplate;
 import com.clover.salad.contract.document.repository.DocumentOriginRepository;
 import com.clover.salad.contract.document.repository.DocumentTemplateRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,14 +40,14 @@ class DocumentOriginServiceTest {
 	@Mock
 	private DocumentTemplateRepository templateRepo;
 
-	@InjectMocks									  // 의존성 주입 Mock 객체
+	@InjectMocks                                      // 의존성 주입 Mock 객체
 	private DocumentOriginService service;
 
 	private DocumentTemplate defaultTemplate;         // 기본 템플릿 더미
 	private FileUploadEntity dummyUpload;             // 업로드 더미 엔티티
 
-
-	@BeforeEach										  // 각 시작전 파일 세팅
+	@BeforeEach
+		// 각 시작전 파일 세팅
 	void setUp() {
 		defaultTemplate = DocumentTemplate.builder()
 			.id(1)
@@ -86,8 +87,8 @@ class DocumentOriginServiceTest {
 		assertThat(savedOrigin.isDeleted()).isFalse();
 
 		/*
-		*  verify 업로드 몇번 되었는지 확인 (여러번 되면 안되기 때문)
-		* */
+		 *  verify 업로드 몇번 되었는지 확인 (여러번 되면 안되기 때문)
+		 * */
 		verify(fileUploadService).uploadAndSave(testFile, "test.pdf", FileUploadType.CONTRACT);
 		verify(templateRepo).findById(1);
 		verify(originRepo).save(any(DocumentOrigin.class));
@@ -138,8 +139,8 @@ class DocumentOriginServiceTest {
 		service.rollback(origin);
 
 		/* then:
-		* void 반환이기에 assertThat 확인 없이 내부에서만 처리
-		* */
+		 * void 반환이기에 assertThat 확인 없이 내부에서만 처리
+		 * */
 		verify(fileUploadService).deleteFromS3(dummyUpload.getPath());
 		verify(originRepo).delete(origin);
 		verify(uploadRepo).delete(dummyUpload);
