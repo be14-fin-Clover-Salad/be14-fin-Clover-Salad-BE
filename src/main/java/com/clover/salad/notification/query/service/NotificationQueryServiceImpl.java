@@ -1,5 +1,6 @@
 package com.clover.salad.notification.query.service;
 
+import com.clover.salad.notification.command.domain.aggregate.entity.NotificationEntity;
 import com.clover.salad.notification.query.dto.NotificationDropdownResponseDTO;
 import com.clover.salad.notification.query.dto.NotificationListResponseDTO;
 import com.clover.salad.notification.query.mapper.NotificationMapper;
@@ -7,6 +8,7 @@ import com.clover.salad.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +24,9 @@ public class NotificationQueryServiceImpl implements NotificationQueryService {
 	}
 
 	@Override
-	public List<NotificationDropdownResponseDTO> getUnreadTop5() {
+	public List<NotificationDropdownResponseDTO> getUnreadAll() {
 		int employeeId = SecurityUtil.getEmployeeId();
-		return notificationMapper.findTop5UnreadByEmployeeId(employeeId);
+		return notificationMapper.findAllUnreadByEmployeeId(employeeId);
 	}
 
 	@Override

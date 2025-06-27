@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clover.salad.common.exception.CustomersException;
@@ -37,10 +38,18 @@ public class CustomerQueryController {
         return ResponseEntity.ok(customerQueryService.findCustomerById(customerId));
     }
 
-    /** 로그인한 사원이 담당하는 고객 목록 조회 */
+    /** 로그인한 사원이 담당하는 고객 목록 조회 (조건 검색 지원) */
     @GetMapping("/my")
-    public ResponseEntity<List<CustomerQueryDTO>> getMyCustomers() {
-        return ResponseEntity.ok(customerQueryService.findMyCustomers());
+    public ResponseEntity<List<CustomerQueryDTO>> getMyCustomers(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String birthdateFrom,
+            @RequestParam(required = false) String birthdateTo,
+            @RequestParam(required = false) String registerAtFrom,
+            @RequestParam(required = false) String registerAtTo) {
+        return ResponseEntity.ok(customerQueryService.findMyCustomersByCondition(name, phone, type,
+                birthdateFrom, birthdateTo, registerAtFrom, registerAtTo));
     }
 
     /** 로그인한 사원이 담당하는 고객 단건 조회 */

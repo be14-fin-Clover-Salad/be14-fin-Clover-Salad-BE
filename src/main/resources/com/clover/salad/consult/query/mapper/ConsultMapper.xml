@@ -15,47 +15,64 @@
         <result property="employeeId" column="employee_id"/>
         <result property="customerId" column="customer_id"/>
         <result property="customerName" column="customer_name"/>
+        <result property="employeeName" column="employee_name"/>
+        <result property="employeeLevelLabel" column="employee_level_label"/>
     </resultMap>
 
     <!-- 관리자 조회 -->
     <select id="findAll" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         ORDER BY c.consult_at DESC
     </select>
 
     <select id="findConsultById" parameterType="int" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.id = #{id}
     </select>
 
     <select id="findConsultByIdIncludingDeleted" parameterType="int" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.id = #{id}
     </select>
 
     <select id="findConsultByIdExcludingDeleted" parameterType="int" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.id = #{id} AND c.is_deleted = false
     </select>
 
     <!-- 사원 조회 -->
     <select id="findConsultsByEmployeeId" parameterType="int" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.employee_id = #{employeeId}
           AND c.is_deleted = false
         ORDER BY c.consult_at DESC
@@ -63,9 +80,12 @@
 
     <select id="findConsultByEmployeeIdAndConsultId" parameterType="map" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.employee_id = #{employeeId}
           AND c.id = #{consultId}
           AND c.is_deleted = false
@@ -73,9 +93,12 @@
 
     <select id="findConsultByEmployeeIdAndConsultIdIncludingDeleted" parameterType="map" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE c.employee_id = #{employeeId}
           AND c.id = #{consultId}
     </select>
@@ -90,10 +113,13 @@
             c.feedback_score,
             c.etc,
             c.is_deleted,
-            cu.name AS customer_name
+            cu.name AS customer_name,
+            e.name AS employee_name,
+            e.level AS employee_level_label
         FROM
             consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         WHERE
             c.customer_id = #{customerId}
             AND c.is_deleted = FALSE
@@ -110,9 +136,12 @@
 
     <select id="searchAll" parameterType="map" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         <where>
             <if test="consultDateFrom != null and consultDateFrom != ''">
                 AND c.consult_at >= #{consultDateFrom}
@@ -138,9 +167,12 @@
 
     <select id="searchMyConsults" parameterType="map" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
-               cu.name AS customer_name
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
         FROM consultation c
         LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
         <where>
             c.employee_id = #{employeeId}
             AND c.is_deleted = false

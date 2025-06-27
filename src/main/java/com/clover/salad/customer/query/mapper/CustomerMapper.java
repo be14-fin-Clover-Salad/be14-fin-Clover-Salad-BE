@@ -33,4 +33,12 @@ public interface CustomerMapper {
 
         boolean existsConsultByCustomer(@Param("name") String name,
                         @Param("birthdate") String birthdate, @Param("phone") String phone);
+
+        List<CustomerQueryDTO> findCustomersByCondition(@Param("employeeId") int employeeId,
+                        @Param("name") String name, @Param("phone") String phone,
+                        @Param("type") String type, @Param("birthdateFrom") String birthdateFrom,
+                        @Param("birthdateTo") String birthdateTo,
+                        @Param("registerAtFrom") String registerAtFrom,
+                        @Param("registerAtTo") String registerAtTo);
+
 }

@@ -132,6 +132,15 @@
         LEFT JOIN product p  ON cp.product_id = p.id
         <where>
             NOT c.is_deleted
+            <choose>
+                <when test="search.workPlace != null and search.workPlace != ''">
+                    AND e.work_place = #{search.workPlace}
+                </when>
+
+                <when test="employeeId != 1">
+                    AND c.employee_id = #{employeeId}
+                </when>
+            </choose>
 
             <if test="search.workPlace != null and search.workPlace != ''">
                 AND e.work_place = #{search.workPlace}
@@ -205,6 +214,119 @@
         GROUP BY c.id
         ORDER BY c.id DESC
     </select>
+
+    <select id="searchContractsAdmin"
+            resultMap="ContractResultMap"
+            parameterType="map">
+        SELECT
+        c.id,
+        c.code,
+        c.created_at,
+        c.start_date,
+        c.end_date,
+        c.status,
+        c.amount,
+        c.bank_name,
+        c.bank_account,
+        c.payment_day,
+        c.deposit_owner,
+        c.relationship,
+        c.payment_email,
+        c.is_deleted,
+        c.etc,
+        e.name      AS employee_name,
+        cu.id       AS customer_id,
+        cu.name     AS customer_name,
+        GROUP_CONCAT(p.name SEPARATOR ', ') AS product_names
+        FROM contract c
+        JOIN employee e      ON c.employee_id = e.id
+        JOIN customer cu     ON c.customer_id = cu.id
+        LEFT JOIN contract_product cp ON c.id = cp.contract_id
+        LEFT JOIN product p  ON cp.product_id = p.id
+        <where>
+            c.is_deleted = FALSE
+
+            <if test="search.searchEmployeeId != null">
+                AND c.employee_id = #{search.searchEmployeeId}
+            </if>
+
+            <if test="search.minAmount != null">
+                AND c.amount &gt;= #{search.minAmount}
+            </if>
+            <if test="search.maxAmount != null">
+                AND c.amount &lt;= #{search.maxAmount}
+            </if>
+
+            <if test="search.code != null and search.code != ''">
+                AND c.code LIKE CONCAT('%', #{search.code}, '%')
+            </if>
+
+            <if test="search.createdAtStart != null">
+                AND c.created_at &gt;= #{search.createdAtStart}
+            </if>
+            <if test="search.createdAtEnd != null">
+                AND c.created_at &lt;= #{search.createdAtEnd}
+            </if>
+
+            <if test="search.startDateStart != null">
+                AND c.start_date &gt;= #{search.startDateStart}
+            </if>
+            <if test="search.startDateEnd != null">
+                AND c.start_date &lt;= #{search.startDateEnd}
+            </if>
+
+            <if test="search.endDateStart != null">
+                AND c.end_date &gt;= #{search.endDateStart}
+            </if>
+            <if test="search.endDateEnd != null">
+                AND c.end_date &lt;= #{search.endDateEnd}
+            </if>
+
+            <if test="search.status != null and search.status != ''">
+                AND c.status = #{search.status}
+            </if>
+
+            <if test="search.bankName != null and search.bankName != ''">
+                AND c.bank_name LIKE CONCAT('%', #{search.bankName}, '%')
+            </if>
+
+            <if test="search.paymentDayStart != null">
+                AND c.payment_day &gt;= #{search.paymentDayStart}
+            </if>
+            <if test="search.paymentDayEnd != null">
+                AND c.payment_day &lt;= #{search.paymentDayEnd}
+            </if>
+
+            <if test="search.depositOwner != null and search.depositOwner != ''">
+                AND c.deposit_owner LIKE CONCAT('%', #{search.depositOwner}, '%')
+            </if>
+
+            <if test="search.relationship != null and search.relationship != ''">
+                AND c.relationship = #{search.relationship}
+            </if>
+
+            <if test="search.employeeName != null and search.employeeName != ''">
+                AND e.name LIKE CONCAT('%', #{search.employeeName}, '%')
+            </if>
+
+            <if test="search.customerName != null and search.customerName != ''">
+                AND cu.name LIKE CONCAT('%', #{search.customerName}, '%')
+            </if>
+
+            <if test="search.productName != null and search.productName != ''">
+                AND EXISTS (
+                SELECT 1
+                FROM contract_product cp2
+                JOIN product p2 ON cp2.product_id = p2.id
+                WHERE cp2.contract_id = c.id
+                AND p2.name LIKE CONCAT('%', #{search.productName}, '%')
+                )
+            </if>
+        </where>
+        GROUP BY c.id
+        ORDER BY c.id DESC
+    </select>
+
 
 
 

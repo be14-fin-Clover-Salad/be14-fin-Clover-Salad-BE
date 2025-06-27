@@ -13,8 +13,11 @@ import org.modelmapper.spi.SourceGetter;
 import org.springframework.stereotype.Service;
 
 import com.clover.salad.common.exception.EmployeeNotFoundException;
+import com.clover.salad.consult.query.dto.ConsultQueryDTO;
+import com.clover.salad.consult.query.service.ConsultQueryService;
 import com.clover.salad.contract.command.entity.ContractProductEntity;
 import com.clover.salad.contract.command.repository.ContractProductRepository;
+import com.clover.salad.contract.common.ContractStatus;
 import com.clover.salad.contract.query.dto.ContractDTO;
 import com.clover.salad.contract.query.dto.ContractSearchDTO;
 import com.clover.salad.contract.query.service.ContractService;
@@ -48,34 +51,55 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 	private final PerformanceQueryService performanceQueryService;
 	private final ContractProductRepository contractProductRepository;
 	private final ModelMapper modelMapper;
-
+	private final ConsultQueryService consultQueryService;
+	
 	@Override
 	public void refreshEmployeePerformance(String employeeCode, int targetDate) {
 		int employeeId = getEmployeeByCode(employeeCode).getId();
 
 		YearMonth yearMonth = YearMonth.of(targetDate / 100, targetDate % 100);
-		LocalDate startDateStart = yearMonth.atDay(1);
+		YearMonth yearBeforeMonth = yearMonth.minusMonths(1);
+		LocalDate endDateStart = yearMonth.atDay(1);
 		LocalDate startDateEnd = yearMonth.atEndOfMonth();
+		LocalDate lastMonthStartDateEnd = yearBeforeMonth.atEndOfMonth();
 
 		EmployeePerformance currentEP = employeePerformanceRepository.findByEmployeeIdAndTargetDate(employeeId, targetDate);
 
 		/* 계약 조회를 위한 검색 조건 생성 */
-		ContractSearchDTO contractSearchDTO = ContractSearchDTO.builder()
+		ContractSearchDTO lastMonthContractSearchDTO = ContractSearchDTO.builder()
 			.employeeId(employeeId)
-			.status("완료")
-			.startDateStart(startDateStart)
+			.status(ContractStatus.IN_CONTRACT.getLabel())
+			.endDateStart(endDateStart)
+			.startDateEnd(lastMonthStartDateEnd)
+			.build();
+
+		List<ContractDTO> lastMonthContractDTOList = contractService.searchContracts(employeeId, lastMonthContractSearchDTO);
+		
+		ContractSearchDTO terminatedContractSearchDTO = ContractSearchDTO.builder()
+			.employeeId(employeeId)
+			.status(ContractStatus.TERMINATED.getLabel())
+			.endDateStart(endDateStart)
+			.startDateEnd(lastMonthStartDateEnd)
+			.build();
+		
+		List<ContractDTO> terminatedContractDTOList = contractService.searchContracts(employeeId, terminatedContractSearchDTO);
+		
+		ContractSearchDTO currentContractSearchDTO = ContractSearchDTO.builder()
+			.employeeId(employeeId)
+			.status(ContractStatus.IN_CONTRACT.getLabel())
+			.endDateStart(endDateStart)
 			.startDateEnd(startDateEnd)
 			.build();
 
-		List<ContractDTO> contractDTOList = contractService.searchContracts(employeeId, contractSearchDTO);
+		List<ContractDTO> currentContractDTOList = contractService.searchContracts(employeeId, currentContractSearchDTO);
 
 		int rentalProductCount = 0;
 
-		/* totalRentalCount 이번 달의 총 계약 수 */
-		int totalRentalCount = contractDTOList.size();
+		/* totalRentalCount 저번 달부터 있던 '계약중' 계약 수 + '중도해지' 계약 수 */
+		int totalRentalCount = lastMonthContractDTOList.size() + terminatedContractDTOList.size();
 
-		/* 현재 유지되는 계약을 확인하기 위해 이전 달 계약 수로 초기화 */
-		int rentalRetentionCount = totalRentalCount;
+		/* rentalRetentionCount 저번 달부터 있던 '계약중' 계약 수 */
+		int rentalRetentionCount = lastMonthContractDTOList.size();
 
 		/* 총 계약 금액을 저장할 변수 */
 		long totalRentalAmount = 0L;
@@ -83,28 +107,38 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 		/* 새로운 고객을 중복없이 저장하기 위한 Set */
 		Set<Integer> newCustomerIdSet = new HashSet<>();
 
-		for (ContractDTO contractDTO : contractDTOList) {
+		for (ContractDTO contractDTO : currentContractDTOList) {
 			/* rentalProductCount 렌탈 상품 수 */
 			List<ContractProductEntity> cpEntityList = contractProductRepository.findByContractId(contractDTO.getId());
 			for (ContractProductEntity cpEntity : cpEntityList) {
 				rentalProductCount += cpEntity.getQuantity();
 			}
-			/* rentalRetentionCount 계약 유지 건수 = 이번 달 총 계약 수 - 이번 달에 시작된 계약 수 */
-			if (contractDTO.getStartDate().isAfter(startDateStart)
-				|| contractDTO.getStartDate().isEqual(startDateStart)) {
-				rentalRetentionCount--;
-			}
+			
 			/* newCustomerCount 신규 고객 수: 리스트로 만들고 id 개수를 세는 로직 */
 			int currentCustomerId = contractDTO.getCustomerId();
-			LocalDate currentCustomerRegisterDate = customerQueryService.findCustomerById(currentCustomerId).getRegisterAt();
-			if (currentCustomerRegisterDate.isAfter(startDateStart)
-			 || currentCustomerRegisterDate.isEqual(startDateStart)) {
+			LocalDate currentCustomerRegisterDate = customerQueryService.findMyCustomerById(currentCustomerId).getRegisterAt();
+			if (currentCustomerRegisterDate.isAfter(endDateStart)
+			 || currentCustomerRegisterDate.isEqual(endDateStart)) {
 				newCustomerIdSet.add(currentCustomerId);
 			}
 			/* totalRentalAmount 총 렌탈 금액 */
 			totalRentalAmount += contractDTO.getAmount();
 		}
-
+		
+		/* customerFeedbackScore 피드백 점수 총합 */
+		int customerFeedbackScore = 0;
+		
+		/* customerFeedbackCount 피드백 한 사람 수 */
+		int customerFeedbackCount = 0;
+		
+		List<ConsultQueryDTO> consultList = consultQueryService.findMyConsults();
+		for (ConsultQueryDTO consultDTO : consultList) {
+			if (consultDTO.getFeedbackScore() != null) {
+				customerFeedbackScore += consultDTO.getFeedbackScore();
+				customerFeedbackCount++;
+			}
+		}
+		
 		EmployeePerformanceDTO epDTO = EmployeePerformanceDTO.builder()
 			.employeeId(employeeId)
 			.targetDate(targetDate)
@@ -113,14 +147,10 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 			.totalRentalCount(totalRentalCount)
 			.newCustomerCount(newCustomerIdSet.size())
 			.totalRentalAmount(totalRentalAmount)
+			.customerFeedbackScore(customerFeedbackScore)
+			.customerFeedbackCount(customerFeedbackCount)
 			.build();
-
-		/* customerFeedbackScore 피드백 점수 총합 */
-
-
-		/* customerFeedbackCount 피드백 한 사람 수 */
-
-
+		
 		/* 조회 시 없으면 새로 만들기, 있으면 업데이트하기 */
 		mapIntToDividedDoubleAndIgnoreId(
 			EmployeePerformanceDTO.class,

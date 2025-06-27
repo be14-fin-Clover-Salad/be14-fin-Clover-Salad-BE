@@ -75,7 +75,23 @@ public class NotificationCommandServiceImpl implements NotificationCommandServic
 			}
 			n.markAsDeleted(); // 소프트 딜리트
 		}
+		notificationRepository.saveAll(notifications);
+	}
 
+	@Override
+	public void markMultipleAsRead(List<Integer> notificationIds) {
+		if (notificationIds == null || notificationIds.isEmpty()) {
+			return ;
+		}
+		int employeeId = SecurityUtil.getEmployeeId();
+		List<NotificationEntity> notifications = notificationRepository.findAllById(notificationIds);
+
+		for (NotificationEntity n : notifications) {
+			if (n.getEmployeeId() != employeeId) {
+				throw new AccessDeniedException("자신의 알림만 읽음 처리할 수 있습니다.");
+			}
+			n.markAsRead();
+		}
 		notificationRepository.saveAll(notifications);
 	}
 }

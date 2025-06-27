@@ -35,4 +35,7 @@ public class ContractSearchDTO {
 	private String employeeName;
 	private String customerName;
 	private String productName;
+
+	private Integer searchEmployeeId;
+
 }

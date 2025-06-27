@@ -171,4 +171,24 @@ public class CustomerQueryServiceImpl implements CustomerQueryService {
     public List<ConsultQueryDTO> findConsultsByCustomerId(int customerId) {
         return consultQueryService.findConsultsByCustomerId(customerId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CustomerQueryDTO> findMyCustomersByCondition(String name, String phone, String type,
+            String birthdateFrom, String birthdateTo, String registerAtFrom, String registerAtTo) {
+        String token = jwtUtil.resolveToken(request);
+        if (token == null) {
+            throw new CustomersException.CustomerAccessDeniedException("인증 토큰이 없습니다.");
+        }
+        int employeeId = jwtUtil.getEmployeeId(token);
+        return customerMapper.findCustomersByCondition(employeeId, name, phone, type, birthdateFrom,
+                birthdateTo, registerAtFrom, registerAtTo);
+    }
+
+    /** 최근 등록된 고객 1건 조회 - 권한 미체크 */
+    @Override
+    @Transactional(readOnly = true)
+    public CustomerQueryDTO findCurrentOnly(int customerId) {
+        return customerMapper.findCustomerById(customerId);
+    }
 }

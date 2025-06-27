@@ -41,4 +41,10 @@ public interface CustomerQueryService {
 
     // 고객 ID로 상담이력 조회
     List<ConsultQueryDTO> findConsultsByCustomerId(int customerId);
+
+    List<CustomerQueryDTO> findMyCustomersByCondition(String name, String phone, String type,
+            String birthdateFrom, String birthdateTo, String registerAtFrom, String registerAtTo);
+
+    // 최근 등록된 고객 단건 조회 - 권한 미체크
+    CustomerQueryDTO findCurrentOnly(int customerId);
 }
