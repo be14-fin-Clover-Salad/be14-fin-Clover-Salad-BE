@@ -47,7 +47,7 @@ public class WebSecurity {
 	@Bean
 	protected SecurityFilterChain configure(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 		http.csrf(csrf -> csrf.disable());
-		http.cors(withDefaults());
+		// http.cors(withDefaults());
 
 		http.authorizeHttpRequests(authz ->
 			authz
