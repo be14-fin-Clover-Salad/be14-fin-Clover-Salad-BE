@@ -42,6 +42,8 @@ public class ContractServiceImpl implements ContractService {
 			String workPlace = meEnt.getWorkPlace();
 			dto.setWorkPlace(workPlace);
 			dto.setEmployeeId(null);
+		} else if (SecurityUtil.hasRole("ROLE_ADMIN")) {
+			return contractMapper.searchContractsAdmin(1, dto);
 		} else {
 			dto.setEmployeeId(me);
 			dto.setWorkPlace(null);
