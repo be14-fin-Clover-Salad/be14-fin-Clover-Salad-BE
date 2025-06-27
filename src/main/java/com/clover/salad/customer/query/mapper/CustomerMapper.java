@@ -40,4 +40,5 @@ public interface CustomerMapper {
                         @Param("birthdateTo") String birthdateTo,
                         @Param("registerAtFrom") String registerAtFrom,
                         @Param("registerAtTo") String registerAtTo);
+
 }
