@@ -136,10 +136,13 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 		
 		List<ConsultQueryDTO> consultList = consultQueryService.findCurrentOnly(employeeId);
 		for (ConsultQueryDTO consultDTO : consultList) {
-			LocalDateTime consultTime = LocalDateTime.parse(consultDTO.getConsultAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			LocalDateTime consultTime = LocalDateTime.parse(
+				consultDTO.getConsultAt(),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+			);
+			
 			if (consultDTO.getFeedbackScore() != null
-			 && consultTime.isAfter(endDateStart.atStartOfDay())
-			 && consultTime.isEqual(endDateStart.atStartOfDay())
+			&& (consultTime.isAfter(endDateStart.atStartOfDay()) || consultTime.isEqual(endDateStart.atStartOfDay()))
 			) {
 				customerFeedbackScore += consultDTO.getFeedbackScore();
 				customerFeedbackCount++;
