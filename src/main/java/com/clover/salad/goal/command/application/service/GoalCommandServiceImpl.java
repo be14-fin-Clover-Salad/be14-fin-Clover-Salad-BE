@@ -169,7 +169,7 @@ public class GoalCommandServiceImpl implements GoalCommandService {
 	
 	private void validateAdmin() {
 		if (!SecurityUtil.hasRole("ROLE_ADMIN")) {
-			throw new SecurityException("관리자만 상품을 수정 또는 삭제할 수 있습니다.");
+			throw new SecurityException("관리자만 목표를 삭제할 수 있습니다.");
 		}
 	}
 }
