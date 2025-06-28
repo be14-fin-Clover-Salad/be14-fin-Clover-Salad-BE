@@ -35,7 +35,7 @@ class SalesDashboardQueryServiceImplTest {
 	private SalesDashboardQueryServiceImpl service;
 
 	@Test
-	void 전체_매출_조회_월단위() {
+	void 전체_매출_조회_기간_월() {
 
 		// given
 		LocalDate now = LocalDate.of(2025, 6, 25);
@@ -65,7 +65,7 @@ class SalesDashboardQueryServiceImplTest {
 	}
 
 	@Test
-	void 전체_매출_조회_전월단위() {
+	void 전체_매출_조회_기간_전월() {
 
 		// given
 		String period = "lastmonth";
@@ -185,7 +185,7 @@ class SalesDashboardQueryServiceImplTest {
 	}
 
 	@Test
-	void 팀별_매출_비중_조회_연도단위() {
+	void 팀별_매출_비중_조회_기간_연() {
 
 		// given
 		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
@@ -336,7 +336,7 @@ class SalesDashboardQueryServiceImplTest {
 	}
 
 	@Test
-	void 팀별_매출_비중_조회_연간단위() {
+	void 팀별_매출_비중_조회_연단위() {
 
 		// given
 		int year = 2024;
@@ -430,7 +430,7 @@ class SalesDashboardQueryServiceImplTest {
 	}
 
 	@Test
-	void 팀별_매출_총액_조회_연도단위() {
+	void 팀별_매출_총액_조회_연단위() {
 
 		// given
 		int year = 2025;
