@@ -17,14 +17,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.clover.salad.approval.command.application.dto.ApprovalDecisionDTO;
 import com.clover.salad.approval.command.application.dto.ApprovalRequestDTO;
 import com.clover.salad.approval.command.domain.aggregate.entity.ApprovalEntity;
+import com.clover.salad.approval.command.domain.aggregate.enums.ApprovalState;
 import com.clover.salad.approval.command.domain.repository.ApprovalRepository;
 import com.clover.salad.approval.query.mapper.ApprovalMapper;
 import com.clover.salad.contract.command.entity.ContractEntity;
 import com.clover.salad.contract.command.repository.ContractRepository;
 import com.clover.salad.employee.query.mapper.EmployeeMapper;
+import com.clover.salad.employee.query.service.EmployeeQueryService;
 import com.clover.salad.notification.command.application.service.NotificationCommandService;
+import com.clover.salad.performance.command.application.service.PerformanceCommandService;
 import com.clover.salad.security.SecurityUtil;
 import com.clover.salad.security.token.TokenPrincipal;
 
@@ -46,6 +50,12 @@ class ApprovalCommandServiceImplTest {
 	@Mock
 	private ContractRepository contractRepository;
 
+	@Mock
+	private EmployeeQueryService employeeQueryService;
+
+	@Mock
+	private PerformanceCommandService performanceCommandService;
+
 	@InjectMocks
 	private ApprovalCommandServiceImpl approvalCommandService;
 
@@ -54,7 +64,7 @@ class ApprovalCommandServiceImplTest {
 		List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_MEMBER"));
 
 		// TokenPrincipal 생성
-		TokenPrincipal principal = new TokenPrincipal(10, "EMP001", authorities);
+		TokenPrincipal principal = new TokenPrincipal(10, "202501009", authorities);
 
 		UsernamePasswordAuthenticationToken auth =
 			new UsernamePasswordAuthenticationToken(principal, null, authorities);
@@ -96,4 +106,92 @@ class ApprovalCommandServiceImplTest {
 		assertEquals(123, approvalId);
 		verify(notificationCommandService).createNotification(any());
 	}
+
+	@Test
+	public void 결재처리_승인_성공() {
+
+		// given
+		int approvalId = 20;
+		int requesterId = 10;
+		int managerId = 11;
+		int contractId = 1;
+
+		ApprovalDecisionDTO dto = new ApprovalDecisionDTO();
+		dto.setApprovalId(approvalId);
+		dto.setDecision("APPROVE");
+		dto.setComment("승인합니다");
+
+		List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_MANAGER"));
+		TokenPrincipal principal = new TokenPrincipal(11, "202501010", authorities);
+		UsernamePasswordAuthenticationToken auth =
+			new UsernamePasswordAuthenticationToken(principal, null, authorities);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+
+		ApprovalEntity entity = ApprovalEntity.builder()
+			.id(dto.getApprovalId())
+			.reqId(requesterId)
+			.aprvId(managerId)
+			.state(ApprovalState.REQUESTED)
+			.contractId(contractId)
+			.build();
+
+		ContractEntity contract = new ContractEntity();
+
+		when(approvalRepository.findById(dto.getApprovalId())).thenReturn(Optional.of(entity));
+		when(contractRepository.findById(contractId)).thenReturn(Optional.of(contract));
+		when(employeeQueryService.findCodeById(requesterId)).thenReturn("202501010");
+
+		// when
+		approvalCommandService.decideApproval(dto);
+
+		// then
+		verify(approvalRepository).save(any());
+		verify(notificationCommandService).createNotification(any());
+		verify(performanceCommandService).refreshEmployeePerformance(eq("202501010"), anyInt());
+	}
+
+	@Test
+	public void 결재처리_반려_성공() {
+
+		// given
+		int approvalId = 30;
+		int requesterId = 15;
+		int managerId = 99;
+		int contractId = 5;
+
+		ApprovalDecisionDTO dto = new ApprovalDecisionDTO();
+		dto.setApprovalId(approvalId);
+		dto.setDecision("REJECT");
+		dto.setComment("반려합니다.");
+
+		List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_MANAGER"));
+		TokenPrincipal principal = new TokenPrincipal(managerId, "202501015", authorities);
+		UsernamePasswordAuthenticationToken auth =
+			new UsernamePasswordAuthenticationToken(principal, null, authorities);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+
+		ApprovalEntity entity = ApprovalEntity.builder()
+			.id(dto.getApprovalId())
+			.reqId(requesterId)
+			.aprvId(managerId)
+			.state(ApprovalState.REQUESTED)
+			.contractId(contractId)
+			.build();
+
+		ContractEntity contract = new ContractEntity();
+
+		when(approvalRepository.findById(dto.getApprovalId())).thenReturn(Optional.of(entity));
+		when(contractRepository.findById(contractId)).thenReturn(Optional.of(contract));
+		when(employeeQueryService.findCodeById(requesterId)).thenReturn("202501015");
+
+		// when
+		approvalCommandService.decideApproval(dto);
+
+		// then
+		verify(approvalRepository).save(any());
+		verify(notificationCommandService).createNotification(any());
+		verify(performanceCommandService).refreshEmployeePerformance(eq("202501015"), anyInt());
+
+	}
+
 }
