@@ -25,6 +25,7 @@ import com.clover.salad.notice.query.dto.NoticeListDTO;
 import com.clover.salad.notice.query.mapper.NoticeMapper;
 
 @ExtendWith(MockitoExtension.class)
+@DisplayName("공지사항 Query 서비스 계층 테스트")
 class NoticeQueryServiceImplTest {
 
 	@Mock

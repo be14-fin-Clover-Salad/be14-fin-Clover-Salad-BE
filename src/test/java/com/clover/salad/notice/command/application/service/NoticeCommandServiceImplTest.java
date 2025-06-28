@@ -25,7 +25,7 @@ import com.clover.salad.notice.command.domain.repository.NoticeRepository;
 import com.clover.salad.notification.command.application.service.NotificationCommandService;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("공지사항 서비스 계층 테스트")
+@DisplayName("공지사항 Command 서비스 계층 테스트")
 class NoticeCommandServiceImplTest {
 
 	@Mock
