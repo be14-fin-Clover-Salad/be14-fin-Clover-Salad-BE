@@ -17,6 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.clover.salad.salesDashboard.query.dto.SalesMonthlyTrendResponseDTO;
 import com.clover.salad.salesDashboard.query.dto.SalesQuarterlyTrendResponseDTO;
+import com.clover.salad.salesDashboard.query.dto.SalesTeamAmountResponseDTO;
+import com.clover.salad.salesDashboard.query.dto.SalesTeamRatioRawDTO;
+import com.clover.salad.salesDashboard.query.dto.SalesTeamRatioResponseDTO;
 import com.clover.salad.salesDashboard.query.dto.SalesTotalRequestDTO;
 import com.clover.salad.salesDashboard.query.dto.SalesTotalResponseDTO;
 import com.clover.salad.salesDashboard.query.dto.SalesYearlyTrendResponseDTO;
@@ -153,16 +156,304 @@ class SalesDashboardQueryServiceImplTest {
 	void 연도별_매출_추이_조회() {
 
 		// given
-		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class)) {
+		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
 			LocalDate now = LocalDate.of(2025, 6, 25);
+			mock.when(LocalDate::now).thenReturn(now);
+
 			int endYear = now.getYear();
 			int startYear = endYear - 9;
 
+			List<SalesYearlyTrendResponseDTO> mockResult = List.of(
+				new SalesYearlyTrendResponseDTO(2016, 5000),
+				new SalesYearlyTrendResponseDTO(2017, 6000)
+			);
+
+			when(salesDashboardQueryMapper.selectYearlySalesRange(startYear, endYear)).thenReturn(mockResult);
+
+			// when
+			List<SalesYearlyTrendResponseDTO> result = service.getYearlySalesTrend();
+
+			// then
+			assertThat(result).hasSize(2);
+			assertThat(result.get(0).getYear()).isEqualTo(2016);
+			assertThat(result.get(0).getTotalAmount()).isEqualTo(5000);
+			assertThat(result.get(1).getYear()).isEqualTo(2017);
+			assertThat(result.get(1).getTotalAmount()).isEqualTo(6000);
+
+			verify(salesDashboardQueryMapper).selectYearlySalesRange(startYear, endYear);
+		}
+	}
+
+	@Test
+	void 팀별_매출_비중_조회_연도단위() {
+
+		// given
+		try (MockedStatic<LocalDate> mock = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
+			LocalDate now = LocalDate.of(2025, 6, 25);
+			LocalDate startDate = now.withDayOfYear(1);
+
 			mock.when(LocalDate::now).thenReturn(now);
 
-			List<SalesYearlyTrendResponseDTO> mockResult = List.of(
-				new SalesYearlyTrendResponseDTO(2016, 6)
-			)
+			SalesTeamRatioRawDTO team1 = mock(SalesTeamRatioRawDTO.class);
+			when(team1.getTeamName()).thenReturn("영업1팀");
+			when(team1.getTeamAmount()).thenReturn(3000);
+
+			SalesTeamRatioRawDTO team2 = mock(SalesTeamRatioRawDTO.class);
+			when(team2.getTeamName()).thenReturn("영업2팀");
+			when(team2.getTeamAmount()).thenReturn(7000);
+
+			List<SalesTeamRatioRawDTO> rawList = List.of(team1, team2);
+
+			when(salesDashboardQueryMapper.selectTeamSalesInPeriod(eq(startDate), eq(now))).thenReturn(rawList);
+
+			// when
+			List<SalesTeamRatioResponseDTO> result = service.getSalesTeamRatioByPeriod("year");
+
+			// then
+			assertThat(result).hasSize(2);
+			assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+			assertThat(result.get(0).getTeamAmount()).isEqualTo(3000);
+			assertThat(result.get(0).getRatio()).isEqualTo(30.0);
+
+			assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+			assertThat(result.get(1).getTeamAmount()).isEqualTo(7000);
+			assertThat(result.get(1).getRatio()).isEqualTo(70.0);
+
+			verify(salesDashboardQueryMapper).selectTeamSalesInPeriod(eq(startDate), eq(now));
+
 		}
+	}
+
+	@Test
+	void 팀별_매출_비중_조회_월단위() {
+
+		// given
+		int year = 2025;
+		int month = 6;
+		LocalDate start = LocalDate.of(2025, 6, 1);
+		LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+		SalesTeamRatioRawDTO team1 = mock(SalesTeamRatioRawDTO.class);
+		when(team1.getTeamName()).thenReturn("영업1팀");
+		when(team1.getTeamAmount()).thenReturn(3000);
+
+		SalesTeamRatioRawDTO team2 = mock(SalesTeamRatioRawDTO.class);
+		when(team2.getTeamName()).thenReturn("영업2팀");
+		when(team2.getTeamAmount()).thenReturn(7000);
+
+		List<SalesTeamRatioRawDTO> rawList = List.of(team1, team2);
+
+		when(salesDashboardQueryMapper.selectTeamSalesInPeriod(start, end)).thenReturn(rawList);
+
+		// when
+		List<SalesTeamRatioResponseDTO> result = service.getMonthlyTeamSalesRatio(year, month);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(3000);
+		assertThat(result.get(0).getRatio()).isEqualTo(30.0);
+
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(7000);
+		assertThat(result.get(1).getRatio()).isEqualTo(70.0);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesInPeriod(eq(start), eq(end));
+	}
+
+	@Test
+	void 분기별_매출_비중_조회() {
+
+		// given
+		int year = 2025;
+		int quarter = 2;
+		LocalDate start = LocalDate.of(2025, 4, 1);
+		LocalDate end = LocalDate.of(2025, 6, 30);
+
+		SalesTeamRatioRawDTO team1 = mock(SalesTeamRatioRawDTO.class);
+		when(team1.getTeamName()).thenReturn("영업1팀");
+		when(team1.getTeamAmount()).thenReturn(2500);
+
+		SalesTeamRatioRawDTO team2 = mock(SalesTeamRatioRawDTO.class);
+		when(team2.getTeamName()).thenReturn("영업2팀");
+		when(team2.getTeamAmount()).thenReturn(7500);
+
+		List<SalesTeamRatioRawDTO> rawList = List.of(team1, team2);
+
+		when(salesDashboardQueryMapper.selectTeamSalesInPeriod(eq(start), eq(end))).thenReturn(rawList);
+
+		// when
+		List<SalesTeamRatioResponseDTO> result = service.getQuarterlyTeamSalesRatio(year, quarter);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(2500);
+		assertThat(result.get(0).getRatio()).isEqualTo(25.0);
+
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(7500);
+		assertThat(result.get(1).getRatio()).isEqualTo(75.0);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesInPeriod(eq(start), eq(end));
+	}
+
+	@Test
+	void 팀별_매출_비중_조회_분기단위() {
+
+		// given
+		int year = 2025;
+		int quarter = 2;
+		LocalDate start = LocalDate.of(2025, 4, 1);
+		LocalDate end = LocalDate.of(2025, 6, 30);
+
+		SalesTeamRatioRawDTO team1 = mock(SalesTeamRatioRawDTO.class);
+		when(team1.getTeamName()).thenReturn("영업1팀");
+		when(team1.getTeamAmount()).thenReturn(2500);
+
+		SalesTeamRatioRawDTO team2 = mock(SalesTeamRatioRawDTO.class);
+		when(team2.getTeamName()).thenReturn("영업2팀");
+		when(team2.getTeamAmount()).thenReturn(7500);
+
+		List<SalesTeamRatioRawDTO> rawList = List.of(team1, team2);
+
+		when(salesDashboardQueryMapper.selectTeamSalesInPeriod(eq(start), eq(end))).thenReturn(rawList);
+
+		// when
+		List<SalesTeamRatioResponseDTO> result = service.getQuarterlyTeamSalesRatio(year, quarter);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(2500);
+		assertThat(result.get(0).getRatio()).isEqualTo(25.0);
+
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(7500);
+		assertThat(result.get(1).getRatio()).isEqualTo(75.0);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesInPeriod(eq(start), eq(end));
+	}
+
+	@Test
+	void 팀별_매출_비중_조회_연간단위() {
+
+		// given
+		int year = 2024;
+		LocalDate start = LocalDate.of(2024, 1, 1);
+		LocalDate end = LocalDate.of(2024, 12, 31);
+
+		SalesTeamRatioRawDTO team1 = mock(SalesTeamRatioRawDTO.class);
+		when(team1.getTeamName()).thenReturn("영업1팀");
+		when(team1.getTeamAmount()).thenReturn(4000);
+
+		SalesTeamRatioRawDTO team2 = mock(SalesTeamRatioRawDTO.class);
+		when(team2.getTeamName()).thenReturn("영업2팀");
+		when(team2.getTeamAmount()).thenReturn(6000);
+
+		List<SalesTeamRatioRawDTO> rawList = List.of(team1, team2);
+
+		when(salesDashboardQueryMapper.selectTeamSalesInPeriod(eq(start), eq(end))).thenReturn(rawList);
+
+		// when
+		List<SalesTeamRatioResponseDTO> result = service.getYearlyTeamSalesRatio(year);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(4000);
+		assertThat(result.get(0).getRatio()).isEqualTo(40.0);
+
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(6000);
+		assertThat(result.get(1).getRatio()).isEqualTo(60.0);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesInPeriod(eq(start), eq(end));
+	}
+
+	@Test
+	void 팀별_매출_총액_조회_월단위() {
+
+		// given
+		int year = 2025;
+		int month = 6;
+		LocalDate start = LocalDate.of(year, month, 1);
+		LocalDate end = start.withDayOfMonth(start.lengthOfMonth());
+
+		List<SalesTeamAmountResponseDTO> mockResult = List.of(
+			new SalesTeamAmountResponseDTO("영업1팀", 1000),
+			new SalesTeamAmountResponseDTO("영업2팀", 2000)
+		);
+
+		when(salesDashboardQueryMapper.selectTeamSalesAmountInRange(eq(start), eq(end))).thenReturn(mockResult);
+
+		// when
+		List<SalesTeamAmountResponseDTO> result = service.getTeamSalesAmountByMonth(year, month);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(1000);
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(2000);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesAmountInRange(eq(start), eq(end));
+	}
+
+	@Test
+	void 팀별_매출_총액_조회_분기단위() {
+
+		// given
+		int year = 2025;
+		int month = 2;
+		LocalDate start = LocalDate.of(2025, 4, 1);
+		LocalDate end = LocalDate.of(2025, 6, 30);
+
+		List<SalesTeamAmountResponseDTO> mockResult = List.of(
+			new SalesTeamAmountResponseDTO("영업1팀", 1000),
+			new SalesTeamAmountResponseDTO("영업2팀", 2000)
+		);
+
+		when(salesDashboardQueryMapper.selectTeamSalesAmountInRange(eq(start), eq(end))).thenReturn(mockResult);
+
+		// when
+		List<SalesTeamAmountResponseDTO> result = service.getTeamSalesAmountByQuarter(year, month);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(1000);
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(2000);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesAmountInRange(eq(start), eq(end));
+	}
+
+	@Test
+	void 팀별_매출_총액_조회_연도단위() {
+
+		// given
+		int year = 2025;
+		LocalDate start = LocalDate.of(2025, 1, 1);
+		LocalDate end = LocalDate.of(2025, 12, 31);
+
+		List<SalesTeamAmountResponseDTO> mockResult = List.of(
+			new SalesTeamAmountResponseDTO("영업1팀", 1000),
+			new SalesTeamAmountResponseDTO("영업2팀", 2000)
+		);
+
+		when(salesDashboardQueryMapper.selectTeamSalesAmountInRange(eq(start), eq(end))).thenReturn(mockResult);
+
+		// when
+		List<SalesTeamAmountResponseDTO> result = service.getTeamSalesAmountByYear(year);
+
+		// then
+		assertThat(result).hasSize(2);
+		assertThat(result.get(0).getTeamName()).isEqualTo("영업1팀");
+		assertThat(result.get(0).getTeamAmount()).isEqualTo(1000);
+		assertThat(result.get(1).getTeamName()).isEqualTo("영업2팀");
+		assertThat(result.get(1).getTeamAmount()).isEqualTo(2000);
+
+		verify(salesDashboardQueryMapper).selectTeamSalesAmountInRange(eq(start), eq(end));
 	}
 }
