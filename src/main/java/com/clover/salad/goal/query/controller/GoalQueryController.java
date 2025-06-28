@@ -48,7 +48,12 @@ public class GoalQueryController {
 		@PathVariable int employeeCode,
 		@PathVariable int targetYear
 	) {
-		return ResponseEntity.ok(goalQueryService.searchYearGoalByCurrentGoal(employeeCode, targetYear));
+		List<GoalDTO> response = goalQueryService.searchYearGoalByCurrentGoal(employeeCode, targetYear);
+		if (response.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.ok(response);
+		}
 	}
 	
 	/* 설명. 기본 실적 목표 조회 */

@@ -11,8 +11,9 @@ import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.consult.query.service.ConsultQueryService;
 import com.clover.salad.customer.query.dto.CustomerQueryDTO;
 import com.clover.salad.customer.query.mapper.CustomerMapper;
+import com.clover.salad.employee.query.service.EmployeeQueryService;
 import com.clover.salad.security.JwtUtil;
-
+import com.clover.salad.security.SecurityUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,29 @@ public class CustomerQueryServiceImpl implements CustomerQueryService {
 
     private final CustomerMapper customerMapper;
     private final ConsultQueryService consultQueryService;
+    private final EmployeeQueryService employeeQueryService;
     private final JwtUtil jwtUtil;
     private final HttpServletRequest request;
+
+    // 전체 고객 조회 - 권한 분기 내부 처리
+    @Override
+    @Transactional(readOnly = true)
+    public List<CustomerQueryDTO> findAllCheckRole() {
+        int employeeId = SecurityUtil.getEmployeeId();
+        int departmentId = employeeQueryService.getEmployeeDetailById(employeeId).getDepartmentId();
+
+        if (SecurityUtil.hasRole("ROLE_MANAGER")) {
+            log.info("팀장");
+            log.info(Integer.toString(departmentId));
+            return customerMapper.findCustomersByDepartmentId(departmentId);
+        } else if (SecurityUtil.hasRole("ROLE_ADMIN")) {
+            log.info("관리자");
+            return customerMapper.findAll();
+        } else {
+            log.info("사원");
+            return customerMapper.findCustomersByEmployeeId(employeeId);
+        }
+    }
 
     /** 전체 고객 목록 조회 - 관리자 전용 */
     @Override

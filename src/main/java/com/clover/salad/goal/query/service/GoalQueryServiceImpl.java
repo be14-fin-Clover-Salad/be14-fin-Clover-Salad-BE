@@ -2,7 +2,6 @@ package com.clover.salad.goal.query.service;
 
 import java.util.List;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.clover.salad.employee.query.dto.EmployeeSearchRequestDTO;
@@ -21,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class GoalQueryServiceImpl implements GoalQueryService {
 	private final GoalMapper goalMapper;
-	private final UserDetailsService userDetailsService;
 	private final EmployeeQueryService employeeQueryService;
 	
 	@Override

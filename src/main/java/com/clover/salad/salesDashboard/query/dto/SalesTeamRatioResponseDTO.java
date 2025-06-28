@@ -8,5 +8,5 @@ import lombok.Getter;
 public class SalesTeamRatioResponseDTO {
 	private String teamName;
 	private int teamAmount;
-	private double ratio;  // 전체 대비 비율 (%)
+	private double ratio;
 }

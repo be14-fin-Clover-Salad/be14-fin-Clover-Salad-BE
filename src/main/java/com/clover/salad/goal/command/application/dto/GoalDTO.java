@@ -30,4 +30,7 @@ public class GoalDTO {
 	private int targetDate;
 	private int employeeId;
 	private Integer employeeCode;
+	
+	private int departmentId;
+	private String departmentName;
 }

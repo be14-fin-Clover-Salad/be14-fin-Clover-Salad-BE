@@ -9,8 +9,9 @@ import com.clover.salad.common.exception.ConsultsException;
 import com.clover.salad.common.util.AuthUtil;
 import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.consult.query.mapper.ConsultMapper;
+import com.clover.salad.employee.query.service.EmployeeQueryService;
 import com.clover.salad.security.JwtUtil;
-
+import com.clover.salad.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +23,25 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
 
     private final ConsultMapper consultMapper;
     private final JwtUtil jwtUtil;
+    private final EmployeeQueryService employeeQueryService;
+
+    @Override
+    public List<ConsultQueryDTO> findAllCheckRole() {
+        int employeeId = SecurityUtil.getEmployeeId();
+        int departmentId = employeeQueryService.getEmployeeDetailById(employeeId).getDepartmentId();
+
+        if (SecurityUtil.hasRole("ROLE_MANAGER")) {
+            log.info("팀장");
+            log.info(Integer.toString(departmentId));
+            return consultMapper.findConsultsByDepartmentId(departmentId);
+        } else if (SecurityUtil.hasRole("ROLE_ADMIN")) {
+            log.info("관리자");
+            return consultMapper.findAll();
+        } else {
+            log.info("사원");
+            return consultMapper.findConsultsByEmployeeId(employeeId);
+        }
+    }
 
     @Override
     public List<ConsultQueryDTO> searchAll(String consultDateFrom, String consultDateTo,
