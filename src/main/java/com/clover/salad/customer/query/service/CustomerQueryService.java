@@ -7,6 +7,9 @@ import com.clover.salad.customer.query.dto.CustomerQueryDTO;
 
 public interface CustomerQueryService {
 
+    // 모든 고객 조회 - 권한 분기 내부 처리
+    List<CustomerQueryDTO> findAllCheckRole();
+
     // 관리자: 전체 고객 목록 조회
     List<CustomerQueryDTO> findAll();
 
