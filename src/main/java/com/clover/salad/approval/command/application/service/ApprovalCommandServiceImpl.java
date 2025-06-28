@@ -12,9 +12,11 @@ import com.clover.salad.contract.command.entity.ContractEntity;
 import com.clover.salad.contract.command.repository.ContractRepository;
 import com.clover.salad.contract.common.ContractStatus;
 import com.clover.salad.employee.query.mapper.EmployeeMapper;
+import com.clover.salad.employee.query.service.EmployeeQueryService;
 import com.clover.salad.notification.command.application.dto.NotificationCreateDTO;
 import com.clover.salad.notification.command.application.service.NotificationCommandService;
 import com.clover.salad.notification.command.domain.aggregate.enums.NotificationType;
+import com.clover.salad.performance.command.application.service.PerformanceCommandService;
 import com.clover.salad.security.SecurityUtil;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,19 +39,25 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 	private final ApprovalMapper approvalMapper;
 	private final NotificationCommandService notificationCommandService;
 	private final ContractRepository contractRepository;
+	private final PerformanceCommandService performanceCommandService;
+	private final EmployeeQueryService employeeQueryService;
 
 	@Autowired
 	public ApprovalCommandServiceImpl(ApprovalRepository approvalRepository,
 		EmployeeMapper employeeMapper,
 		ApprovalMapper approvalMapper,
 		NotificationCommandService notificationCommandService,
-		ContractRepository contractRepository
+		ContractRepository contractRepository,
+		PerformanceCommandService performanceCommandService,
+		EmployeeQueryService employeeQueryService
 	) {
 		this.approvalRepository = approvalRepository;
 		this.employeeMapper = employeeMapper;
 		this.approvalMapper = approvalMapper;
 		this.notificationCommandService = notificationCommandService;
 		this.contractRepository = contractRepository;
+		this.performanceCommandService = performanceCommandService;
+		this.employeeQueryService = employeeQueryService;
 	}
 
 	@Override
@@ -155,6 +164,7 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 	}
 
 	/* 설명. 팀장의 결재 로직 */
+	@Transactional
 	@Override
 	public void decideApproval(ApprovalDecisionDTO dto) {
 		int approverId = SecurityUtil.getEmployeeId();
@@ -184,6 +194,15 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 			contract.changeStatus(ContractStatus.IN_CONTRACT);
 			log.info("계약의 상태가 '계약중'으로 변경되었습니다.");
 
+			// // 잘 넘어오는지 체크용 로그
+			// log.info("결재 요청자 ID: {}", approval.getReqId());
+			// String requesterCode = employeeQueryService.findCodeById(approval.getReqId());
+			// log.info("결재 요청자 사번: {}", requesterCode);
+			//
+			// int targetDate = LocalDate.now().getYear() * 100 + LocalDate.now().getMonthValue();
+			// performanceCommandService.refreshEmployeePerformance(requesterCode, targetDate);
+			// log.info("실적 반영 완료 - 사번: {}, 대상 년월: {}", requesterCode, targetDate);
+
 		// decision 값이 reject면 반려. 반려 사유 입력했는지 체크
 		} else if ("REJECT".equalsIgnoreCase(dto.getDecision())) {
 			if (dto.getComment() == null || dto.getComment().isBlank()) {
@@ -197,10 +216,15 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 			contractRepository.save(contract);
 			log.info("계약의 상태가 '반려'로 변경되었습니다.");
 
-		// 그외 접근은 예외처리
 		} else {
 			throw new IllegalArgumentException("결재 처리 방식이 유효하지 않습니다.");
 		}
+
+		// // 실적 반영 로직
+		// 	String requesterCode = employeeQueryService.findCodeById(approval.getReqId());
+		// 	int targetDate = LocalDate.now().getYear() * 100 + LocalDate.now().getMonthValue();
+		// 	performanceCommandService.refreshEmployeePerformance(requesterCode, targetDate);
+		// 	log.info("실적 반영 왈료 - 사번: {}, 대상 년월: {}", requesterCode, targetDate);
 
 		approvalRepository.save(approval);
 

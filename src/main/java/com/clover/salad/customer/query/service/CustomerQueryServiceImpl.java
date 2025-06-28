@@ -184,4 +184,11 @@ public class CustomerQueryServiceImpl implements CustomerQueryService {
         return customerMapper.findCustomersByCondition(employeeId, name, phone, type, birthdateFrom,
                 birthdateTo, registerAtFrom, registerAtTo);
     }
+
+    /** 최근 등록된 고객 1건 조회 - 권한 미체크 */
+    @Override
+    @Transactional(readOnly = true)
+    public CustomerQueryDTO findCurrentOnly(int customerId) {
+        return customerMapper.findCustomerById(customerId);
+    }
 }
