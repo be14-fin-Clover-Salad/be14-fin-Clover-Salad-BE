@@ -6,6 +6,9 @@ import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 
 public interface ConsultQueryService {
 
+        // 전체 조회 - 권한 분기 내부 처리
+        List<ConsultQueryDTO> findAllCheckRole();
+
         List<ConsultQueryDTO> searchAll(String consultDateFrom, String consultDateTo,
                         String content, String customerName, Double minScore, Double maxScore);
 

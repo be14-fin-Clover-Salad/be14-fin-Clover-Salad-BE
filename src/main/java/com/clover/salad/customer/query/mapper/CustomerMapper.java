@@ -12,6 +12,8 @@ public interface CustomerMapper {
 
         List<CustomerQueryDTO> findAll();
 
+        List<CustomerQueryDTO> findCustomersByDepartmentId(@Param("departmentId") int departmentId);
+
         List<CustomerQueryDTO> findCustomersByIds(@Param("customerIds") List<Integer> customerIds);
 
         List<CustomerQueryDTO> findCustomersByEmployeeId(@Param("employeeId") int employeeId);

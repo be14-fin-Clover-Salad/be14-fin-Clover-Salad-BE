@@ -220,11 +220,11 @@ public class ApprovalCommandServiceImpl implements ApprovalCommandService {
 			throw new IllegalArgumentException("결재 처리 방식이 유효하지 않습니다.");
 		}
 
-		// // 실적 반영 로직
-		// 	String requesterCode = employeeQueryService.findCodeById(approval.getReqId());
-		// 	int targetDate = LocalDate.now().getYear() * 100 + LocalDate.now().getMonthValue();
-		// 	performanceCommandService.refreshEmployeePerformance(requesterCode, targetDate);
-		// 	log.info("실적 반영 왈료 - 사번: {}, 대상 년월: {}", requesterCode, targetDate);
+		// 실적 반영 로직
+			String requesterCode = employeeQueryService.findCodeById(approval.getReqId());
+			int targetDate = LocalDate.now().getYear() * 100 + LocalDate.now().getMonthValue();
+			performanceCommandService.refreshEmployeePerformance(requesterCode, targetDate);
+			log.info("실적 반영 왈료 - 사번: {}, 대상 년월: {}", requesterCode, targetDate);
 
 		approvalRepository.save(approval);
 

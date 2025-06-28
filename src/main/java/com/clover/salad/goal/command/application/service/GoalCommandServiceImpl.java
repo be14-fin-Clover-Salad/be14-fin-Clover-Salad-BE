@@ -15,6 +15,7 @@ import com.clover.salad.goal.command.application.dto.GoalDTO;
 import com.clover.salad.goal.command.domain.aggregate.entity.Goal;
 import com.clover.salad.goal.command.domain.repository.GoalRepository;
 import com.clover.salad.goal.query.service.GoalQueryService;
+import com.clover.salad.security.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +61,8 @@ public class GoalCommandServiceImpl implements GoalCommandService {
 	
 	@Override
 	public void deleteGoal(List<GoalDTO> goalList) {
+		validateAdmin();
+		
 		for (GoalDTO goalDTO : goalList) {
 			Goal goal = goalRepository.findByEmployeeIdAndTargetDate(goalDTO.getEmployeeId(), goalDTO.getTargetDate());
 			goalRepository.delete(goal);
@@ -162,5 +165,11 @@ public class GoalCommandServiceImpl implements GoalCommandService {
 		goal.setCustomerFeedbackScore(goalDTO.getCustomerFeedbackScore().doubleValue() / 10);
 		goal.setCustomerFeedbackCount(goalDTO.getCustomerFeedbackCount());
 		return goal;
+	}
+	
+	private void validateAdmin() {
+		if (!SecurityUtil.hasRole("ROLE_ADMIN")) {
+			throw new SecurityException("관리자만 목표를 삭제할 수 있습니다.");
+		}
 	}
 }

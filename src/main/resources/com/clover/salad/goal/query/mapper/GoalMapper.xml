@@ -27,11 +27,13 @@
         <result property="totalRentalCount" column="SUM(EG.TOTAL_RENTAL_COUNT)"/>
         <result property="newCustomerCount" column="SUM(EG.NEW_CUSTOMER_COUNT)"/>
         <result property="totalRentalAmount" column="SUM(EG.TOTAL_RENTAL_AMOUNT)"/>
-        <result property="customerFeedbackScore" column="ROUND(AVG(EG.CUSTOMER_FEEDBACK_SCORE * 10))"/>
+        <result property="customerFeedbackScore" column="SUM(EG.CUSTOMER_FEEDBACK_SCORE * 10)"/>
         <result property="customerFeedbackCount" column="SUM(EG.CUSTOMER_FEEDBACK_COUNT)"/>
         <result property="targetDate" column="TARGET_DATE"/>
         <result property="employeeId" column="EMPLOYEE_ID"/>
         <result property="employeeCode" column="EMPLOYEE_CODE"/>
+        <result property="departmentId" column="DEPARTMENT_ID"/>
+        <result property="departmentName" column="DEPARTMENT_NAME"/>
     </resultMap>
 
     <!-- 설명. 기본 실적 목표 ResultMap -->
@@ -118,21 +120,22 @@
              , SUM(EG.TOTAL_RENTAL_COUNT)
              , SUM(EG.NEW_CUSTOMER_COUNT)
              , SUM(EG.TOTAL_RENTAL_AMOUNT)
-             , ROUND(AVG(EG.CUSTOMER_FEEDBACK_SCORE * 10))
+             , SUM(EG.CUSTOMER_FEEDBACK_SCORE * 10)
              , SUM(EG.CUSTOMER_FEEDBACK_COUNT)
              , EG.TARGET_DATE
+             , D.ID AS DEPARTMENT_ID
+             , D.NAME AS DEPARTMENT_NAME
           FROM EMPLOYEE_GOAL EG
           JOIN EMPLOYEE E ON EG.EMPLOYEE_ID = E.ID
-         WHERE E.DEPARTMENT_ID = (SELECT D.ID
-                                    FROM DEPARTMENT D
-                                   WHERE D.NAME LIKE CONCAT('%', #{departmentName}, '%'))
+          JOIN DEPARTMENT D ON E.DEPARTMENT_ID = D.ID
+         WHERE D.NAME LIKE CONCAT('%', #{departmentName}, '%')
         <if test="startDate != ''">
-            AND EG.TARGET_DATE >= #{startDate}
+            AND EG.TARGET_DATE >= CAST(REPLACE(#{startDate}, '-', '') AS UNSIGNED)
         </if>
         <if test="endDate != ''">
-            <![CDATA[AND EG.TARGET_DATE <= #{endDate}]]>
+            <![CDATA[AND EG.TARGET_DATE <= CAST(REPLACE(#{endDate}, '-', '') AS UNSIGNED)]]>
         </if>
-         GROUP BY EG.TARGET_DATE
+         GROUP BY D.ID, D.NAME, EG.TARGET_DATE
         <trim prefix="HAVING" prefixOverrides="AND">
             <if test="minRentalProductCount != null">
                 AND SUM(EG.RENTAL_PRODUCT_COUNT) >= #{minRentalProductCount}
