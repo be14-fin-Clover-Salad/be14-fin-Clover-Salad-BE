@@ -69,9 +69,8 @@ public class NoticeCommandServiceImpl implements NoticeCommandService {
 
 		employeeNoticeRepository.saveAll(employeeNotices);
 
-		// 알림 전송
 		for (Integer empId : targetIds) {
-			if (empId == writerId) continue;	// 작성자 자신 제외
+			if (empId == writerId) continue;
 			notificationCommandService.createNotification(NotificationCreateDTO.builder()
 				.type(NotificationType.NOTICE)
 				.content("새로운 공지사항이 등록되었습니다.")
