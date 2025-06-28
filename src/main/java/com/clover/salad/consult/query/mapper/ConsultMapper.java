@@ -13,6 +13,9 @@ public interface ConsultMapper {
         /** 전체 상담 목록 (관리자용, 삭제 포함) */
         List<ConsultQueryDTO> findAll();
 
+        // 팀장용 상담 내역 조회
+        List<ConsultQueryDTO> findConsultsByDepartmentId(@Param("departmentId") int departmentId);
+
         /** 특정 상담 ID 기준 단건 조회 (관리자용, 삭제 포함) */
         ConsultQueryDTO findConsultById(@Param("id") int id);
 
