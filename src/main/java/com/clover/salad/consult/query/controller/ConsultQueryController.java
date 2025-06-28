@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clover.salad.common.exception.ConsultsException;
 import com.clover.salad.consult.query.dto.ConsultQueryDTO;
 import com.clover.salad.consult.query.service.ConsultQueryService;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,6 +24,12 @@ import lombok.RequiredArgsConstructor;
 public class ConsultQueryController {
 
     private final ConsultQueryService consultService;
+
+    // 전체 고객 목록 조회 - 권한 분기 내부 처리
+    @GetMapping("/all")
+    public ResponseEntity<List<ConsultQueryDTO>> findAllCheckRole() {
+        return ResponseEntity.ok(consultService.findAllCheckRole());
+    }
 
     /** 🔐 관리자: 전체 상담 목록 조회 */
     @GetMapping

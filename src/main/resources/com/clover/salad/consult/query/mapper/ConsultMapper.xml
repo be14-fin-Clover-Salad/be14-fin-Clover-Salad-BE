@@ -31,6 +31,23 @@
         ORDER BY c.consult_at DESC
     </select>
 
+    <!-- 팀장 조회 -->
+    <select id="findConsultsByDepartmentId" resultMap="consultResultMap">
+        SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
+               cu.name AS customer_name,
+               e.name AS employee_name,
+               e.level AS employee_level_label
+        FROM consultation c
+        LEFT JOIN customer cu ON c.customer_id = cu.id
+        LEFT JOIN employee e ON c.employee_id = e.id
+        WHERE c.employee_id in (select
+                                        id
+                                   from employee
+                                  where department_id = #{departmentId})
+          AND c.is_deleted = false
+        ORDER BY c.consult_at DESC
+    </select>
+
     <select id="findConsultById" parameterType="int" resultMap="consultResultMap">
         SELECT c.id, c.consult_at, c.content, c.is_deleted, c.etc, c.feedback_score, c.employee_id, c.customer_id,
                cu.name AS customer_name,
