@@ -26,6 +26,12 @@ public class CustomerQueryController {
 
     private final CustomerQueryService customerQueryService;
 
+    // 전체 고객 목록 조회 - 권한 분기 내부 처리
+    @GetMapping("/all")
+    public ResponseEntity<List<CustomerQueryDTO>> findAllCheckRole() {
+        return ResponseEntity.ok(customerQueryService.findAllCheckRole());
+    }
+
     /** 전체 고객 목록 조회 (관리자 권한 필요) */
     @GetMapping
     public ResponseEntity<List<CustomerQueryDTO>> findAll() {

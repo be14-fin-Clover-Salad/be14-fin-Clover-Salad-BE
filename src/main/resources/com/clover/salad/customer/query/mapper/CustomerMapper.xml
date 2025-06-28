@@ -34,6 +34,34 @@
            END as type
          , c.etc
       FROM customer c
+     ORDER BY c.register_at DESC;
+  </select>
+
+  <select id="findCustomersByDepartmentId" resultMap="CustomerResultMap">
+    select 
+           c.id
+         , c.name
+         , c.birthdate
+         , c.address
+         , c.phone
+         , c.email
+         , c.register_at
+         , c.is_deleted
+         , CASE c.type
+             WHEN '고객' THEN 'CUSTOMER'
+             WHEN '리드' THEN 'PROSPECT'
+             ELSE c.type
+           END as type
+         , c.etc
+      from customer c
+     where c.id in (select
+                           customer_id
+                      from consultation
+                     where employee_id in (select
+                                                  id
+                                             from employee
+                                            where department_id = #{departmentId}))
+     order by register_at desc;
   </select>
 
   <select id="findCustomerById" resultMap="CustomerResultMap">
@@ -55,6 +83,7 @@
       FROM customer c
      WHERE c.id = #{id}
        AND is_deleted = false
+     ORDER BY c.register_at DESC;
   </select>
 
   <select id="findCustomerByIdExcludingDeleted" resultMap="CustomerResultMap">
