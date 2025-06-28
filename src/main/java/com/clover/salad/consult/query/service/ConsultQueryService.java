@@ -35,4 +35,7 @@ public interface ConsultQueryService {
 
         // 사원 ID로 담당 고객 ID 목록 조회
         List<Integer> findCustomerIdsByEmployeeId(int employeeId);
+
+        // 권한 미체크 - 특정 사원의 전체 상담 내역 조회
+        List<ConsultQueryDTO> findCurrentOnly(int employeeId);
 }
