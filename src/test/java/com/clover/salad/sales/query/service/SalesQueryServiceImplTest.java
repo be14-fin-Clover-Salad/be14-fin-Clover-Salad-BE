@@ -46,5 +46,6 @@ class SalesQueryServiceImplTest {
 		// then
 		assertEquals(1, result.size());
 		assertEquals("영업1팀", result.get(0).getDepartment());
+		verify(salesQueryMapper).selectSalesByCondition(dto);
 	}
 }
