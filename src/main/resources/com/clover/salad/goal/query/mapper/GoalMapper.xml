@@ -127,10 +127,10 @@
                                     FROM DEPARTMENT D
                                    WHERE D.NAME LIKE CONCAT('%', #{departmentName}, '%'))
         <if test="startDate != ''">
-            AND EG.TARGET_DATE >= #{startDate}
+            AND EG.TARGET_DATE >= CAST(REPLACE(#{startDate}, '-', '') AS UNSIGNED)
         </if>
         <if test="endDate != ''">
-            <![CDATA[AND EG.TARGET_DATE <= #{endDate}]]>
+            <![CDATA[AND EG.TARGET_DATE <= CAST(REPLACE(#{endDate}, '-', '') AS UNSIGNED)]]>
         </if>
          GROUP BY EG.TARGET_DATE
         <trim prefix="HAVING" prefixOverrides="AND">
