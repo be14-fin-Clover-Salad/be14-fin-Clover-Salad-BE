@@ -1,7 +1,9 @@
 package com.clover.salad.performance.command.application.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +23,7 @@ import com.clover.salad.contract.common.ContractStatus;
 import com.clover.salad.contract.query.dto.ContractDTO;
 import com.clover.salad.contract.query.dto.ContractSearchDTO;
 import com.clover.salad.contract.query.service.ContractService;
+import com.clover.salad.customer.query.dto.CustomerQueryDTO;
 import com.clover.salad.customer.query.service.CustomerQueryService;
 import com.clover.salad.employee.command.domain.repository.DepartmentRepository;
 import com.clover.salad.employee.query.dto.EmployeeSearchRequestDTO;
@@ -116,9 +119,9 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 			
 			/* newCustomerCount 신규 고객 수: 리스트로 만들고 id 개수를 세는 로직 */
 			int currentCustomerId = contractDTO.getCustomerId();
-			LocalDate currentCustomerRegisterDate = customerQueryService.findMyCustomerById(currentCustomerId).getRegisterAt();
-			if (currentCustomerRegisterDate.isAfter(endDateStart)
-			 || currentCustomerRegisterDate.isEqual(endDateStart)) {
+			CustomerQueryDTO currentCustomer = customerQueryService.findCurrentOnly(currentCustomerId);
+			if (currentCustomer.getRegisterAt().isAfter(endDateStart)
+			 || currentCustomer.getRegisterAt().isEqual(endDateStart)) {
 				newCustomerIdSet.add(currentCustomerId);
 			}
 			/* totalRentalAmount 총 렌탈 금액 */
@@ -131,9 +134,13 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 		/* customerFeedbackCount 피드백 한 사람 수 */
 		int customerFeedbackCount = 0;
 		
-		List<ConsultQueryDTO> consultList = consultQueryService.findMyConsults();
+		List<ConsultQueryDTO> consultList = consultQueryService.findCurrentOnly(employeeId);
 		for (ConsultQueryDTO consultDTO : consultList) {
-			if (consultDTO.getFeedbackScore() != null) {
+			LocalDateTime consultTime = LocalDateTime.parse(consultDTO.getConsultAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			if (consultDTO.getFeedbackScore() != null
+			 && consultTime.isAfter(endDateStart.atStartOfDay())
+			 && consultTime.isEqual(endDateStart.atStartOfDay())
+			) {
 				customerFeedbackScore += consultDTO.getFeedbackScore();
 				customerFeedbackCount++;
 			}
@@ -160,11 +167,11 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 			EmployeePerformance::setId
 		);
 		if (currentEP == null) {
-			log.info("개인 실적 생성: {}", targetDate);
+			log.info("사원 코드 {}의 개인 실적 생성: {}", employeeCode, targetDate);
 			EmployeePerformance newEP = modelMapper.map(epDTO, EmployeePerformance.class);
 			employeePerformanceRepository.save(newEP);
 		} else {
-			log.info("개인 실적 갱신: {}", targetDate);
+			log.info("사원 코드 {}의 개인 실적 갱신: {}", employeeCode, targetDate);
 			modelMapper.map(epDTO, currentEP);
 			employeePerformanceRepository.save(currentEP);
 		}
@@ -216,11 +223,11 @@ public class PerformanceCommandServiceImpl implements PerformanceCommandService 
 			DepartmentPerformance::setId
 		);
 		if (currentDP == null) {
-			log.info("팀 실적 생성: {}", targetDate);
+			log.info("{} 팀 실적 생성: {}", deptName, targetDate);
 			DepartmentPerformance newDP = modelMapper.map(dpDTO, DepartmentPerformance.class);
 			departmentPerformanceRepository.save(newDP);
 		} else {
-			log.info("팀 실적 갱신: {}", targetDate);
+			log.info("{} 팀 실적 갱신: {}", deptName, targetDate);
 			modelMapper.map(dpDTO, currentDP);
 			departmentPerformanceRepository.save(currentDP);
 		}
