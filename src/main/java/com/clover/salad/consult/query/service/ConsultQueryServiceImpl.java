@@ -117,4 +117,11 @@ public class ConsultQueryServiceImpl implements ConsultQueryService {
     public List<Integer> findCustomerIdsByEmployeeId(int employeeId) {
         return consultMapper.findCustomerIdsByEmployeeId(employeeId);
     }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultQueryDTO> findCurrentOnly(int employeeId) {
+        return consultMapper.findConsultsByEmployeeId(employeeId);
+    }
 }
