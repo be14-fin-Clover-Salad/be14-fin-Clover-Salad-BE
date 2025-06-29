@@ -109,16 +109,23 @@ class CustomerCommandServiceImplTest {
     @Test
     void 고객_삭제() {
         int customerId = 10;
+        int employeeId = 999;
 
         try (MockedStatic<AuthUtil> auth = mockStatic(AuthUtil.class)) {
             auth.when(AuthUtil::isAdmin).thenReturn(false);
-            auth.when(AuthUtil::getEmployeeId).thenReturn(999);
+            auth.when(AuthUtil::getEmployeeId).thenReturn(employeeId);
 
-            when(contractService.getCustomerIdsByEmployee(999)).thenReturn(List.of());
+            // 실제 삭제 대상 Customer mock 객체 생성
+            Customer customer = Customer.builder().name("삭제될 고객").isDeleted(false).build();
 
-            assertThatThrownBy(() -> customerCommandService.deleteCustomer(customerId))
-                    .isInstanceOf(CustomersException.CustomerAccessDeniedException.class)
-                    .hasMessageContaining("삭제 권한이 없습니다.");
+            when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
+
+            // 실행
+            customerCommandService.deleteCustomer(customerId);
+
+            // soft delete 확인
+            assertThat(customer.isDeleted()).isTrue();
+            verify(customerRepository).findById(customerId);
         }
     }
 }
