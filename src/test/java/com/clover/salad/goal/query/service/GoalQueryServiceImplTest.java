@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.clover.salad.employee.query.dto.EmployeeSearchRequestDTO;
 import com.clover.salad.employee.query.dto.EmployeeSearchResponseDTO;
 import com.clover.salad.employee.query.service.EmployeeQueryService;
 import com.clover.salad.goal.command.application.dto.DefaultGoalDTO;

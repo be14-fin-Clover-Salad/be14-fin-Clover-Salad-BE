@@ -49,9 +49,7 @@ class ProductQueryServiceImplTest {
         when(productMapper.selectProductById(productId)).thenReturn(null);
 
         // when & then
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> {
-            productQueryService.searchProductById(productId);
-        });
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> productQueryService.searchProductById(productId));
         assertEquals("상품 검색 실패", exception.getMessage());
         verify(productMapper).selectProductById(productId);
     }
