@@ -85,15 +85,15 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 	@Override
 	@Transactional
 	public void updateCustomer(int customerId, CustomerUpdateRequest request) {
-		if (!AuthUtil.isAdmin()) {
-			int loginEmployeeId = AuthUtil.getEmployeeId();
-			List<Integer> accessibleCustomerIds =
-					consultQueryService.findCustomerIdsByEmployeeId(loginEmployeeId);
-			if (!accessibleCustomerIds.contains(customerId)) {
-				throw new CustomersException.CustomerAccessDeniedException(
-						"해당 고객에 대한 수정 권한이 없습니다.");
-			}
-		}
+		// if (!AuthUtil.isAdmin()) {
+		// int loginEmployeeId = AuthUtil.getEmployeeId();
+		// List<Integer> accessibleCustomerIds =
+		// consultQueryService.findCustomerIdsByEmployeeId(loginEmployeeId);
+		// if (!accessibleCustomerIds.contains(customerId)) {
+		// throw new CustomersException.CustomerAccessDeniedException(
+		// "해당 고객에 대한 수정 권한이 없습니다.");
+		// }
+		// }
 
 		Customer customer = customerRepository.findById(customerId).orElseThrow(
 				() -> new CustomersException.CustomerNotFoundException("고객이 존재하지 않습니다."));
@@ -105,15 +105,15 @@ public class CustomerCommandServiceImpl implements CustomerCommandService {
 	@Override
 	@Transactional
 	public void deleteCustomer(int customerId) {
-		if (!AuthUtil.isAdmin()) {
-			int loginEmployeeId = AuthUtil.getEmployeeId();
-			List<Integer> accessibleCustomerIds =
-					contractService.getCustomerIdsByEmployee(loginEmployeeId);
-			if (!accessibleCustomerIds.contains(customerId)) {
-				throw new CustomersException.CustomerAccessDeniedException(
-						"해당 고객에 대한 삭제 권한이 없습니다.");
-			}
-		}
+		// if (!AuthUtil.isAdmin()) {
+		// int loginEmployeeId = AuthUtil.getEmployeeId();
+		// List<Integer> accessibleCustomerIds =
+		// contractService.getCustomerIdsByEmployee(loginEmployeeId);
+		// if (!accessibleCustomerIds.contains(customerId)) {
+		// throw new CustomersException.CustomerAccessDeniedException(
+		// "해당 고객에 대한 삭제 권한이 없습니다.");
+		// }
+		// }
 
 		Customer customer = customerRepository.findById(customerId).orElseThrow(
 				() -> new CustomersException.CustomerNotFoundException("고객이 존재하지 않습니다."));
