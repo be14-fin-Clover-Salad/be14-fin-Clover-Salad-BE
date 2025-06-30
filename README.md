@@ -15,6 +15,7 @@
 
 #### [💡 Tech Stack](#-tech-stack)
 #### [📢 프로젝트 개요](#-프로젝트-개요)
+#### [💼 프로젝트 기획서](#-프로젝트-기획서)
 #### [🛠️ 주요 기능](#-주요-기능)
 #### [🙆‍♀️ 요구사항 명세서](#-요구사항-명세서)
 #### [🎃 WBS](#-wbs)
@@ -73,8 +74,14 @@
 ### 2. 프로젝트 설명
 
 
+<br>
+
+## 💼 프로젝트 기획서
+
+<img src="https://github.com/user-attachments/assets/cfd0e2fb-4b2b-41ba-9eb4-71c01d8dec7b">
 
 <br>
+
 
 ## 🛠️ 주요 기능
 
@@ -139,7 +146,7 @@
 
 ## 🎗️ API 명세서
 
-### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
 
 
 <br>
