@@ -123,7 +123,7 @@ Salad는 영업사원 개개인이 가장 효율적으로 일할 수 있는 환�
 
 ## 🕶️ 단위테스트 결과서
 
-#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4-%EA%B2%B0%EA%B3%BC)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/6.-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4-%EA%B2%B0%EA%B3%BC)
 
 <br>
 
