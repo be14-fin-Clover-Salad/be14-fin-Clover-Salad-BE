@@ -17,10 +17,7 @@
 #### [📢 프로젝트 개요](#-프로젝트-개요)
 #### [💼 프로젝트 기획서](#-프로젝트-기획서)
 #### [🛠️ 주요 기능](#-주요-기능)
-#### [🙆‍♀️ 요구사항 명세서](#-요구사항-명세서)
-#### [🎃 WBS](#-wbs)
-#### [🗃️ DB 모델링](#-db-모델링)
-#### [🛜 시스템 아키텍처](#-시스템-아키텍처)
+#### [🙆‍♀️ 기획 문서](#-기획-문서)
 #### [💍 화면 설계서 및 스토리보드](#-화면-설계서-및-스토리보드)
 #### [🥎 프로그램 사양서](#-프로그램-사양서)
 #### [🎗️ API 명세서](#-api-명세서)
@@ -87,41 +84,9 @@
 
 <br>
 
-## 🙆‍♀️ 요구사항 명세서
+## 🙆‍♀️ 기획 문서
 
-<details>
-<summary>요구사항 명세서</summary>
-<div markdown="1">
-<img src="https://github.com/user-attachments/assets/0e998248-de57-46e3-9f69-5cf040603efc">
-<img src="https://github.com/user-attachments/assets/65658954-d28b-4c8e-97a8-144b4a111c94">
-<img src="https://github.com/user-attachments/assets/42aedea7-5184-436d-91bc-5e900b3fe955">
-
-</div>
-</details>
-
-<br>
-
-## 🎃 WBS
-
-<img src="https://github.com/user-attachments/assets/5a953ea4-7f27-4d20-955c-510f4306c201">
-
-<br>
-
-## 🗃️ DB 모델링
-
-<details>
-<summary>DB 모델링</summary>
-<div markdown="1">
-<img src="https://github.com/user-attachments/assets/26334fa6-0ffa-4d1c-a2e8-5b5ed486b81c">
-
-</div>
-</details>
-
-<br>
-
-## 🛜 시스템 아키텍처
-
-<img src="https://github.com/user-attachments/assets/008f5cae-3bae-4a1a-a981-3cb8fbbdf94c">
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%EA%B8%B0%ED%9A%8D-%EB%AC%B8%EC%84%9C)
 
 <br>
 
@@ -129,8 +94,8 @@
 
 ## 💍 화면 설계서 및 스토리보드
 
-#### 🔗 [화면 설계서](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
-#### 🔗 [스토리 보드](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%EC%8A%A4%ED%86%A0%EB%A6%AC-%EB%B3%B4%EB%93%9C)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%EC%8A%A4%ED%86%A0%EB%A6%AC-%EB%B3%B4%EB%93%9C)
 
 <br>
 
