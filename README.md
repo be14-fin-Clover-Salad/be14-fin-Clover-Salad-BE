@@ -139,6 +139,7 @@
 
 ## 🎗️ API 명세서
 
+### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
 
 
 <br>
