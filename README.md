@@ -4,11 +4,12 @@
 
 ## 👨‍💻 DEVELOPERS
 
-|<img src="" width="100" height="100"> |<img src="" width="100" height="100"> | <img src="" width="100" height="100">|<img src="" width="100" height="100"> | <img src="" width="100" height="100"> | <img src="" width="100" height="100"> |
+|<img src="https://github.com/user-attachments/assets/cb845810-25d3-4dcf-ba17-67fcfc0b8af8" width="100" height="100"> |<img src="https://github.com/user-attachments/assets/909ac8c4-efbc-4018-80c0-ccdf25c83aa8" width="100" height="100"> | <img src="https://github.com/user-attachments/assets/aaa00294-adab-437d-91ab-936b31ff96e5" width="100" height="100">|<img src="https://github.com/user-attachments/assets/9af3805d-c77b-47bb-87fd-22175393c99c" width="100" height="100"> | <img src="https://github.com/user-attachments/assets/827413dd-fdae-4023-81df-7f0c7b72e8eb" width="100" height="100"> | <img src="https://github.com/user-attachments/assets/f3bf98d3-e389-43dd-96bb-e75e8d279624" width="100" height="100"> |
 | :------------------------------------: | :-------------------------------------: | :-----------------------------------: | :--------------------------------------: | :-----------------------------------: | :-----------------------------------: |
 | [고성연](https://github.com/Gombo2) | [강수지](https://github.com/yehang218) | [이청민](https://github.com/Bluesky3125) | [김성민](https://github.com/SungMin-hub) | [고윤석](https://github.com/minsun24) | [이서영(멘토)](https://github.com/beyond-sw-camp) |
 
 <br>
+
 
 ## 📜 목차
 
@@ -113,7 +114,7 @@
 
 ## 🛜 시스템 아키텍처
 
-
+<img src="https://github.com/user-attachments/assets/008f5cae-3bae-4a1a-a981-3cb8fbbdf94c">
 
 <br>
 
@@ -121,7 +122,7 @@
 
 ## 💍 화면 설계서 및 스토리보드
 
-<img src="https://github.com/user-attachments/assets/008f5cae-3bae-4a1a-a981-3cb8fbbdf94c">
+
 
 <br>
 
