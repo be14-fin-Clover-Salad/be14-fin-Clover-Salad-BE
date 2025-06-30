@@ -78,7 +78,7 @@
 
 ## 💼 프로젝트 기획서
 
-<img src="https://github.com/user-attachments/assets/cfd0e2fb-4b2b-41ba-9eb4-71c01d8dec7b">
+<img src="https://github.com/user-attachments/assets/6eefd7f2-7262-4158-b6b4-6f6883427747">
 
 <br>
 
@@ -153,7 +153,7 @@
 
 ## 🕶️ 단위테스트 결과서
 
-
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4-%EA%B2%B0%EA%B3%BC)
 
 <br>
 
