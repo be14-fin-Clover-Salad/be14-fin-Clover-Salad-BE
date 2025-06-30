@@ -101,7 +101,7 @@ Salad는 영업사원 개개인이 가장 효율적으로 일할 수 있는 환�
 
 ## 🙆‍♀️ 기획 문서
 
-#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%EA%B8%B0%ED%9A%8D-%EB%AC%B8%EC%84%9C)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/2.-%EA%B8%B0%ED%9A%8D-%EB%AC%B8%EC%84%9C)
 
 <br>
 
@@ -109,14 +109,14 @@ Salad는 영업사원 개개인이 가장 효율적으로 일할 수 있는 환�
 
 ## 💍 화면 설계서 및 스토리 보드
 
-#### 🔗 [화면 설계서 - 위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
-#### 🔗 [스토리 보드 - 위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%EC%8A%A4%ED%86%A0%EB%A6%AC-%EB%B3%B4%EB%93%9C)
+#### 🔗 [화면 설계서 - 위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/4.-%ED%99%94%EB%A9%B4-%EC%84%A4%EA%B3%84%EC%84%9C)
+#### 🔗 [스토리 보드 - 위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/5.-%EC%8A%A4%ED%86%A0%EB%A6%AC-%EB%B3%B4%EB%93%9C)
 
 <br>
 
 ## 🎗️ API 명세서
 
-#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
+#### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/3.-API-%EB%AA%85%EC%84%B8%EC%84%9C)
 
 
 <br>
