@@ -19,10 +19,10 @@
 #### [🎃 WBS](#-WBS) <br>
 #### [🗃️ DB 모델링](#-DB-모델링) <br>
 #### [🛜 시스템 아키텍처](#-시스템-아키텍처) <br>
-#### [🎗️ API 명세서](#-API-명세서) <br>
-#### [🕶️ 단위테스트 결과서](#-단위테스트-결과서) <br>
 #### [💍 화면 설계서 및 스토리보드](#-화면-설계서-및-스토리보드) <br>
 #### [🥎 프로그램 사양서](#-프로그램-사양서) <br>
+#### [🎗️ API 명세서](#-API-명세서) <br>
+#### [🕶️ 단위테스트 결과서](#-단위테스트-결과서) <br>
 #### [🍪 느낀점 및 성과](#-느낀점-및-성과) <br>
 
 <br>
@@ -80,6 +80,7 @@
 <br>
 
 ## 🙆‍♀️ 요구사항 명세서
+
 <details>
 <summary>요구사항 명세서</summary>
 <div markdown="1">
@@ -87,23 +88,50 @@
 <img src="https://github.com/user-attachments/assets/65658954-d28b-4c8e-97a8-144b4a111c94">
 <img src="https://github.com/user-attachments/assets/42aedea7-5184-436d-91bc-5e900b3fe955">
 
+</div>
+</details>
 
 <br>
 
 ## 🎃 WBS
-![image](https://github.com/user-attachments/assets/5a953ea4-7f27-4d20-955c-510f4306c201)
 
+<img src="https://github.com/user-attachments/assets/5a953ea4-7f27-4d20-955c-510f4306c201">
 
 <br>
 
 ## 🗃️ DB 모델링
 
+<details>
+<summary>DB 모델링</summary>
+<div markdown="1">
+<img src="https://github.com/user-attachments/assets/26334fa6-0ffa-4d1c-a2e8-5b5ed486b81c">
 
+</div>
+</details>
 
 <br>
 
 ## 🛜 시스템 아키텍처
 
+
+
+<br>
+
+
+
+## 💍 화면 설계서 및 스토리보드
+
+<img src="https://github.com/user-attachments/assets/008f5cae-3bae-4a1a-a981-3cb8fbbdf94c">
+
+<br>
+
+## 🥎 프로그램 사양서
+| 구성 요소   | 인스턴스 타입 / 용량                              | 설명 |
+|-------------|----------------------------------------------------|------|
+| EC2 (FE)    | `t3.micro` (1 vCPU, 1 GiB RAM)                     | 프론트엔드 서버 (Vue 등 정적 리소스 호스팅) |
+| EC2 (BE)    | `t3.medium` (2 vCPU, 4 GiB RAM)                    | 백엔드 서버 (Spring Boot API 서비스) |
+| RDS         | `db.t4g.micro` (MySQL, ARM 기반, 2 vCPU, 1 GiB RAM) | 관계형 데이터베이스 (소규모 트래픽용) |
+| S3          | 5GB (계약서, 계약서 양식, 사원, 상품 관련 파일)     | 정적 파일 저장용 버킷 (총 5개) |
 
 
 <br>
@@ -115,18 +143,6 @@
 <br>
 
 ## 🕶️ 단위테스트 결과서
-
-
-
-<br>
-
-## 💍 화면 설계서 및 스토리보드
-
-
-
-<br>
-
-## 🥎 프로그램 사양서
 
 
 
