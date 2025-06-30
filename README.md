@@ -134,17 +134,6 @@
 
 <br>
 
-## 🥎 프로그램 사양서
-| 구성 요소   | 인스턴스 타입 / 용량                              | 설명 |
-|-------------|----------------------------------------------------|------|
-| EC2 (FE)    | `t3.micro` (1 vCPU, 1 GiB RAM)                     | 프론트엔드 서버 (Vue 등 정적 리소스 호스팅) |
-| EC2 (BE)    | `t3.medium` (2 vCPU, 4 GiB RAM)                    | 백엔드 서버 (Spring Boot API 서비스) |
-| RDS         | `db.t4g.micro` (MySQL, ARM 기반, 2 vCPU, 1 GiB RAM) | 관계형 데이터베이스 (소규모 트래픽용) |
-| S3          | 5GB (계약서, 계약서 양식, 사원, 상품 관련 파일)     | 정적 파일 저장용 버킷 (총 5개) |
-
-
-<br>
-
 ## 🎗️ API 명세서
 
 #### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
@@ -155,6 +144,16 @@
 ## 🕶️ 단위테스트 결과서
 
 #### 🔗 [위키 바로 가기](https://github.com/be14-fin-Clover-Salad/be14-fin-Clover-Salad-BE/wiki/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BC%80%EC%9D%B4%EC%8A%A4-%EA%B2%B0%EA%B3%BC)
+
+<br>
+
+## 🥎 프로그램 사양서
+| 구성 요소   | 인스턴스 타입 / 용량                              | 설명 |
+|-------------|----------------------------------------------------|------|
+| EC2 (FE)    | `t3.micro` (1 vCPU, 1 GiB RAM)                     | 프론트엔드 서버 (Vue 등 정적 리소스 호스팅) |
+| EC2 (BE)    | `t3.medium` (2 vCPU, 4 GiB RAM)                    | 백엔드 서버 (Spring Boot API 서비스) |
+| RDS         | `db.t4g.micro` (MySQL, ARM 기반, 2 vCPU, 1 GiB RAM) | 관계형 데이터베이스 (소규모 트래픽용) |
+| S3          | 5GB (계약서, 계약서 양식, 사원, 상품 관련 파일)     | 정적 파일 저장용 버킷 (총 5개) |
 
 <br>
 
